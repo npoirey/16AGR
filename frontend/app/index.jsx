@@ -13,6 +13,8 @@ const App = React.createClass({
         <Router.Link to="someview">GO TO SOMEVIEW</Router.Link>
         <br />
         <Router.Link to="/">GO TO HOME NOW !</Router.Link>
+        < br/>
+        <a href="/api/test">test</a>
         <Router.RouteHandler {...this.props}/>
       </div>
     );

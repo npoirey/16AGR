@@ -22,6 +22,7 @@ if (release)  {
   jsLoaders.unshift('react-hot');
 }
 
+//noinspection JSUnusedLocalSymbols
 var config = module.exports = {
   debug: !release,
   devtool: 'source-map', //http://webpack.github.io/docs/configuration.html#devtool
@@ -72,5 +73,20 @@ var config = module.exports = {
   watchOptions: {
     poll: 1000,
     aggregateTimeout: 1000
+  },
+  devServer: {
+    //redirect api calls to backend server
+    proxy: {
+      '/api': {
+        target: {
+          host: "back",
+          protocol: 'http:',
+          port: 8080
+        },
+        ignorePath: true,
+        changeOrigin: true,
+        secure: false
+      }
+    }
   }
 };

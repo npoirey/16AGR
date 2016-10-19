@@ -1,7 +1,7 @@
 {
-  "name": "webpack-skel",
+  "name": "16AGR_frontend",
   "version": "1.0.0",
-  "description": "a simple webpack template",
+  "description": "the frontend for 16AGR event planner",
   "dependencies": {
     "bows": "^1.4.8",
     "lodash": "^3.10.1",
