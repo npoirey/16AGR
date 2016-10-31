@@ -1,77 +1,37 @@
+var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
+var path = require('path');
 
-var release = (process.env.NODE_ENV === 'production');
-
-var plugins = [
-  new webpack.NormalModuleReplacementPlugin(/^react$/, 'react/addons')
-];
-
-var jsLoaders = ['babel?optional[]=runtime&stage=1&cacheDirectory=false'];
-
-if (release)  {
-  plugins.push(new webpack.DefinePlugin({
-    'process.env': {
-      // This has effect on the react lib size
-      'NODE_ENV': JSON.stringify('production')
-    }
-  }));
-
-  plugins.push(new webpack.optimize.DedupePlugin());
-  plugins.push(new webpack.optimize.UglifyJsPlugin());
-} else {
-  jsLoaders.unshift('react-hot');
-}
-
-//noinspection JSUnusedLocalSymbols
-var config = module.exports = {
-  debug: !release,
-  devtool: 'source-map', //http://webpack.github.io/docs/configuration.html#devtool
+module.exports = {
+  //Scontext: path.join(__dirname, "src"),
+  devtool: debug ? "inline-sourcemap" : null,
   entry: {
     'app': './app'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015', 'stage-0'],
+          plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+        }
+      }
+    ]
   },
   output: {
     path: './dist',
     filename: '[name].js'
   },
-  plugins: plugins,
-  resolve: {
-    extensions: ['', '.js', '.jsx', '.css']
-  },
-  module: {
-    loaders: [
-    {
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      loaders: jsLoaders
-    },
-    {
-      test: /\.css$/,
-      loaders: [
-        'style',
-        'css'
-      ]
-    },
-    {
-      test: /\.png$/,
-      loader: 'url?limit=10000&mimetype=image/png'
-    },
-    // you might want to do more magical things with these
-    {
-      test: /\.(jpe?g|gif)$/,
-      loader: 'file'
-    },
-    // inline fonts smaller than 10000 bytes
-    // mimetypes are boring: http://www.iana.org/assignments/media-types/media-types.xhtml
-    { test: /\.woff$/,  loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
-    { test: /\.woff2$/,  loader: 'url-loader?limit=10000&mimetype=application/font-woff2' },
-    { test: /\.ttf$/,   loader: 'url-loader?limit=10000&mimetype=application/font-sfnt' },
-    { test: /\.eot$/,   loader: 'url-loader?limit=10000&mimetype=application/vnd.ms-fontobject' },
-    // load svgs raw, for use with https://facebook.github.io/react/tips/dangerously-set-inner-html.html
-    { test: /\.svg$/,   loader: 'raw-loader?' }
-    ]
-  },
+  plugins: debug ? [] : [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({mangle: false, sourcemap: false}),
+  ],
   watchOptions: {
-    poll: 1000,
+    poll: 300,
     aggregateTimeout: 1000
   },
   devServer: {
@@ -90,3 +50,5 @@ var config = module.exports = {
     }
   }
 };
+
+

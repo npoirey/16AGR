@@ -9,10 +9,10 @@ Install docker and docker-compose for your host environment
 
 Install npm dependencies for the frontend and backend(do this everytime you change package.json)
 
-    docker-compose run web npm install
+    docker-compose run -d web npm install --no-bin-links
     docker-compose run back npm install
 
-use docker-compose to deploy the dev environment
+use docker-compose to deploy the dev environment (must be in daemon -d mode
 
 `docker-compose up -d`
 
