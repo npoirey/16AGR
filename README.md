@@ -12,6 +12,8 @@ Install npm dependencies for the frontend and backend(do this everytime you chan
     docker-compose run -d web npm install --no-bin-links
     docker-compose run back npm install
 
+ docker exec -it 16agr_web_1 bash
+
 use docker-compose to deploy the dev environment (must be in daemon -d mode
 
 `docker-compose up -d`
