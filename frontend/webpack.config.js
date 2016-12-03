@@ -1,6 +1,6 @@
-var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
-var path = require('path');
+const debug = process.env.NODE_ENV !== "production";
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   context: path.join(__dirname, "src"),
@@ -16,6 +16,18 @@ module.exports = {
           presets: ['react', 'es2015', 'stage-0'],
           plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
         }
+      },
+      //SASS Loader
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader?sourceMap'
+        //loaders: ['style', 'css', 'sass']
+      },
+      // copy images to dist/img/name.png
+      {test: /\.png$/, loader: "file-loader?name=img/[name].png"},
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       }
     ]
   },
@@ -39,7 +51,7 @@ module.exports = {
         target: {
           host: "back",
           protocol: 'http:',
-          port: 8080
+          port: 8081
         },
         ignorePath: true,
         changeOrigin: true,

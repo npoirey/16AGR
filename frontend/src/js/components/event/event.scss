@@ -1,0 +1,106 @@
+@import "../../../style/colors";
+@import "../../../style/positions";
+
+.event-card {
+  position: relative;
+
+  background-color: $primary-light;
+  text-align: center;
+  padding: 0;
+  .event-card-ribbon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    overflow: hidden;
+    width: 80px;
+    height: 80px;
+    text-align: right;
+    span {
+      font-size: 10px;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: bold;
+      line-height: 20px;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg); /* Needed for Safari */
+      width: 100px;
+      display: block;
+      position: absolute;
+      top: 15px;
+      left: -25px;
+      &.registered {
+        background: #79A70A;
+        color: #fff;
+      }
+      &.absent {
+        background: $absent;
+        color: #fff;
+      }
+      &.no_answer {
+        background: #e51e00;
+        color: #fff;
+      }
+    }
+  }
+  .event-card-title {
+    display: inline-block;
+    text-align: center;
+    margin: 1rem;
+  }
+  .event-card-date {
+    position: absolute;
+    right: 0.3rem;
+    top: 0.3rem;
+  }
+  .event-card-image-container {
+    .event-card-image {
+      margin-top: 2em;
+      max-width: 100%;
+    }
+  }
+  .event-card-description {
+    text-align: justify;
+    overflow: hidden;
+    margin: 0 1rem;
+    h1, h2, h3, h4 {
+      text-align: center;
+    }
+  }
+  .event-card-deployable {
+    //max-height: 0;
+    //transition: max-height .5s ease-out;
+    //-webkit-transition: max-height .5s; /* Safari */
+    overflow: hidden;
+    //&.deployed{
+    //  max-height: 100000px;
+    //  transition: max-height 0.5s cubic-bezier(0, 1.05, 0, 1);
+    //}
+  }
+
+  .event-card-participants {
+    font-weight: bolder;
+    .col-xs-3 {
+      margin: 0.1em 0;
+      overflow: hidden;
+    }
+    .event-card-participants-blue {
+      color: $blue;
+    }
+    .event-card-participants-red {
+      color: $red;
+    }
+    .event-card-participants-wia {
+      color: $absent;
+    }
+    .event-card-participants-mia {
+      color: $mia;
+    }
+  }
+  .event-card-action-button {
+    margin-top: 1rem;
+    width: 100%;
+    color: black;
+  }
+}
+
