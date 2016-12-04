@@ -51,7 +51,7 @@ module.exports = {
         target: {
           host: "back",
           protocol: 'http:',
-          port: 8081
+          port: 8080
         },
         ignorePath: true,
         changeOrigin: true,
