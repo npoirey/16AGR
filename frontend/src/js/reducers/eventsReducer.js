@@ -6,7 +6,7 @@ export default function reducer(state = {
 }, action) {
 
   switch (action.type) {
-    case "FETCH_EVENTS": {
+    case "FETCH_EVENTS_STARTED": {
       return {...state, fetching: true}
     }
     case "FETCH_EVENTS_REJECTED": {

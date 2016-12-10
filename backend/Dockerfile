@@ -1,4 +1,4 @@
-FROM node:boron
+FROM node:latest
 
 MAINTAINER Poirey Nicolas <fake@mail.com>
 
@@ -7,7 +7,7 @@ MAINTAINER Poirey Nicolas <fake@mail.com>
 WORKDIR /16AGR/backend
 
 EXPOSE 8080
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev" ]
 
 
 

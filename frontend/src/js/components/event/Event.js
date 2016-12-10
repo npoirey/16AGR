@@ -1,8 +1,7 @@
 import React from "react";
-import ReactMarkdown from 'react-markdown';
-import {Motion, spring} from 'react-motion';
-import Collapse from 'react-collapse';
-
+import ReactMarkdown from "react-markdown";
+import {Motion, spring} from "react-motion";
+import Collapse from "react-collapse";
 import "./event.scss";
 
 
@@ -23,14 +22,17 @@ export default class Event extends React.Component {
     const event = this.props.event;
     const {deployed} = this.state;
 
+
     return (
       <div class="event-card col-lg-12">
-        <div class="event-card-ribbon"><span class={event.participants.user}>{event.participants.user}</span></div>
+        <div class="event-card-ribbon">
+          {event.participants ? <span class={event.participants.user}>{event.participants.user}</span> : <span></span>}
+        </div>
         <h2 class="event-card-title">{event.title}</h2>
-        <span class="event-card-date">21/08 - 16:00</span>
+        <span class="event-card-date">{event.date}</span>
         <div class="row">
           <div class="col-lg-3 event-card-image-container">
-            <img class="event-card-image" src={event.image}/>
+            <img class="event-card-image" src={event.imageUrl}/>
           </div>
           <div class="col-lg-9">
             <ReactMarkdown source={event.shortDescription} class="event-card-description"/>
@@ -41,13 +43,14 @@ export default class Event extends React.Component {
             <ReactMarkdown source={event.description}/>
           </div>
         </Collapse>
-
+        {event.participants ?
         <div class="row event-card-participants">
           <div class="col-xs-3 event-card-participants-blue">BLUE : {event.participants.blue}</div>
           <div class="col-xs-3 event-card-participants-red">RED : {event.participants.red}</div>
           <div class="col-xs-3 event-card-participants-wia">ABSENTS : {event.participants.wia}</div>
           <div class="col-xs-3 event-card-participants-mia">MIA : {event.participants.mia}</div>
         </div>
+          : <div></div>}
         <button class="btn btn-primary event-card-action-button" onClick={this.toggleDeploy.bind(this)}>
           {
             this.state.deployed ?

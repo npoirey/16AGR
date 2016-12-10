@@ -3,10 +3,10 @@ version: '2'
 services:
   db:
     image: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     expose:
       - "5432"
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=$AGR_POSTGRES_PASSWORD
       - POSTGRES_USER=$AGR_POSTGRES_USER
@@ -35,5 +35,3 @@ services:
       - POSTGRES_PASSWORD=$AGR_POSTGRES_PASSWORD
       - POSTGRES_USER=$AGR_POSTGRES_USER
       - POSTGRES_DB=$AGR_POSTGRES_DB
-volumes:
-  postgres_data:

@@ -2,7 +2,8 @@ import axios from "axios";
 
 export function fetchEvents() {
   return function (dispatch) {
-    axios.get("/api/test")
+    dispatch({type: "FETCH_EVENTS_STARTED"});
+    axios.get("/api/events")
       .then((response) => {
         dispatch({type: "FETCH_EVENTS_FULFILLED", payload: response.data})
       })

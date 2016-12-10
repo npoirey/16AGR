@@ -47,13 +47,16 @@ module.exports = {
   devServer: {
     //redirect api calls to backend server
     proxy: {
-      '/api': {
+      '/api/*': {
         target: {
           host: "back",
           protocol: 'http:',
           port: 8080
         },
-        ignorePath: true,
+        pathRewrite: {
+          '^/api': ''
+        },
+        ignorePath: false,
         changeOrigin: true,
         secure: false
       }
