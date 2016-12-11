@@ -3,7 +3,6 @@
 
 .event-card {
   position: relative;
-
   background-color: $primary-light;
   text-align: center;
   padding: 0;
@@ -68,14 +67,7 @@
     }
   }
   .event-card-deployable {
-    //max-height: 0;
-    //transition: max-height .5s ease-out;
-    //-webkit-transition: max-height .5s; /* Safari */
     overflow: hidden;
-    //&.deployed{
-    //  max-height: 100000px;
-    //  transition: max-height 0.5s cubic-bezier(0, 1.05, 0, 1);
-    //}
   }
 
   .event-card-participants {

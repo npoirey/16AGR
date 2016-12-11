@@ -1,5 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import Paper from "material-ui/Paper";
 import {Motion, spring} from "react-motion";
 import Collapse from "react-collapse";
 import "./event.scss";
@@ -24,7 +25,8 @@ export default class Event extends React.Component {
 
 
     return (
-      <div class="event-card col-lg-12">
+      <Paper zDepth={1} rounded={false}>
+        <div class="event-card">
         <div class="event-card-ribbon">
           {event.participants ? <span class={event.participants.user}>{event.participants.user}</span> : <span></span>}
         </div>
@@ -59,6 +61,7 @@ export default class Event extends React.Component {
           }
         </button>
       </div>
+      </Paper>
     );
   }
 }

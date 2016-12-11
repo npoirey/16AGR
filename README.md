@@ -9,7 +9,7 @@ Install docker and docker-compose for your host environment
 
 Install npm dependencies for the frontend and backend(do this everytime you change package.json)
 
-    docker-compose run -d web npm install --no-bin-links
+    docker-compose run -d --rm web npm install --no-bin-links
 
     docker exec -it 16agr_web_1 bash
 
@@ -41,3 +41,8 @@ Install dependency
 ==================
 
 `dc run -d --rm web npm install sass-loader -S --no-bin-links`
+
+resolving node_module problems on windows
+https://msdn.microsoft.com/en-us/library/aa365247%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#maxpath
+
+http://engineroom.teamwork.com/using-cygwins-bash-terminal-in-a-jetbrains-ide/

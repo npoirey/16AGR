@@ -1,5 +1,6 @@
 exports.seed = function (knex, Promise) {
-  return Promise.join([
-    knex('events').del(),
+  return Promise.all([
+    knex('users').truncate(),
+    knex('events').truncate(),
   ]);
 };

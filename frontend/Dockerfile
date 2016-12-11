@@ -1,4 +1,4 @@
-FROM node:argon
+FROM node:latest
 
 MAINTAINER Poirey Nicolas <fake@mail.com>
 
