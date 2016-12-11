@@ -1,8 +1,7 @@
 import React from "react";
 import {Link} from "react-router";
-
 import Footer from "../components/layout/Footer";
-import Nav from "../components/layout/Nav";
+import Navbar from "../components/layout/Navbar/Navbar";
 
 export default class Layout extends React.Component {
   render() {
@@ -10,17 +9,14 @@ export default class Layout extends React.Component {
     const containerStyle = {
       marginTop: "60px"
     };
-    console.log("layout");
+
     return (
       <div>
-
-        <Nav location={location}/>
-
+        <Navbar location={location}/>
         <div class="layout-container container" style={containerStyle}>
           <div class="row">
             <div class="col-lg-12">
               {this.props.children}
-
             </div>
           </div>
           <Footer/>

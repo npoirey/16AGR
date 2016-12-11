@@ -31,8 +31,8 @@ injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: blueGrey800,
-    primary2Color: blueGrey900,
+    primary1Color: blueGrey900,
+    primary2Color: blueGrey700,
     primary3Color: blueGrey500,
     accent1Color: blue300,
     accent2Color: blueGrey100,
@@ -48,6 +48,7 @@ const muiTheme = getMuiTheme({
   },
   appBar: {
     height: 50,
+    textColor: white,
   },
 });
 

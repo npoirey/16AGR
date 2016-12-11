@@ -1,0 +1,11 @@
+@import "../../../../style/colors";
+
+body {
+  background-color: $primary;
+}
+
+.navbar {
+  .navbar-logged {
+    line-height: 48px;
+  }
+}
