@@ -36,7 +36,6 @@ export default class Login extends React.Component {
         onValid={this.enableButton}
         onInvalid={this.disableButton}
         onValidSubmit={this.submit}
-        onInvalidSubmit={this.notifyFormError}
       >
         <FormsyText
           ref="email" type="text" name="email"
@@ -51,7 +50,6 @@ export default class Login extends React.Component {
         <FlatButton label="Login" type="submit"
                     disabled={!this.state.canSubmit}
         />
-
       </Formsy.Form>
     );
   }
