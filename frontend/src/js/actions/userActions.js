@@ -13,7 +13,7 @@ export function login(email, password) {
         dispatch({type: actions.user.login.fulfilled, payload: response.data.payload})
       })
       .catch((err) => {
-        dispatch({type: actions.user.login.rejected, payload: err})
+        dispatch({type: actions.user.login.rejected, payload: err.response.data})
       })
   }
 }
@@ -24,10 +24,9 @@ export function logout() {
     axios.get('/api/auth/logout')
       .then((response) => {
         dispatch({type: actions.user.logout.fulfilled, payload: response.data.payload});
-        hashHistory.push('/route');
       })
       .catch((err) => {
-        dispatch({type: actions.user.logout.rejected, payload: err})
+        dispatch({type: actions.user.logout.rejected, payload: err.response.data})
       })
   }
 }

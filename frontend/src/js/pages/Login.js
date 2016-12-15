@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import FlatButton from "material-ui/FlatButton";
 import FormsyText from "formsy-material-ui/lib/FormsyText";
-import {login} from "../../../actions/userActions";
+import {login} from "../actions/userActions";
 
 @connect()
 export default class Login extends React.Component {

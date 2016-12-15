@@ -16,10 +16,11 @@ import {
   fullBlack
 } from "material-ui/styles/colors";
 import {fade} from "material-ui/utils/colorManipulator";
-import {Router, Route, IndexRoute, hashHistory} from "react-router";
+import {Router, Route, IndexRoute, browserHistory} from "react-router";
 import {Provider} from "react-redux";
 import Archives from "./pages/Archives";
 import Featured from "./pages/Home";
+import Login from "./pages/Login";
 import Layout from "./pages/Layout";
 import Settings from "./pages/Settings";
 import store from "./store";
@@ -53,14 +54,29 @@ const muiTheme = getMuiTheme({
 });
 
 const app = document.getElementById('app');
+
+
+function requireAuth(nextState, replace) {
+  console.log(store.getState());
+  if (true) {
+    replace({
+      pathname: '/login'
+    })
+  }
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={muiTheme}>
-      <Router history={hashHistory}>
+      <Router history={browserHistory}>
         <Route path="/" component={Layout}>
-          <IndexRoute component={Featured}></IndexRoute>
-          <Route path="archives(/:article)" name="archives" component={Archives}></Route>
-          <Route path="settings" name="settings" component={Settings}></Route>
+          <IndexRoute component={Login}/>
+          <Route path="members" onEnter={requireAuth}>
+            <IndexRoute component={Featured}/>
+            <Route path="archives(/:article)" name="archives" component={Archives}/>
+            <Route path="archives(/:article)" name="archives" component={Archives}/>
+            <Route path="settings" name="settings" component={Settings}/>
+          </Route>
         </Route>
       </Router>
     </MuiThemeProvider>

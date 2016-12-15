@@ -4,7 +4,9 @@ var express = require('express');
 var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var path = require('path');
-var passport = require('./middlewares/passport');
+var passport = require('passport');
+require('./middlewares/passport');
+var session = require('express-session');
 const logger = require('./core/logger');
 
 var app = express();
@@ -14,7 +16,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(require('./middlewares/session'));
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'this is secret !',
+  resave: false,
+  saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
