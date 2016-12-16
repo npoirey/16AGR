@@ -2,10 +2,10 @@ import React from "react";
 import AppBar from "material-ui/AppBar";
 import {IndexLink, Link} from "react-router";
 import {connect} from "react-redux";
-import Logged from "./Logged";
 import "./nav.scss";
 import CircularProgress from "material-ui/CircularProgress";
 import Drawer from "material-ui/Drawer";
+import FlatButton from "material-ui/FlatButton";
 import MenuItem from "material-ui/MenuItem";
 
 @connect((store) => {
@@ -27,10 +27,12 @@ export default class Nav extends React.Component {
 
   handleClose = () => this.setState({open: false});
 
-  render() {
-    const {location, user, loading, error} = this.props;
-    console.log(user);
+  submitLogout() {
+    this.props.dispatch(logout());
+  }
 
+  render() {
+    const {location, user, loading} = this.props;
     const menus = [
       {
         title: 'Featured',
@@ -53,11 +55,10 @@ export default class Nav extends React.Component {
     if (loading) {
       rightElement = <CircularProgress color="white"/>;
     } else if (user && user.id) {
-      rightElement = <Logged email={user && user.email}/>;
-    } else {
-      rightElement = <IndexLink to="/login">
-        Login
-      </IndexLink>
+      rightElement =
+        <span class="navbar-logged">
+          Welcome {user.email} <FlatButton label="Logout" onClick={() => this.submitLogout()}/>
+        </span>;
     }
 
     return (

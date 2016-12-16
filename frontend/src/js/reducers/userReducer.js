@@ -11,20 +11,22 @@ export default function reducer(state = {
     case actions.user.login.started: {
       return {
         ...state,
+        error: null,
         fetching: true
       }
     }
     case actions.user.login.rejected: {
       return {
         ...state,
-        fetching: false,
         error: action.payload,
+        fetching: false,
         user: {}
       }
     }
     case actions.user.login.fulfilled: {
       return {
         ...state,
+        error: null,
         fetching: false,
         fetched: true,
         user: action.payload,
@@ -33,19 +35,21 @@ export default function reducer(state = {
     case actions.user.logout.started: {
       return {
         ...state,
+        error: null,
         fetching: true
       }
     }
     case actions.user.logout.rejected: {
       return {
         ...state,
-        fetching: false,
-        error: action.payload
+        error: action.payload,
+        fetching: false
       }
     }
     case actions.user.logout.fulfilled: {
       return {
         ...state,
+        error: null,
         fetching: false,
         fetched: true,
         user: {},
