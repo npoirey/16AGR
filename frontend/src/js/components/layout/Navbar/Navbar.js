@@ -7,6 +7,7 @@ import CircularProgress from "material-ui/CircularProgress";
 import Drawer from "material-ui/Drawer";
 import FlatButton from "material-ui/FlatButton";
 import MenuItem from "material-ui/MenuItem";
+import {logout} from "../../../actions/userActions";
 
 @connect((store) => {
   return {

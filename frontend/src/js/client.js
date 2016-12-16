@@ -1,5 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import {
@@ -16,15 +14,18 @@ import {
   fullBlack
 } from "material-ui/styles/colors";
 import {fade} from "material-ui/utils/colorManipulator";
-import {Router, Route, IndexRoute, browserHistory} from "react-router";
+import React from "react";
+import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
+import {Router, Route, IndexRoute, IndexRedirect, browserHistory} from "react-router";
+import injectTapEventPlugin from "react-tap-event-plugin";
 import Archives from "./pages/Archives";
 import Featured from "./pages/Home";
 import Login from "./pages/Login";
 import Layout from "./pages/Layout";
 import Settings from "./pages/Settings";
 import store from "./store";
-import injectTapEventPlugin from "react-tap-event-plugin";
+
 // Needed for onTouchTap
 // This dependency is temporary and will go away once the official React version is released
 // http://stackoverflow.com/a/34015469/988941
@@ -59,7 +60,7 @@ const app = document.getElementById('app');
 function requireAuth(nextState, replace) {
   if (!store.getState() || !store.getState().user || !store.getState().user.user || !store.getState().user.user.id) {
     replace({
-      pathname: '/'
+      pathname: '/login'
     })
   }
 }
@@ -69,13 +70,12 @@ ReactDOM.render(
     <MuiThemeProvider muiTheme={muiTheme}>
       <Router history={browserHistory}>
         <Route path="/" component={Layout}>
-          <IndexRoute component={Login}/>
-          <Route path="members" onEnter={requireAuth}>
-            <IndexRoute component={Featured}/>
-            <Route path="archives(/:article)" name="archives" component={Archives}/>
+          <Route onEnter={requireAuth}>
+            <IndexRoute name="Featured" component={Featured}/>
             <Route path="archives(/:article)" name="archives" component={Archives}/>
             <Route path="settings" name="settings" component={Settings}/>
           </Route>
+          <Route path="login" component={Login}/>
         </Route>
       </Router>
     </MuiThemeProvider>
