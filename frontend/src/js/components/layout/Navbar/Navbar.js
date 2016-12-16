@@ -29,6 +29,7 @@ export default class Nav extends React.Component {
 
   render() {
     const {location, user, loading, error} = this.props;
+    console.log(user);
 
     const menus = [
       {

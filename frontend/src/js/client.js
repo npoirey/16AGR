@@ -57,10 +57,9 @@ const app = document.getElementById('app');
 
 
 function requireAuth(nextState, replace) {
-  console.log(store.getState());
-  if (true) {
+  if (!store.getState() || !store.getState().user || !store.getState().user.user || !store.getState().user.user.id) {
     replace({
-      pathname: '/login'
+      pathname: '/'
     })
   }
 }
