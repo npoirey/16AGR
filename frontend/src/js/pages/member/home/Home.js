@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
-import {fetchEvents} from "../actions/eventsActions";
-import Event from "../components/event/Event";
+import {fetchEvents} from "../../../actions/eventsActions";
+import Event from "../../../components/event/Event";
 import "./home.scss";
 
 @connect((store) => {
@@ -23,3 +23,4 @@ export default class Home extends React.Component {
     );
   }
 }
+

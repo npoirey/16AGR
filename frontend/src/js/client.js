@@ -19,11 +19,11 @@ import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 import {Router, Route, IndexRoute, IndexRedirect, browserHistory} from "react-router";
 import injectTapEventPlugin from "react-tap-event-plugin";
-import Archives from "./pages/Archives";
-import Featured from "./pages/Home";
-import Login from "./pages/Login";
+import Archives from "./pages/member/Archives";
+import Featured from "./pages/member/home/Home";
+import Login from "./pages/front/Login";
 import Layout from "./pages/Layout";
-import Settings from "./pages/Settings";
+import Settings from "./pages/member/Settings";
 import store from "./store";
 
 // Needed for onTouchTap
@@ -56,11 +56,22 @@ const muiTheme = getMuiTheme({
 
 const app = document.getElementById('app');
 
+function isLoggedIn() {
+  return store.getState() && store.getState().user && store.getState().user.user && store.getState().user.user.id;
+}
 
 function requireAuth(nextState, replace) {
-  if (!store.getState() || !store.getState().user || !store.getState().user.user || !store.getState().user.user.id) {
+  if (!isLoggedIn()) {
     replace({
       pathname: '/login'
+    })
+  }
+}
+
+function requireNotAuth(nextState, replace) {
+  if (isLoggedIn()) {
+    replace({
+      pathname: '/'
     })
   }
 }
@@ -75,7 +86,7 @@ ReactDOM.render(
             <Route path="archives(/:article)" name="archives" component={Archives}/>
             <Route path="settings" name="settings" component={Settings}/>
           </Route>
-          <Route path="login" component={Login}/>
+          <Route path="login" component={Login} onEnter={requireNotAuth}/>
         </Route>
       </Router>
     </MuiThemeProvider>

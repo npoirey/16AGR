@@ -4,7 +4,7 @@ import Paper from "material-ui/Paper";
 import RaisedButton from "material-ui/RaisedButton";
 import React from "react";
 import {connect} from "react-redux";
-import {login} from "../actions/userActions";
+import {login} from "../../actions/userActions";
 
 @connect()
 export default class Login extends React.Component {
