@@ -1,8 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-import "./home.scss";
-import Event from "../components/event/Event";
 import {fetchEvents} from "../actions/eventsActions";
+import Event from "../components/event/Event";
+import "./home.scss";
 
 @connect((store) => {
   return {

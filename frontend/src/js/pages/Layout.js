@@ -1,26 +1,28 @@
+import Snackbar from "material-ui/Snackbar";
 import React from "react";
 import {Link} from "react-router";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar/Navbar";
-import Snackbar from "material-ui/Snackbar";
+import "../../style/core.scss";
+import "./layout.scss";
 
 export default class Layout extends React.Component {
   render() {
     const {location} = this.props;
-    const containerStyle = {
-      marginTop: "60px"
-    };
     const error = false;
 
     return (
       <div>
         <Navbar location={location}/>
-        <div class="layout-container container" style={containerStyle}>
-          <div class="row">
-            <div class="col-lg-12">
-              {this.props.children}
-            </div>
+        <div class="row layout-container">
+          <div class="col-xs-12
+             col-sm-10 col-sm-offset-1
+             col-md-8 col-md-offset-2
+             center-xs">
+            {this.props.children}
           </div>
+        </div>
+        <div class="row">
           <Footer/>
         </div>
         <Snackbar
