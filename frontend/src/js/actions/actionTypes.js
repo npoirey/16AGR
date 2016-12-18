@@ -5,6 +5,10 @@ const alertsActionsTypes = {
 };
 
 const userActionsTypes = {
+  init: {
+    started: 'USER.INIT.STARTED',
+    fulfilled: 'USER.INIT.FULFILLED'
+  },
   login: {
     started: 'USER.LOGIN.STARTED',
     fulfilled: 'USER.LOGIN.FULFILLED',

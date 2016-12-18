@@ -25,6 +25,7 @@ import Featured from "./pages/member/home/Home";
 import Login from "./pages/front/Login";
 import Layout from "./pages/Layout";
 import Settings from "./pages/member/Settings";
+import actions from "./actions/actionTypes";
 import store from "./store";
 
 // Needed for onTouchTap
@@ -79,6 +80,8 @@ function requireNotAuth(nextState, replace) {
     })
   }
 }
+
+store.dispatch({type: actions.user.init.fulfilled, payload: window.user});
 
 ReactDOM.render(
   <Provider store={store}>

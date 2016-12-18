@@ -30,7 +30,12 @@ export function login(email, password) {
         browserHistory.push('/');
       })
       .catch((err) => {
-        dispatch({type: actions.user.login.rejected, payload: err.response.data})
+        dispatch({type: actions.user.login.rejected});
+        if (err && err.status < 500) {
+          dispatch({type: actions.alerts.error, payload: 'An error occured'})
+        } else {
+          dispatch({type: actions.alerts.error, payload: 'Invalid credentials'})
+        }
       })
   }
 }
@@ -44,7 +49,8 @@ export function logout() {
         browserHistory.push('/login');
       })
       .catch((err) => {
-        dispatch({type: actions.user.logout.rejected, payload: err.response.data})
+        dispatch({type: actions.user.logout.rejected});
+        dispatch({type: actions.alerts.error, payload: 'An error occured'});
       })
   }
 }

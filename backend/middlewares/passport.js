@@ -31,7 +31,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.where('id', id).fetch({require: true})
+  User.where('id', id).fetch({require: true, withRelated: ['preferences']})
     .then((user) => done(null, user))
     .catch((err) => done(err))
 });

@@ -36,6 +36,11 @@ app.get('/', (req, res, next) =>
     authenticated: req.isAuthenticated()
   }));
 
+app.get('/user.js', (req, res, next) =>
+  res.send(
+    `window.user=${JSON.stringify(req.user)};`
+  ));
+
 
 //passport.authenticate('local', {successRedirect: '/auth/account', failureRedirect: '/'}));
 app.get('/logout', (req, res, next) =>

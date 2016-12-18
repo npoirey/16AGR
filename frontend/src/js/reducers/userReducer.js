@@ -33,17 +33,24 @@ export default function reducer(state = {
         loading: false
       }
     }
-    case actions.user.login.started: {
+    case actions.user.init.fulfilled: {
       return {
         ...state,
         error: null,
+        fetching: false,
+        fetched: action.payload && action.payload.id,
+        user: action.payload,
+      }
+    }
+    case actions.user.login.started: {
+      return {
+        ...state,
         fetching: true
       }
     }
     case actions.user.login.rejected: {
       return {
         ...state,
-        error: action.payload,
         fetching: false,
         user: {}
       }
@@ -51,7 +58,6 @@ export default function reducer(state = {
     case actions.user.login.fulfilled: {
       return {
         ...state,
-        error: null,
         fetching: false,
         fetched: true,
         user: action.payload,
@@ -60,21 +66,18 @@ export default function reducer(state = {
     case actions.user.logout.started: {
       return {
         ...state,
-        error: null,
         fetching: true
       }
     }
     case actions.user.logout.rejected: {
       return {
         ...state,
-        error: action.payload,
         fetching: false
       }
     }
     case actions.user.logout.fulfilled: {
       return {
         ...state,
-        error: null,
         fetching: false,
         fetched: true,
         user: {},

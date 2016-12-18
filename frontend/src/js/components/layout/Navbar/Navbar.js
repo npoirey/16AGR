@@ -26,12 +26,6 @@ export default class Nav extends React.Component {
     };
   }
 
-  componentWillMount() {
-    if (this.props.user.id) {
-      //checking session
-    }
-  }
-
   handleToggle = () => this.setState({open: !this.state.open});
 
   handleClose = () => this.setState({open: false});
