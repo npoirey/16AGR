@@ -57,14 +57,11 @@
   }
 
   .event-card-participants {
-    position: relative;
+    // position: relative;
     text-align: center;
     padding: 0;
+
     font-weight: bolder;
-    .col-xs-3 {
-      margin: 0.1em 0;
-      overflow: hidden;
-    }
     .event-card-participants-blue {
       color: $blue;
     }
