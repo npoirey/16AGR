@@ -1,9 +1,9 @@
-import React from "react";
-import ReactMarkdown from "react-markdown";
 import Paper from "material-ui/Paper";
-import {Motion, spring} from "react-motion";
+import React from "react";
 import Collapse from "react-collapse";
-import {FormattedDate} from "react-intl";
+import ReactMarkdown from "react-markdown";
+import {Motion, spring} from "react-motion";
+import UserFormattedDate from "../widgets/userFormattedDate/UserFormattedDate";
 import "./event.scss";
 
 
@@ -37,10 +37,7 @@ export default class Event extends React.Component {
         </h2>
         <div class="event-card-date
                       col-xs-12 col-sm-12 col-md-2">
-          <FormattedDate
-            value={event.date}
-            day="numeric" month="long" year="numeric"
-            hour="numeric" minute="numeric" timeZoneName="short"/>
+          <UserFormattedDate date={event.date}/>
           </div>
         <div class="row">
           <div class="col-lg-3 event-card-image-container">
