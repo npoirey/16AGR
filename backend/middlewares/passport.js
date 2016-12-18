@@ -1,13 +1,13 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const UserModel = require('../models/UserModel');
+const User = require('../models/User');
 const logger = require('../core/logger');
 const bcrypt = require('bcrypt-nodejs');
 
 passport.use(new LocalStrategy(authenticate));
 
 function authenticate(email, password, done) {
-  UserModel.where('email', email).fetch({require: true})
+  User.where('email', email).fetch({withRelated: 'preferences'})
     .then((user) => {
       if (user && bcrypt.compareSync(password, user.get('password'))) {
         logger.info(`user ${email} authenticated`);
@@ -31,7 +31,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  UserModel.where('id', id).fetch({require: true})
+  User.where('id', id).fetch({require: true})
     .then((user) => done(null, user))
     .catch((err) => done(err))
 });

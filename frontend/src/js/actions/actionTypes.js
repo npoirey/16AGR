@@ -8,6 +8,11 @@ const userActionsTypes = {
     started: 'USER.LOGOUT.STARTED',
     fulfilled: 'USER.LOGOUT.FULFILLED',
     rejected: 'USER.LOGOUT.REJECTED',
+  },
+  changePreferences: {
+    started: 'USER.CHANGE.PREFERENCES.STARTED',
+    fulfilled: 'USER.CHANGE.PREFERENCES.FULFILLED',
+    rejected: 'USER.CHANGE.PREFERENCES.REJECTED',
   }
 };
 

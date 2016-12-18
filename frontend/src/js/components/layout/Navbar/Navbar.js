@@ -1,13 +1,14 @@
-import React from "react";
 import AppBar from "material-ui/AppBar";
-import {IndexLink, Link} from "react-router";
-import {connect} from "react-redux";
-import "./nav.scss";
+import Checkbox from "material-ui/Checkbox";
 import CircularProgress from "material-ui/CircularProgress";
 import Drawer from "material-ui/Drawer";
 import FlatButton from "material-ui/FlatButton";
 import MenuItem from "material-ui/MenuItem";
-import {logout} from "../../../actions/userActions";
+import React from "react";
+import {connect} from "react-redux";
+import {IndexLink, Link} from "react-router";
+import {logout, changePreferences} from "../../../actions/userActions";
+import "./nav.scss";
 
 @connect((store) => {
   return {
@@ -24,6 +25,12 @@ export default class Nav extends React.Component {
     };
   }
 
+  componentWillMount() {
+    if (this.props.user.id) {
+      //checking session
+    }
+  }
+
   handleToggle = () => this.setState({open: !this.state.open});
 
   handleClose = () => this.setState({open: false});
@@ -31,6 +38,16 @@ export default class Nav extends React.Component {
   submitLogout() {
     this.props.dispatch(logout());
   }
+
+  toggleLocaleTime = () => {
+    this.props.dispatch(changePreferences(
+      {
+        ...this.props.user.preferences,
+        useLocalTime: !this.props.user.preferences.useLocalTime
+      }
+    ));
+    console.log(this.props.user.preferences.useLocalTime)
+  };
 
   render() {
     const {location, user, loading} = this.props;
@@ -53,14 +70,27 @@ export default class Nav extends React.Component {
     );
 
     let rightElement;
+    let userPreferences;
     if (loading) {
       rightElement = <CircularProgress color="white"/>;
+      userPreferences = '';
     } else if (user && user.id) {
       rightElement =
         <span class="navbar-logged">
           Welcome {user.email} <FlatButton label="Logout" onClick={() => this.submitLogout()}/>
         </span>;
+      userPreferences = <div>
+        <Checkbox
+          label="Use local time"
+          checked={user.preferences.useLocalTime}
+          onCheck={this.toggleLocaleTime}
+        />
+      </div>
     }
+    rightElement =
+      <span class="navbar-logged">
+          Welcome {user.email} <FlatButton label="Logout" onClick={() => this.submitLogout()}/>
+        </span>;
 
     return (
       <div class="navbar">
@@ -81,6 +111,7 @@ export default class Nav extends React.Component {
               <MenuItem class={activeMenu === menu ? 'active' : ''}
                         onTouchTap={this.handleClose}>{menu.title}</MenuItem>
             </IndexLink>)}
+          {userPreferences}
         </Drawer>
 
       </div>

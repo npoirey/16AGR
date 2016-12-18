@@ -3,6 +3,19 @@ import querystring from "querystring";
 import {browserHistory} from "react-router";
 import actions from "./actionTypes";
 
+export function changePreferences(preferences) {
+  return function (dispatch) {
+    dispatch({type: actions.user.changePreferences.started});
+    axios.post('/api/users/preferences', preferences)
+      .then((response) => {
+        dispatch({type: actions.user.changePreferences.fulfilled, payload: preferences});
+      })
+      .catch((err) => {
+        dispatch({type: actions.user.changePreferences.rejected, payload: err.response.data})
+      })
+  }
+}
+
 export function login(email, password) {
   return function (dispatch) {
     dispatch({type: actions.user.login.started});

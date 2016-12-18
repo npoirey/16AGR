@@ -16,6 +16,7 @@ import {
 import {fade} from "material-ui/utils/colorManipulator";
 import React from "react";
 import ReactDOM from "react-dom";
+import {IntlProvider} from "react-intl";
 import {Provider} from "react-redux";
 import {Router, Route, IndexRoute, IndexRedirect, browserHistory} from "react-router";
 import injectTapEventPlugin from "react-tap-event-plugin";
@@ -79,16 +80,18 @@ function requireNotAuth(nextState, replace) {
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={muiTheme}>
-      <Router history={browserHistory}>
-        <Route path="/" component={Layout}>
-          <Route onEnter={requireAuth}>
-            <IndexRoute name="Featured" component={Featured}/>
-            <Route path="archives(/:article)" name="archives" component={Archives}/>
-            <Route path="settings" name="settings" component={Settings}/>
+      <IntlProvider locale="en">
+        <Router history={browserHistory}>
+          <Route path="/" component={Layout}>
+            <Route onEnter={requireAuth}>
+              <IndexRoute name="Featured" component={Featured}/>
+              <Route path="archives(/:article)" name="archives" component={Archives}/>
+              <Route path="settings" name="settings" component={Settings}/>
+            </Route>
+            <Route path="login" component={Login} onEnter={requireNotAuth}/>
           </Route>
-          <Route path="login" component={Login} onEnter={requireNotAuth}/>
-        </Route>
-      </Router>
+        </Router>
+      </IntlProvider>
     </MuiThemeProvider>
   </Provider>
   , app);

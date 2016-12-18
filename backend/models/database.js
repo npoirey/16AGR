@@ -6,7 +6,10 @@ const db = knex(config);
 
 const bookshelf = require('bookshelf')(db);
 
-bookshelf.plugin(['bookshelf-camelcase']);
+bookshelf.plugin([
+  'bookshelf-camelcase',
+  'registry'
+]);
 
 
 module.exports = bookshelf;

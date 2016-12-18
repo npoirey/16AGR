@@ -2,10 +2,10 @@
 
 const express = require('express');
 const router = express.Router();
-const EventModel = require('../models/EventModel');
+const Event = require('../models/Event');
 
 router.get('/', (req, res) => {
-  EventModel.fetchAll().then((events)=> {
+  Event.fetchAll().then((events)=> {
     res.send(events)
   })
 });

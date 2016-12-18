@@ -2,15 +2,11 @@
 @import "../../../style/positions";
 
 .event-card {
-  position: relative;
-  background-color: $primary-light;
-  text-align: center;
-  padding: 0;
   .event-card-ribbon {
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 1;
+    z-index: 10;
     overflow: hidden;
     width: 80px;
     height: 80px;
@@ -42,16 +38,6 @@
       }
     }
   }
-  .event-card-title {
-    display: inline-block;
-    text-align: center;
-    margin: 1rem;
-  }
-  .event-card-date {
-    position: absolute;
-    right: 0.3rem;
-    top: 0.3rem;
-  }
   .event-card-image-container {
     .event-card-image {
       margin-top: 2em;
@@ -71,6 +57,9 @@
   }
 
   .event-card-participants {
+    position: relative;
+    text-align: center;
+    padding: 0;
     font-weight: bolder;
     .col-xs-3 {
       margin: 0.1em 0;
