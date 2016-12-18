@@ -53,6 +53,9 @@ const muiTheme = getMuiTheme({
     height: 50,
     textColor: white,
   },
+  snackbar: {
+    backgroundColor: blueGrey900,
+  },
 });
 
 const app = document.getElementById('app');

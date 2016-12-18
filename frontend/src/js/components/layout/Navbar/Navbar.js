@@ -13,7 +13,8 @@ import "./nav.scss";
 @connect((store) => {
   return {
     user: store.user.user,
-    loading: store.user.fetching,
+    fetching: store.user.fetching,
+    loading: store.user.loading,
     error: store.user.error
   };
 })
@@ -41,16 +42,16 @@ export default class Nav extends React.Component {
 
   toggleLocaleTime = () => {
     this.props.dispatch(changePreferences(
+      this.props.user.preferences,
       {
         ...this.props.user.preferences,
         useLocalTime: !this.props.user.preferences.useLocalTime
       }
     ));
-    console.log(this.props.user.preferences.useLocalTime)
   };
 
   render() {
-    const {location, user, loading} = this.props;
+    const {location, user, fetching, loading} = this.props;
     const menus = [
       {
         title: 'Featured',
@@ -71,7 +72,7 @@ export default class Nav extends React.Component {
 
     let rightElement;
     let userPreferences;
-    if (loading) {
+    if (fetching) {
       rightElement = <CircularProgress color="white"/>;
       userPreferences = '';
     } else if (user && user.id) {
@@ -82,15 +83,12 @@ export default class Nav extends React.Component {
       userPreferences = <div>
         <Checkbox
           label="Use local time"
-          checked={user.preferences.useLocalTime}
+          defaultChecked={user.preferences.useLocalTime}
           onCheck={this.toggleLocaleTime}
+          disabled={loading}
         />
       </div>
     }
-    rightElement =
-      <span class="navbar-logged">
-          Welcome {user.email} <FlatButton label="Logout" onClick={() => this.submitLogout()}/>
-        </span>;
 
     return (
       <div class="navbar">

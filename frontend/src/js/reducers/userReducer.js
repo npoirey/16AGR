@@ -4,33 +4,33 @@ export default function reducer(state = {
   user: {},
   fetching: false,
   fetched: false,
-  error: null,
 }, action) {
 
   switch (action.type) {
     case actions.user.changePreferences.started: {
       return {
         ...state,
-        error: null,
-        fetching: true
+        loading: true,
+        user: {
+          ...state.user,
+          preferences: action.payload
+        },
       }
     }
     case actions.user.changePreferences.rejected: {
       return {
         ...state,
-        error: action.payload,
-        fetching: false,
+        loading: false,
+        user: {
+          ...state.user,
+          preferences: action.payload
+        },
       }
     }
     case actions.user.changePreferences.fulfilled: {
       return {
         ...state,
-        error: null,
-        fetching: false,
-        user: {
-          ...state.user,
-          preferences: action.payload
-        },
+        loading: false
       }
     }
     case actions.user.login.started: {

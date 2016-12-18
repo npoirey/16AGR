@@ -3,15 +3,17 @@ import querystring from "querystring";
 import {browserHistory} from "react-router";
 import actions from "./actionTypes";
 
-export function changePreferences(preferences) {
+export function changePreferences(oldPreferences, newPreferences) {
   return function (dispatch) {
-    dispatch({type: actions.user.changePreferences.started});
-    axios.post('/api/users/preferences', preferences)
+    dispatch({type: actions.user.changePreferences.started, payload: newPreferences});
+    axios.post('/api/users/preferences', newPreferences)
       .then((response) => {
-        dispatch({type: actions.user.changePreferences.fulfilled, payload: preferences});
+        dispatch({type: actions.user.changePreferences.fulfilled});
+        dispatch({type: actions.alerts.success, payload: 'Preferences saved'})
       })
       .catch((err) => {
-        dispatch({type: actions.user.changePreferences.rejected, payload: err.response.data})
+        dispatch({type: actions.user.changePreferences.rejected, payload: oldPreferences});
+        dispatch({type: actions.alerts.error, payload: 'Failed to save preferences'})
       })
   }
 }

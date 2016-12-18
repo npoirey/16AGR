@@ -1,3 +1,9 @@
+const alertsActionsTypes = {
+  error: 'ALERT.ERROR',
+  reset: 'ALERT.RESET',
+  success: 'ALERT.SUCCESS'
+};
+
 const userActionsTypes = {
   login: {
     started: 'USER.LOGIN.STARTED',
@@ -17,5 +23,6 @@ const userActionsTypes = {
 };
 
 module.exports = {
+  alerts: alertsActionsTypes,
   user: userActionsTypes
 };

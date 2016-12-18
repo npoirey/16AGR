@@ -1,15 +1,27 @@
 import Snackbar from "material-ui/Snackbar";
 import React from "react";
+import {connect} from "react-redux";
 import {Link} from "react-router";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar/Navbar";
+import actions from "../actions/actionTypes";
 import "../../style/core.scss";
 import "./layout.scss";
 
+@connect((store) => {
+  return {
+    error: store.alerts.error,
+    success: store.alerts.success
+  };
+})
 export default class Layout extends React.Component {
+
+  handleRequestClose = () => {
+    this.props.dispatch({type: actions.alerts.reset})
+  };
+
   render() {
-    const {location} = this.props;
-    const error = false;
+    const {location, error, success} = this.props;
 
     return (
       <div>
@@ -26,13 +38,19 @@ export default class Layout extends React.Component {
           <Footer/>
         </div>
         <Snackbar
-          open={Boolean(error)}
-          message={error && Boolean(error.message) && error.message || 'Something went wrong'}
+          open={Boolean(success)}
+          message={success}
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
+        <Snackbar
+          open={Boolean(error)}
+          message={error}
+          autoHideDuration={4000}
+          bodyStyle={{backgroundColor: '#850000'}}
+          onRequestClose={this.handleRequestClose}
+        />
       </div>
-
     );
   }
 }
