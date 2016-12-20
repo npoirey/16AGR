@@ -21,6 +21,7 @@
     "body-parser": "^1.15.2",
     "bookshelf": "^0.10.2",
     "bookshelf-camelcase": "^1.1.4",
+    "connect-redis": "^3.1.0",
     "cookie-parser": "^1.4.3",
     "debug": "^2.3.3",
     "express": "^4.13.3",

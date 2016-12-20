@@ -1,26 +1,22 @@
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var express = require('express');
-var favicon = require('serve-favicon');
-var morgan = require('morgan');
-var path = require('path');
-var passport = require('passport');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const favicon = require('serve-favicon');
+const morgan = require('morgan');
+const path = require('path');
+const passport = require('passport');
 require('./middlewares/passport');
-var session = require('express-session');
+const session = require('./middlewares/session');
 const logger = require('./core/logger');
 
-var app = express();
+const app = express();
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'this is secret !',
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -48,7 +44,7 @@ app.get('/logout', (req, res, next) =>
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -58,7 +54,7 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
+  app.use(function (err, req, res) {
     logger.error(err);
     res.status(err.status || 500);
     res.send({
@@ -70,7 +66,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   logger.info('Hello distributed log files!');
   res.status(err.status || 500);
   res.send({
