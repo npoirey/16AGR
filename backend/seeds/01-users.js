@@ -1,4 +1,4 @@
-bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs');
 
 const password = bcrypt.hashSync('password');
 
@@ -10,12 +10,14 @@ exports.seed = function (knex, Promise) {
         id: 1,
         email: 'test@mail.com',
         password: password,
+        admin: true,
       }),
     knex('users').insert(
       {
         id: 2,
         email: 'test2@mail.com',
         password: password,
+        admin: false,
       }),
   ]);
 };

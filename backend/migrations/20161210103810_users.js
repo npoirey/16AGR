@@ -4,7 +4,8 @@ exports.up = function (knex, Promise) {
     (
       id SERIAL PRIMARY KEY NOT NULL,
       email TEXT NOT NULL,
-      password TEXT NOT NULL
+      password TEXT NOT NULL,
+      admin BOOLEAN NOT NULL DEFAULT false
     );
     CREATE UNIQUE INDEX users_id_uindex ON public.users (id);
   `)

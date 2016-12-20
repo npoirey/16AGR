@@ -3,14 +3,9 @@
 const express = require('express');
 const router = express.Router();
 const UserPreference = require('../models/UserPreference.js');
+const authorisations = require('../middlewares/authorisations');
 
-router.post('/preferences', (req, res, next) => {
-  if (!req.user) {
-    next({
-      status: 401,
-      message: 'Not allowed'
-    })
-  }
+router.post('/preferences', authorisations.loginRequired, (req, res, next) => {
   const userId = req.user.id;
   delete req.body.userId;
   new UserPreference({userId: userId}).save(req.body, {method: 'update'})
@@ -24,11 +19,6 @@ router.post('/preferences', (req, res, next) => {
       err.message = 'Could not save preferences';
       next(err);
     })
-});
-
-router.get('/account', (req, res) => {
-  console.log(req.body);
-  res.send({strst: "eeii"})
 });
 
 module.exports = router;
