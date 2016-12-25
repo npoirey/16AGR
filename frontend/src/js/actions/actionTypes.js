@@ -26,7 +26,16 @@ const userActionsTypes = {
   }
 };
 
+const usersActionsTypes = {
+  fetch: {
+    started: 'USERS.FETCH.STARTED',
+    fulfilled: 'USERS.FETCH.FULFILLED',
+    rejected: 'USERS.FETCH.REJECTED',
+  },
+};
+
 module.exports = {
   alerts: alertsActionsTypes,
-  user: userActionsTypes
+  user: userActionsTypes,
+  users: usersActionsTypes,
 };

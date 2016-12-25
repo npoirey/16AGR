@@ -6,6 +6,7 @@ import {
   blueGrey800,
   blue300,
   blueGrey100,
+  blueGrey50,
   grey300,
   blueGrey500,
   blueGrey300,
@@ -18,10 +19,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {IntlProvider} from "react-intl";
 import {Provider} from "react-redux";
-import {Router, Route, IndexRoute, IndexRedirect, browserHistory} from "react-router";
+import {Router, Route, IndexRoute, browserHistory} from "react-router";
 import injectTapEventPlugin from "react-tap-event-plugin";
-import Archives from "./pages/member/Archives";
+import Users from "./pages/admin/users/Users";
 import Featured from "./pages/member/home/Home";
+import ErrorPage from "./pages/front/ErrorPage";
 import Login from "./pages/front/Login";
 import Layout from "./pages/Layout";
 import Settings from "./pages/member/Settings";
@@ -57,6 +59,19 @@ const muiTheme = getMuiTheme({
   snackbar: {
     backgroundColor: blueGrey900,
   },
+  tableHeaderColumn: {
+    spacing: 10,
+  },
+  tableRowColumn: {
+    spacing: 10,
+  },
+  textField: {
+    hintColor: blueGrey50,
+    floatingLabelColor: blueGrey50,
+    disabledTextColor: blueGrey50,
+    focusColor: blue300,
+    borderColor: grey300,
+  },
 });
 
 const app = document.getElementById('app');
@@ -69,6 +84,18 @@ function requireAuth(nextState, replace) {
   if (!isLoggedIn()) {
     replace({
       pathname: '/login'
+    })
+  }
+}
+
+function requireAdmin(nextState, replace) {
+  if (!isLoggedIn()) {
+    replace({
+      pathname: '/login'
+    })
+  } else if (!store.getState().user.user.admin) {
+    replace({
+      pathname: '/403'
     })
   }
 }
@@ -91,10 +118,13 @@ ReactDOM.render(
           <Route path="/" component={Layout}>
             <Route onEnter={requireAuth}>
               <IndexRoute name="Featured" component={Featured}/>
-              <Route path="archives(/:article)" name="archives" component={Archives}/>
               <Route path="settings" name="settings" component={Settings}/>
             </Route>
+            <Route path="admin" onEnter={requireAdmin}>
+              <Route path="users" name="users" component={Users}/>
+            </Route>
             <Route path="login" component={Login} onEnter={requireNotAuth}/>
+            <Route path="403" component={ErrorPage}/>
           </Route>
         </Router>
       </IntlProvider>

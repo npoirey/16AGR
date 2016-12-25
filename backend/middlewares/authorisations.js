@@ -9,7 +9,7 @@ loginRequired = (req, res, next) => {
 };
 
 adminRequired = (req, res, next) => {
-  if (!req.isAuthenticated() || !req.user.admin) {
+  if (!req.isAuthenticated() || !req.user.isAdmin()) {
     return res.status(403).send({
       success: false,
       message: 'Admin Required'

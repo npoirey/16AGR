@@ -1,13 +1,13 @@
 import AppBar from "material-ui/AppBar";
 import Checkbox from "material-ui/Checkbox";
-import CircularProgress from "material-ui/CircularProgress";
 import Drawer from "material-ui/Drawer";
 import FlatButton from "material-ui/FlatButton";
 import MenuItem from "material-ui/MenuItem";
 import React from "react";
 import {connect} from "react-redux";
-import {IndexLink, Link} from "react-router";
+import {IndexLink} from "react-router";
 import {logout, changePreferences} from "../../../actions/userActions";
+import Loader from "../../widgets/loader/Loader";
 import "./nav.scss";
 
 @connect((store) => {
@@ -59,6 +59,10 @@ export default class Nav extends React.Component {
         title: 'Settings',
         location: 'settings'
       },
+      {
+        title: 'Users',
+        location: 'admin/users'
+      },
     ];
     let activeMenu = menus.find((menu) =>
       location.pathname === menu.location || location.pathname.match(new RegExp(`\/${menu.location}`))
@@ -67,12 +71,12 @@ export default class Nav extends React.Component {
     let rightElement;
     let userPreferences;
     if (fetching) {
-      rightElement = <CircularProgress color="white"/>;
+      rightElement = <Loader noMargin={true}/>;
       userPreferences = '';
     } else if (user && user.id) {
       rightElement =
         <span class="navbar-logged">
-          Welcome {user.email} <FlatButton label="Logout" onClick={() => this.submitLogout()}/>
+          Welcome {user.callsign} <FlatButton label="Logout" onClick={() => this.submitLogout()}/>
         </span>;
       userPreferences = <div>
         <Checkbox
