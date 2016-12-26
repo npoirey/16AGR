@@ -1,5 +1,5 @@
 import Checkbox from "material-ui/Checkbox";
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from "material-ui/Table";
+import {Table, TableBody, TableHeader, TableRow, TableRowColumn} from "material-ui/Table";
 import React from "react";
 import Loader from "../../../components/widgets/loader/Loader";
 import EnhancedTableHeaderColumn from "./EnhancedTableHeaderColumn";
@@ -96,7 +96,8 @@ export default class EnhancedTable extends React.Component {
             <TableRow>
               {columns.map((column) => {
                 const filterChange = column.type === 'boolean' ? this.changeFilterBoolean : this.changeFilter;
-                return <EnhancedTableHeaderColumn name={column.name}
+                return <EnhancedTableHeaderColumn key={column.name}
+                                                  name={column.name}
                                                   label={column.label}
                                                   type={column.type}
                                                   sortable={column.sortable}
@@ -126,7 +127,10 @@ export default class EnhancedTable extends React.Component {
                     default:
                       columnContent = row[column.name];
                   }
-                  return <TableRowColumn style={column.style}>{columnContent}</TableRowColumn>;
+                  return <TableRowColumn key={column.name}
+                                         style={column.style}>
+                    {columnContent}
+                  </TableRowColumn>;
                 })}
               </TableRow>
             ))}
