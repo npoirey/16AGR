@@ -41,13 +41,16 @@
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^18.0.0"
+  },
   "scripts": {
-    "lint": "eslint app --ext .js,.jsx",
+    "build": "NODE_ENV=production webpack -p --display-reasons --display-error-details --progress --colors --config webpack.config.js",
     "build-dev": "webpack --watch --display-reasons --display-error-details --progress --colors",
+    "lint": "eslint app --ext .js,.jsx",
     "start": "npm run server",
     "server": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src --display-reasons --display-error-details --history-api-fallback --progress -d --hot --inline --host=0.0.0.0 --port 8080",
-    "build": "NODE_ENV=production webpack -p --display-reasons --display-error-details --progress --colors --config webpack.config.js"
+    "test": "./node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",

@@ -46,27 +46,7 @@ export default class Nav extends React.Component {
 
   render() {
     const {location, user, fetching, loading} = this.props;
-    const menus = [
-      {
-        title: 'Featured',
-        location: '/',
-      },
-      {
-        title: 'Archives',
-        location: 'archives'
-      },
-      {
-        title: 'Settings',
-        location: 'settings'
-      },
-      {
-        title: 'Users',
-        location: 'admin/users'
-      },
-    ];
-    let activeMenu = menus.find((menu) =>
-      location.pathname === menu.location || location.pathname.match(new RegExp(`\/${menu.location}`))
-    );
+    let menus = [];
 
     let rightElement;
     let userPreferences;
@@ -85,8 +65,28 @@ export default class Nav extends React.Component {
           onCheck={this.toggleLocaleTime}
           disabled={loading}
         />
-      </div>
+      </div>;
+      menus = [{
+        title: 'Featured',
+        location: '/',
+      }]
+    } else {
+      menus = [{
+        title: 'Login',
+        location: '/login',
+      }]
     }
+
+    if (user && user.admin) {
+      menus = menus.concat([{
+        title: 'Users',
+        location: 'admin/users'
+      }])
+    }
+
+    let activeMenu = menus.find((menu) =>
+      location.pathname === menu.location || location.pathname.match(new RegExp(`\/${menu.location}`))
+    );
 
     return (
       <div class="navbar">

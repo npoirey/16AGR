@@ -26,7 +26,6 @@ import Featured from "./pages/member/home/Home";
 import ErrorPage from "./pages/front/ErrorPage";
 import Login from "./pages/front/Login";
 import Layout from "./pages/Layout";
-import Settings from "./pages/member/Settings";
 import actions from "./actions/actionTypes";
 import store from "./store";
 
@@ -118,7 +117,6 @@ ReactDOM.render(
           <Route path="/" component={Layout}>
             <Route onEnter={requireAuth}>
               <IndexRoute name="Featured" component={Featured}/>
-              <Route path="settings" name="settings" component={Settings}/>
             </Route>
             <Route path="admin" onEnter={requireAdmin}>
               <Route path="users" name="users" component={Users}/>
