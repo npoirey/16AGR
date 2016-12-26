@@ -16,6 +16,7 @@ services:
   web:
     build:
       context: ./frontend
+    command: npm start
     ports:
       - "8080:8080"
     volumes:
