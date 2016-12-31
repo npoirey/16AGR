@@ -28,6 +28,7 @@ import Login from "./pages/front/Login";
 import Layout from "./pages/Layout";
 import actions from "./actions/actionTypes";
 import store from "./store";
+require("../static/favicon.ico");
 
 // Needed for onTouchTap
 // This dependency is temporary and will go away once the official React version is released

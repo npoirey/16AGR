@@ -42,10 +42,11 @@
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
+    "file-loader": "^0.9.0",
     "jest": "^18.0.0"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack -p --display-reasons --display-error-details --progress --colors --config webpack.config.js",
+    "build": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --display-reasons --display-error-details --progress --colors --config webpack.config.js",
     "build-dev": "webpack --watch --display-reasons --display-error-details --progress --colors",
     "lint": "eslint app --ext .js,.jsx",
     "start": "npm run server",

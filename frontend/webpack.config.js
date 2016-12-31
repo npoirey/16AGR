@@ -23,16 +23,24 @@ module.exports = {
         loader: 'style-loader!css-loader!sass-loader?sourceMap'
         //loaders: ['style', 'css', 'sass']
       },
-      // copy images to dist/img/name.png
-      {test: /\.png$/, loader: "file-loader?name=img/[name].png"},
       {
         test: /\.json$/,
         loader: 'json-loader'
+      },
+      // copy images to dist/img/name.png
+      {
+        test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
+        loader: 'file-loader?name=img/[name].[ext]'  // <-- retain original file name
+      },
+      // copy favicon to dist/favicon.ico
+      {
+        test: /\.ico$/,
+        loader: 'file-loader?name=[name].[ext]'  // <-- retain original file name
       }
     ]
   },
   output: {
-    path: __dirname + "/src/",
+    path: __dirname + "/dist/",
     filename: "client.min.js"
   },
   plugins: debug ? [] : [
