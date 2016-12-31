@@ -2,24 +2,25 @@ import axios from "axios";
 import querystring from "querystring";
 import {browserHistory} from "react-router";
 import actions from "./actionTypes";
+import {showError, showSuccess} from "./alertsActions";
 
 export function changePreferences(oldPreferences, newPreferences) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch({type: actions.user.changePreferences.started, payload: newPreferences});
     axios.post('/api/users/preferences', newPreferences)
-      .then((response) => {
+      .then(() => {
         dispatch({type: actions.user.changePreferences.fulfilled});
-        dispatch({type: actions.alerts.success, payload: 'Preferences saved'})
+        dispatch(showSuccess('Preferences saved'))
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch({type: actions.user.changePreferences.rejected, payload: oldPreferences});
-        dispatch({type: actions.alerts.error, payload: 'Failed to save preferences'})
+        dispatch(showError('Failed to save preferences'))
       })
   }
 }
 
 export function login(email, password) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch({type: actions.user.login.started});
     const config = {
       headers: {'Content-type': 'application/x-www-form-urlencoded'}
@@ -32,25 +33,26 @@ export function login(email, password) {
       .catch((err) => {
         dispatch({type: actions.user.login.rejected});
         if (err && err.status < 500) {
-          dispatch({type: actions.alerts.error, payload: 'An error occured'})
+          dispatch(showError('An error occured'))
         } else {
-          dispatch({type: actions.alerts.error, payload: 'Invalid credentials'})
+          dispatch(showError('Invalid credentials'))
         }
       })
   }
 }
 
 export function logout() {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch({type: actions.user.logout.started});
     axios.get('/api/auth/logout')
       .then((response) => {
         dispatch({type: actions.user.logout.fulfilled, payload: response.data.payload});
         browserHistory.push('/login');
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch({type: actions.user.logout.rejected});
         dispatch({type: actions.alerts.error, payload: 'An error occured'});
       })
   }
 }
+
