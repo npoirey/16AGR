@@ -1,3 +1,5 @@
+[![Build Status](http://5.135.185.191:9090/buildStatus/icon?job=test)](http://5.135.185.191:9090/job/test/)
+
 Features
 ========
 A devellopment stack with Node + React, all on docker
