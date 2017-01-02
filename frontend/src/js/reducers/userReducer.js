@@ -1,11 +1,10 @@
-import actions from "../actions/actionTypes";
+import actions from '../actions/actionTypes'
 
 export default function reducer(state = {
   user: {},
   fetching: false,
   fetched: false,
 }, action) {
-
   switch (action.type) {
     case actions.user.changePreferences.started: {
       return {
@@ -13,7 +12,7 @@ export default function reducer(state = {
         loading: true,
         user: {
           ...state.user,
-          preferences: action.payload
+          preferences: action.payload,
         },
       }
     }
@@ -23,14 +22,14 @@ export default function reducer(state = {
         loading: false,
         user: {
           ...state.user,
-          preferences: action.payload
+          preferences: action.payload,
         },
       }
     }
     case actions.user.changePreferences.fulfilled: {
       return {
         ...state,
-        loading: false
+        loading: false,
       }
     }
     case actions.user.init.fulfilled: {
@@ -45,14 +44,14 @@ export default function reducer(state = {
     case actions.user.login.started: {
       return {
         ...state,
-        fetching: true
+        fetching: true,
       }
     }
     case actions.user.login.rejected: {
       return {
         ...state,
         fetching: false,
-        user: {}
+        user: {},
       }
     }
     case actions.user.login.fulfilled: {
@@ -66,13 +65,13 @@ export default function reducer(state = {
     case actions.user.logout.started: {
       return {
         ...state,
-        fetching: true
+        fetching: true,
       }
     }
     case actions.user.logout.rejected: {
       return {
         ...state,
-        fetching: false
+        fetching: false,
       }
     }
     case actions.user.logout.fulfilled: {
@@ -83,7 +82,7 @@ export default function reducer(state = {
         user: {},
       }
     }
+    default:
+      return state
   }
-
-  return state
 }

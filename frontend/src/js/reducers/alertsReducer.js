@@ -1,30 +1,29 @@
-import actions from "../actions/actionTypes";
+import actions from '../actions/actionTypes'
 
 export default function reducer(state = {
   error: '',
-  success: ''
+  success: '',
 }, action) {
-
   switch (action.type) {
     case actions.alerts.error: {
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       }
     }
     case actions.alerts.success: {
       return {
         ...state,
-        success: action.payload
+        success: action.payload,
       }
     }
     case actions.alerts.reset: {
       return {
         error: '',
-        success: ''
+        success: '',
       }
     }
+    default:
+      return state
   }
-
-  return state
 }

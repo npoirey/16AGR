@@ -1,26 +1,25 @@
-import Paper from "material-ui/Paper";
-import React from "react";
-import {connect} from "react-redux";
-import {fetchUsers} from "../../../actions/usersActions";
-import EnhancedTable from "../../../components/widgets/enhancedTable/EnhancedTable";
-import "./users.scss";
+import Paper from 'material-ui/Paper'
+import React from 'react'
+import { connect } from 'react-redux'
+import { fetchUsers } from '../../../actions/usersActions'
+import EnhancedTable from '../../../components/widgets/enhancedTable/EnhancedTable'
+import './users.scss'
+import proptypes from '../../../core/proptypes/index'
 
-@connect((store) => {
-  return {
-    users: store.users.users,
-    loading: store.users.fetching
-  };
-})
-export default class Users extends React.Component {
+@connect(store => ({
+  users: store.users.users,
+  loading: store.users.fetching,
+}))
+class Users extends React.Component {
   constructor() {
-    super();
+    super()
     this.state = {
       initialRequest: {
         sort: {
           name: 'callsign',
-          order: 'ASC'
+          order: 'ASC',
         },
-        filters: []
+        filters: [],
       },
       columns: [
         {
@@ -44,10 +43,10 @@ export default class Users extends React.Component {
           sortable: false,
           filterable: true,
           style: {
-            width: '10%'
-          }
+            width: '10%',
+          },
         },
-      ]
+      ],
     }
   }
 
@@ -60,7 +59,7 @@ export default class Users extends React.Component {
   };
 
   render() {
-    const {users, loading} = this.props;
+    const { users, loading } = this.props
     return (
       <Paper zDepth={1}>
         <EnhancedTable
@@ -71,7 +70,14 @@ export default class Users extends React.Component {
           onRequestChange={this.onRequestChange}
         />
       </Paper>
-    );
+    )
   }
 }
 
+Users.propTypes = {
+  dispatch: React.PropTypes.func,
+  users: React.PropTypes.arrayOf(proptypes.user),
+  loading: React.PropTypes.bool,
+}
+
+export default Users

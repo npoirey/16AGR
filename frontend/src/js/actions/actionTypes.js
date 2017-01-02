@@ -1,13 +1,21 @@
 const alertsActionsTypes = {
   error: 'ALERT.ERROR',
   reset: 'ALERT.RESET',
-  success: 'ALERT.SUCCESS'
-};
+  success: 'ALERT.SUCCESS',
+}
+
+const eventActionsTypes = {
+  fetch: {
+    started: 'EVENTS.FETCH.STARTED',
+    fulfilled: 'EVENTS.FETCH.FULFILLED',
+    rejected: 'EVENTS.FETCH.REJECTED',
+  },
+}
 
 const userActionsTypes = {
   init: {
     started: 'USER.INIT.STARTED',
-    fulfilled: 'USER.INIT.FULFILLED'
+    fulfilled: 'USER.INIT.FULFILLED',
   },
   login: {
     started: 'USER.LOGIN.STARTED',
@@ -23,8 +31,8 @@ const userActionsTypes = {
     started: 'USER.CHANGE.PREFERENCES.STARTED',
     fulfilled: 'USER.CHANGE.PREFERENCES.FULFILLED',
     rejected: 'USER.CHANGE.PREFERENCES.REJECTED',
-  }
-};
+  },
+}
 
 const usersActionsTypes = {
   fetch: {
@@ -32,10 +40,11 @@ const usersActionsTypes = {
     fulfilled: 'USERS.FETCH.FULFILLED',
     rejected: 'USERS.FETCH.REJECTED',
   },
-};
+}
 
 module.exports = {
   alerts: alertsActionsTypes,
+  events: eventActionsTypes,
   user: userActionsTypes,
   users: usersActionsTypes,
-};
+}

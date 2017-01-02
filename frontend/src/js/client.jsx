@@ -1,5 +1,5 @@
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import {
   blueGrey700,
   blueGrey900,
@@ -12,28 +12,29 @@ import {
   blueGrey300,
   white,
   darkBlack,
-  fullBlack
-} from "material-ui/styles/colors";
-import {fade} from "material-ui/utils/colorManipulator";
-import React from "react";
-import ReactDOM from "react-dom";
-import {IntlProvider} from "react-intl";
-import {Provider} from "react-redux";
-import {Router, Route, IndexRoute, browserHistory} from "react-router";
-import injectTapEventPlugin from "react-tap-event-plugin";
-import Users from "./pages/admin/users/Users";
-import Featured from "./pages/member/home/Home";
-import ErrorPage from "./pages/front/ErrorPage";
-import Login from "./pages/front/Login";
-import Layout from "./pages/Layout";
-import actions from "./actions/actionTypes";
-import store from "./store";
-require("../static/favicon.ico");
+  fullBlack,
+} from 'material-ui/styles/colors'
+import { fade } from 'material-ui/utils/colorManipulator'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { IntlProvider } from 'react-intl'
+import { Provider } from 'react-redux'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import Users from './pages/admin/users/Users'
+import Featured from './pages/member/home/Home'
+import ErrorPage from './pages/front/ErrorPage'
+import Login from './pages/front/Login'
+import Layout from './pages/Layout'
+import actions from './actions/actionTypes'
+import store from './store'
+
+require('../static/favicon.ico')
 
 // Needed for onTouchTap
 // This dependency is temporary and will go away once the official React version is released
 // http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
+injectTapEventPlugin()
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -72,43 +73,43 @@ const muiTheme = getMuiTheme({
     focusColor: blue300,
     borderColor: grey300,
   },
-});
+})
 
-const app = document.getElementById('app');
+const app = document.getElementById('app')
 
 function isLoggedIn() {
-  return store.getState() && store.getState().user && store.getState().user.user && store.getState().user.user.id;
+  return store.getState() && store.getState().user && store.getState().user.user && store.getState().user.user.id
 }
 
-function requireAuth(nextState, replace) {
+const requireAuth = (nextState, replace) => {
   if (!isLoggedIn()) {
     replace({
-      pathname: '/login'
+      pathname: '/login',
     })
   }
 }
 
-function requireAdmin(nextState, replace) {
+const requireAdmin = (nextState, replace) => {
   if (!isLoggedIn()) {
     replace({
-      pathname: '/login'
+      pathname: '/login',
     })
   } else if (!store.getState().user.user.admin) {
     replace({
-      pathname: '/403'
+      pathname: '/403',
     })
   }
 }
 
-function requireNotAuth(nextState, replace) {
+const requireNotAuth = (nextState, replace) => {
   if (isLoggedIn()) {
     replace({
-      pathname: '/'
+      pathname: '/',
     })
   }
 }
 
-store.dispatch({type: actions.user.init.fulfilled, payload: window.user});
+store.dispatch({ type: actions.user.init.fulfilled, payload: window.user })
 
 ReactDOM.render(
   <Provider store={store}>
@@ -117,16 +118,16 @@ ReactDOM.render(
         <Router history={browserHistory}>
           <Route path="/" component={Layout}>
             <Route onEnter={requireAuth}>
-              <IndexRoute name="Featured" component={Featured}/>
+              <IndexRoute name="Featured" component={Featured} />
             </Route>
             <Route path="admin" onEnter={requireAdmin}>
-              <Route path="users" name="users" component={Users}/>
+              <Route path="users" name="users" component={Users} />
             </Route>
-            <Route path="login" component={Login} onEnter={requireNotAuth}/>
-            <Route path="403" component={ErrorPage}/>
+            <Route path="login" component={Login} onEnter={requireNotAuth} />
+            <Route path="403" component={ErrorPage} />
           </Route>
         </Router>
       </IntlProvider>
     </MuiThemeProvider>
   </Provider>
-  , app);
+  , app)

@@ -1,38 +1,16 @@
-import axios from "axios";
+import axios from 'axios'
+import actions from './actionTypes'
 
+// eslint-disable-next-line import/prefer-default-export
 export function fetchEvents() {
-  return function (dispatch) {
-    dispatch({type: "FETCH_EVENTS_STARTED"});
-    axios.get("/api/events")
+  return (dispatch) => {
+    dispatch({ type: actions.events.fetch.started })
+    axios.get('/api/events')
       .then((response) => {
-        dispatch({type: "FETCH_EVENTS_FULFILLED", payload: response.data})
+        dispatch({ type: actions.events.fetch.fulfilled, payload: response.data })
       })
       .catch((err) => {
-        dispatch({type: "FETCH_EVENTS_REJECTED", payload: err})
+        dispatch({ type: actions.events.fetch.rejected, payload: err })
       })
   }
-}
-
-export function addEvent(id, text) {
-  return {
-    type: 'ADD_EVENT',
-    payload: {
-      id,
-      text,
-    },
-  }
-}
-
-export function updateEvent(id, text) {
-  return {
-    type: 'UPDATE_EVENT',
-    payload: {
-      id,
-      text,
-    },
-  }
-}
-
-export function deleteEvent(id) {
-  return {type: 'DELETE_EVENT', payload: id}
 }

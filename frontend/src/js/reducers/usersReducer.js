@@ -1,4 +1,4 @@
-import actions from "../actions/actionTypes";
+import actions from '../actions/actionTypes'
 
 export default function reducer(state = {
   users: [],
@@ -6,18 +6,17 @@ export default function reducer(state = {
   fetched: false,
   error: null,
 }, action) {
-
   switch (action.type) {
     case actions.users.fetch.started: {
       return {
         ...state,
-        fetching: true
+        fetching: true,
       }
     }
     case actions.users.fetch.rejected: {
       return {
         ...state,
-        fetching: false
+        fetching: false,
       }
     }
     case actions.users.fetch.fulfilled: {
@@ -28,7 +27,7 @@ export default function reducer(state = {
         users: action.payload,
       }
     }
+    default:
+      return state
   }
-
-  return state
 }

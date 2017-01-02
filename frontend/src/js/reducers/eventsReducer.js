@@ -1,18 +1,19 @@
+import actions from '../actions/actionTypes'
+
 export default function reducer(state = {
   events: [],
   fetching: false,
   fetched: false,
   error: null,
 }, action) {
-
   switch (action.type) {
-    case "FETCH_EVENTS_STARTED": {
-      return {...state, fetching: true}
+    case actions.events.fetch.started: {
+      return { ...state, fetching: true }
     }
-    case "FETCH_EVENTS_REJECTED": {
-      return {...state, fetching: false, error: action.payload}
+    case actions.events.fetch.rejected: {
+      return { ...state, fetching: false, error: action.payload }
     }
-    case "FETCH_EVENTS_FULFILLED": {
+    case actions.events.fetch.fulfilled: {
       return {
         ...state,
         fetching: false,
@@ -20,7 +21,7 @@ export default function reducer(state = {
         events: action.payload,
       }
     }
+    default:
+      return state
   }
-
-  return state
 }
