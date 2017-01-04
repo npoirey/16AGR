@@ -28,7 +28,7 @@ module.exports = {
       "error",
       160
     ],
-    "linebreak-style": ["error", "windows"]
+    "linebreak-style": ["error", "unix"]
   },
   "globals": {
     "document": true,

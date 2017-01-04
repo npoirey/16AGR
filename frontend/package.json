@@ -58,7 +58,7 @@
   "scripts": {
     "build": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --display-reasons --display-error-details --progress --colors --config webpack.config.js",
     "build-dev": "webpack --watch --display-reasons --display-error-details --progress --colors",
-    "lint": "./node_modules/eslint/bin/eslint.js --color --ext .jsx --ext .js src",
+    "lint": "./node_modules/eslint/bin/eslint.js --color --ext .jsx --ext .js --fix src",
     "start": "npm run server",
     "server": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src --display-reasons --display-error-details --history-api-fallback --progress -d --hot --inline --host=0.0.0.0 --port 8080",
     "test": "./node_modules/jest/bin/jest.js --coverage"
