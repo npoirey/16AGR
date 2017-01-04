@@ -8,7 +8,7 @@ describe('alertActions', () => {
         type: actions.alerts.error,
         payload: 'this is an error',
       }
-      expect(showError('this is an error')).toBe(expectedAction)
+      expect(showError('this is an error')).toEqual(expectedAction)
     })
   })
 })
