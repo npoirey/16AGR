@@ -27,7 +27,8 @@ module.exports = {
     "max-len": [
       "error",
       160
-    ]
+    ],
+    "linebreak-style": ["error", "windows"]
   },
   "globals": {
     "document": true,
