@@ -1,4 +1,5 @@
-[![Build Status](http://5.135.185.191:9090/buildStatus/icon?job=test)](http://5.135.185.191:9090/job/test/)
+[![Build Status](http://5.135.185.191:9090/buildStatus/icon?job=frontend-unit-test)](http://5.135.185.191:9090/job/test/)
+[![Build Status](http://5.135.185.191:9090/buildStatus/icon?job=backend-unit-test)](http://5.135.185.191:9090/job/test/)
 
 Features
 ========
