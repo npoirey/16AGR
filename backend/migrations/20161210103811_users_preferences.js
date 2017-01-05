@@ -1,5 +1,4 @@
-exports.up = function (knex, Promise) {
-  return knex.raw(`
+exports.up = knex => knex.raw(`
     CREATE TABLE public.users_preferences
     (
       user_id INT PRIMARY KEY NOT NULL,
@@ -9,8 +8,4 @@ exports.up = function (knex, Promise) {
     CREATE UNIQUE INDEX users_preferences_user_id_uindex ON public.users_preferences (user_id);
   `)
 
-};
-
-exports.down = function (knex, Promise) {
-  return knex.schema.dropTable('users_preferences')
-};
+exports.down = knex => knex.schema.dropTable('users_preferences')

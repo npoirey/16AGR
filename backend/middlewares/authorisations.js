@@ -1,24 +1,24 @@
-loginRequired = (req, res, next) => {
+const loginRequired = (req, res, next) => {
   if (!req.isAuthenticated()) {
     return res.status(401).send({
       success: false,
-      message: 'Login Required'
+      message: 'Login Required',
     })
   }
-  next()
-};
+  return next()
+}
 
-adminRequired = (req, res, next) => {
+const adminRequired = (req, res, next) => {
   if (!req.isAuthenticated() || !req.user.isAdmin()) {
     return res.status(403).send({
       success: false,
-      message: 'Admin Required'
+      message: 'Admin Required',
     })
   }
-  next()
-};
+  return next()
+}
 
 module.exports = {
-  loginRequired: loginRequired,
-  adminRequired: adminRequired,
-};
+  loginRequired,
+  adminRequired,
+}

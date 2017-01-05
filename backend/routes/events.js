@@ -1,14 +1,13 @@
-'use strict';
+import express from 'express'
+import Event from '../models/Event'
+import { loginRequired } from '../middlewares/authorisations'
 
-const express = require('express');
-const router = express.Router();
-const Event = require('../models/Event');
-const {loginRequired} = require('../middlewares/authorisations');
+const router = express.Router()
 
 router.get('/', loginRequired, (req, res) => {
-  Event.fetchAll().then((events)=> {
+  Event.fetchAll().then((events) => {
     res.send(events)
   })
-});
+})
 
-module.exports = router;
+module.exports = router

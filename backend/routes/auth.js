@@ -1,19 +1,15 @@
-'use strict';
+import express from 'express'
+import passport from '../middlewares/passport'
 
-const express = require('express');
-const router = express.Router();
-const passport = require('../middlewares/passport');
-const logger = require('../core/logger');
+const router = express.Router()
 
 router.get('/', (req, res) => {
   res.send(req.user)
-});
+})
 
-router.post('/login', passport.authenticate('local'), function (req, res) {
-  return res.json({success: true, message: 'Logged in', payload: req.user});
-});
+router.post('/login', passport.authenticate('local'), (req, res) => res.json({ success: true, message: 'Logged in', payload: req.user }))
 
-router.get('/logout', (req, res, next) =>
-  req.session.destroy((err) => res.redirect('/')));
+router.get('/logout', (req, res) =>
+  req.session.destroy(() => res.redirect('/')))
 
-module.exports = router;
+module.exports = router

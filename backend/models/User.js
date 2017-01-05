@@ -1,16 +1,16 @@
-const bookshelf = require('./database');
+const bookshelf = require('./database')
 
-require('./UserPreference.js');
+require('./UserPreference.js')
 
 const User = bookshelf.Model.extend({
   tableName: 'users',
-  preferences: function () {
-    return this.hasOne('UserPreference');
+  preferences() {
+    return this.hasOne('UserPreference')
   },
-  isAdmin: function () {
-    return this.get('admin');
+  isAdmin() {
+    return this.get('admin')
   },
-});
+})
 
-module.exports = bookshelf.model('User', User);
+module.exports = bookshelf.model('User', User)
 

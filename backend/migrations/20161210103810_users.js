@@ -1,5 +1,4 @@
-exports.up = function (knex, Promise) {
-  return knex.raw(`
+exports.up = knex => knex.raw(`
     CREATE TABLE public.users
     (
       id SERIAL PRIMARY KEY NOT NULL,
@@ -11,8 +10,5 @@ exports.up = function (knex, Promise) {
     CREATE UNIQUE INDEX users_id_uindex ON public.users (id);
     CREATE UNIQUE INDEX users_callsign_uindex ON public.users (callsign);
   `)
-};
 
-exports.down = function (knex, Promise) {
-  return knex.schema.dropTable('users')
-};
+exports.down = knex => knex.schema.dropTable('users')

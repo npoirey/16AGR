@@ -1,7 +1,7 @@
-var bookshelf = require('./database');
+const bookshelf = require('./database')
 
-var Event = bookshelf.Model.extend({
+const Event = bookshelf.Model.extend({
   tableName: 'events',
-});
+})
 
-module.exports = bookshelf.model('Event', Event);
+module.exports = bookshelf.model('Event', Event)

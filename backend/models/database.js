@@ -1,15 +1,15 @@
-const knex = require('knex');
+const knex = require('knex')
 
-const config = require('../knexfile')[process.env.NODE_ENV || 'development'];
+const config = require('../knexfile')[process.env.NODE_ENV || 'development']
 
-const db = knex(config);
+const db = knex(config)
 
-const bookshelf = require('bookshelf')(db);
+const bookshelf = require('bookshelf')(db)
 
 bookshelf.plugin([
   'bookshelf-camelcase',
-  'registry'
-]);
+  'registry',
+])
 
 
-module.exports = bookshelf;
+module.exports = bookshelf
