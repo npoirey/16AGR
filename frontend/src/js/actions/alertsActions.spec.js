@@ -1,5 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import chai from 'chai'
 import { showError } from './alertsActions'
 import actions from './actionTypes'
+
+const expect = chai.expect
 
 describe('alertActions', () => {
   describe('showError', () => {
@@ -8,7 +12,7 @@ describe('alertActions', () => {
         type: actions.alerts.error,
         payload: 'this is an error',
       }
-      expect(showError('this is an error')).toEqual(expectedAction)
+      expect(showError('this is an error')).to.eql(expectedAction)
     })
   })
 })
