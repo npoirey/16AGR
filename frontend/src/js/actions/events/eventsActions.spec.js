@@ -22,7 +22,7 @@ describe('eventsActions', () => {
     mock = new MockAdapter(axios)
   })
 
-  describe('fetchEvents', () => {
+  describe('#fetchEvents()', () => {
     it('should call /api/events and dispatch success events', (done) => {
       mock.onGet('/api/events').reply(200, [{ id: 1 }])
 

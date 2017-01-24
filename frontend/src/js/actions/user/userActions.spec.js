@@ -20,7 +20,7 @@ router.browserHistory = {
   },
 }
 
-describe('eventsActions', () => {
+describe('userActions', () => {
   let store
   let mock
   let browserHistoryStub
@@ -35,7 +35,7 @@ describe('eventsActions', () => {
     browserHistoryStub.restore()
   })
 
-  describe('changePreferences', () => {
+  describe('#changePreferences()', () => {
     const oldPreferences = { preference: 'old' }
     const newPreferences = { preference: 'new' }
 
@@ -93,7 +93,7 @@ describe('eventsActions', () => {
     })
   })
 
-  describe('login', () => {
+  describe('#login()', () => {
     it('should call /api/auth/login and dispatch success events', (done) => {
       let callConfig
       mock.onPost('/api/auth/login')
@@ -172,7 +172,7 @@ describe('eventsActions', () => {
     })
   })
 
-  describe('logout', () => {
+  describe('#logout()', () => {
     it('should call /api/auth/logout and dispatch success events', (done) => {
       mock.onGet('/api/auth/logout')
         .reply(200)

@@ -52,6 +52,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "file-loader": "^0.9.0",
+    "isparta": "^4.0.0",
     "istanbul": "1.0.0-alpha.2",
     "mocha": "^3.2.0",
     "redux-mock-store": "^1.2.1",
@@ -67,7 +68,8 @@
     "start": "npm run server",
     "server": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src --display-reasons --display-error-details --history-api-fallback --progress -d --hot --inline --host=0.0.0.0 --port 8080",
     "test": "./node_modules/mocha/bin/_mocha --compilers js:babel-core/register --colors --recursive src/**/*.spec.js",
-    "test:coverage": "./node_modules/istanbul/lib/cli.js cover --include-all-sources true -x '**/*.spec.js' ./node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --colors --recursive src/**/*.spec.js",
+    "test:coverage": "./node_modules/istanbul/lib/cli.js cover --include-all-sources true -x '**/*.spec.js' -x '**/*.min.js' ./node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --colors --recursive src/**/*.spec.js",
+    "test:cov": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --colors --recursive src/**/*.spec.js",
     "test:watch": "./node_modules/mocha/bin/_mocha --compilers js:babel-core/register --colors --recursive --watch src/**/*.spec.js"
   },
   "repository": {

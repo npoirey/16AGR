@@ -6,7 +6,7 @@ import actions from '../actionTypes'
 const expect = chai.expect
 
 describe('alertActions', () => {
-  describe('showError', () => {
+  describe('#showError()', () => {
     it('should create an action to show an error', () => {
       const expectedAction = {
         type: actions.alerts.error,
@@ -15,7 +15,7 @@ describe('alertActions', () => {
       expect(showError('this is an error')).to.eql(expectedAction)
     })
   })
-  describe('showSuccess', () => {
+  describe('#showSuccess()', () => {
     it('should create an action to show a success', () => {
       const expectedAction = {
         type: actions.alerts.success,
@@ -24,7 +24,7 @@ describe('alertActions', () => {
       expect(showSuccess('this is a success')).to.eql(expectedAction)
     })
   })
-  describe('reset', () => {
+  describe('#reset()', () => {
     it('should create an action to reset alert', () => {
       const expectedAction = {
         type: actions.alerts.reset,

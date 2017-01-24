@@ -22,7 +22,7 @@ describe('usersActions', () => {
     mock = new MockAdapter(axios)
   })
 
-  describe('fetchUsers', () => {
+  describe('#fetchUsers()', () => {
     it('should call /api/users/synthesis and dispatch success events', (done) => {
       let callConfig
       mock.onPost('/api/users/synthesis')
