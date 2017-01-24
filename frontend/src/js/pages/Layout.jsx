@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Footer from '../components/layout/Footer'
 import Navbar from '../components/layout/Navbar/Navbar'
-import { reset } from '../actions/alertsActions'
+import { reset } from '../actions/alerts/alertsActions'
 import '../../style/core.scss'
 import './layout.scss'
 

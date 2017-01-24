@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import chai from 'chai'
 import { showError, showSuccess, reset } from './alertsActions'
-import actions from './actionTypes'
+import actions from '../actionTypes'
 
 const expect = chai.expect
 
@@ -29,7 +29,7 @@ describe('alertActions', () => {
       const expectedAction = {
         type: actions.alerts.reset,
       }
-      expect(reset('this is an error')).to.eql(expectedAction)
+      expect(reset()).to.eql(expectedAction)
     })
   })
 })

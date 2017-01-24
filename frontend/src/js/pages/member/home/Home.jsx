@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchEvents } from '../../../actions/eventsActions'
+import { fetchEvents } from '../../../actions/events/eventsActions'
 import Event from '../../../components/event/Event'
 import './home.scss'
 import proptypes from '../../../core/proptypes/index'

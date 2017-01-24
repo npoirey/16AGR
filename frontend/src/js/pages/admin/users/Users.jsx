@@ -1,7 +1,7 @@
 import Paper from 'material-ui/Paper'
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../../../actions/usersActions'
+import { fetchUsers } from '../../../actions/users/usersActions'
 import EnhancedTable from '../../../components/widgets/enhancedTable/EnhancedTable'
 import './users.scss'
 import proptypes from '../../../core/proptypes/index'

@@ -8,13 +8,12 @@ module.exports = {
       "jsx": true
     }
   },
+  "env": {
+    "mocha": true
+  },
   "plugins": [
     "react",
-    "jest"
   ],
-  "env": {
-    "jest": true
-  },
   "rules": {
     "semi": [
       "error",
