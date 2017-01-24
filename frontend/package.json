@@ -68,8 +68,7 @@
     "start": "npm run server",
     "server": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src --display-reasons --display-error-details --history-api-fallback --progress -d --hot --inline --host=0.0.0.0 --port 8080",
     "test": "./node_modules/mocha/bin/_mocha --compilers js:babel-core/register --colors --recursive src/**/*.spec.js",
-    "test:coverage": "./node_modules/istanbul/lib/cli.js cover --include-all-sources true -x '**/*.spec.js' -x '**/*.min.js' ./node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --colors --recursive src/**/*.spec.js",
-    "test:cov": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --colors --recursive src/**/*.spec.js",
+    "test:coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --colors --recursive src/**/*.spec.js",
     "test:watch": "./node_modules/mocha/bin/_mocha --compilers js:babel-core/register --colors --recursive --watch src/**/*.spec.js"
   },
   "repository": {
