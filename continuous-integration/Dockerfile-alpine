@@ -2,12 +2,13 @@ FROM alpine:3.3
 
 MAINTAINER Poirey Nicolas <fake@mail.com>
 
-#user for jenkins
-RUN groupadd -g 800 pic && useradd -g pic -u 800 -d /home/pic -m -s /bin/bash pic
 RUN apt-get update \
     && apt-get install -y bash \
     && apt-get install -y groupadd \
     && apt-get install -y useradd \
+
+#user for jenkins
+RUN groupadd -g 800 pic && useradd -g pic -u 800 -d /home/pic -m -s /bin/bash pic
 
 WORKDIR /16AGR/continuous-integration
 
