@@ -1,0 +1,11 @@
+FROM alpine:3.3
+
+MAINTAINER Poirey Nicolas <fake@mail.com>
+
+#user for jenkins
+RUN groupadd -g 800 pic && useradd -g pic -u 800 -d /home/pic -m -s /bin/bash pic
+RUN apt-get install -y bash
+
+WORKDIR /16AGR/continuous-integration
+
+USER pic
