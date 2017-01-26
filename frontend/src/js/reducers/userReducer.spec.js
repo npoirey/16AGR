@@ -294,6 +294,5 @@ describe('userReducer', () => {
         }
       )
     })
-
   })
 })
