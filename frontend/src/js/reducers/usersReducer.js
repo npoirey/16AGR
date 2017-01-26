@@ -4,7 +4,7 @@ export default function reducer(state = {
   users: [],
   fetching: false,
   fetched: false,
-  error: null,
+  error: false,
 }, action) {
   switch (action.type) {
     case actions.users.fetch.started: {
@@ -17,6 +17,7 @@ export default function reducer(state = {
       return {
         ...state,
         fetching: false,
+        error: true,
       }
     }
     case actions.users.fetch.fulfilled: {
@@ -24,6 +25,7 @@ export default function reducer(state = {
         ...state,
         fetching: false,
         fetched: true,
+        error: false,
         users: action.payload,
       }
     }

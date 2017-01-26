@@ -14,7 +14,6 @@ const eventActionsTypes = {
 
 const userActionsTypes = {
   init: {
-    started: 'USER.INIT.STARTED',
     fulfilled: 'USER.INIT.FULFILLED',
   },
   login: {

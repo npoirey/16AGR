@@ -1,9 +1,11 @@
 import actions from '../actions/actionTypes'
 
 export default function reducer(state = {
-  user: {},
+  user: null,
   fetching: false,
+  loading: false,
   fetched: false,
+  error: false,
 }, action) {
   switch (action.type) {
     case actions.user.changePreferences.started: {
@@ -35,9 +37,9 @@ export default function reducer(state = {
     case actions.user.init.fulfilled: {
       return {
         ...state,
-        error: null,
+        error: false,
         fetching: false,
-        fetched: action.payload && action.payload.id,
+        fetched: Boolean(action.payload && action.payload.id),
         user: action.payload,
       }
     }
@@ -51,6 +53,7 @@ export default function reducer(state = {
       return {
         ...state,
         fetching: false,
+        error: true,
         user: {},
       }
     }
@@ -72,13 +75,14 @@ export default function reducer(state = {
       return {
         ...state,
         fetching: false,
+        error: true,
       }
     }
     case actions.user.logout.fulfilled: {
       return {
         ...state,
         fetching: false,
-        fetched: true,
+        fetched: false,
         user: {},
       }
     }
