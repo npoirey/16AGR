@@ -5,7 +5,7 @@ instrumentation:
         - .js
         - .jsx
     default-excludes: true
-    excludes: ['**/*.spec.js', '**/*.min.js']
+    excludes: ['**/*.spec.js', '**/*.min.js', '**/*.config.js']
     variable: __coverage__
     compact: true
     preserve-comments: false
