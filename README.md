@@ -7,7 +7,7 @@
 Features
 ========
 A devellopment stack with Node, React with Redux, postgres, all on docker
-This repository is a website designed for the DCS squadron 111111
+This repository is a website designed for the DCS squadron 16AGR
 
 Setting up dev environment
 ==========================
