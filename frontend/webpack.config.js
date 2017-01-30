@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        loader: 'json-loader',
+        loader: 'json',
       },
       // copy images to dist/img/name.png
       {
