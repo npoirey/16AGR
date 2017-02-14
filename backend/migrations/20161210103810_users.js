@@ -1,14 +1,15 @@
-exports.up = knex => knex.raw(`
-    CREATE TABLE public.users
-    (
-      id SERIAL PRIMARY KEY NOT NULL,
-      callsign TEXT NOT NULL,
-      email TEXT NOT NULL,
-      password TEXT NOT NULL,
-      admin BOOLEAN NOT NULL DEFAULT false
-    );
-    CREATE UNIQUE INDEX users_id_uindex ON public.users (id);
-    CREATE UNIQUE INDEX users_callsign_uindex ON public.users (callsign);
-  `)
+exports.up = (knex) =>
+  knex.schema.createTable('users', (table) => {
+    table.increments('id')
+    table.timestamps()
+    table.text('callsign').notNullable()
+    table.text('email').notNullable()
+    table.text('password').notNullable()
+    table.boolean('admin').notNullable().defaultTo(false)
 
-exports.down = knex => knex.schema.dropTable('users')
+    table.index('id')
+    table.index('callsign')
+    table.index('email')
+  })
+
+exports.down = (knex) => knex.schema.dropTable('users').dropIndex(['id', 'callsign', 'email'])

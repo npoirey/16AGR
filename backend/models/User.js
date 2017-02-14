@@ -4,6 +4,7 @@ require('./UserPreference.js')
 
 const User = bookshelf.Model.extend({
   tableName: 'users',
+  hasTimestamps: true,
   preferences() {
     return this.hasOne('UserPreference')
   },

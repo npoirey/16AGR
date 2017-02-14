@@ -4,6 +4,7 @@ require('./User')
 
 const UserPreference = bookshelf.Model.extend({
   tableName: 'users_preferences',
+  hasTimestamps: true,
   idAttribute: 'user_id',
   user() {
     return this.belongsTo('User')

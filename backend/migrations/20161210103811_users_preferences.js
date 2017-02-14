@@ -1,11 +1,9 @@
-exports.up = knex => knex.raw(`
-    CREATE TABLE public.users_preferences
-    (
-      user_id INT PRIMARY KEY NOT NULL,
-      use_local_time BOOLEAN DEFAULT FALSE ,
-      CONSTRAINT users_preferences_users_id_fk FOREIGN KEY (user_id) REFERENCES users (id)
-    );
-    CREATE UNIQUE INDEX users_preferences_user_id_uindex ON public.users_preferences (user_id);
-  `)
+exports.up = (knex) =>
+  knex.schema.createTable('users_preferences', (table) => {
+    table.integer('user_id').unsigned().index().references('id')
+      .inTable('users')
+    table.timestamps()
+    table.boolean('use_local_time').notNullable().defaultTo(false)
+  })
 
-exports.down = knex => knex.schema.dropTable('users_preferences')
+exports.down = (knex) => knex.schema.dropTable('users_preferences').dropIndex('user_id')

@@ -1,6 +1,6 @@
 /* eslint max-len: 0 */
 exports.seed = (knex, Promise) => Promise.all([
-  // Inserts seed entries
+  // Inserts seedTestDb entries
   knex('events').insert(
     {
       id: 1,

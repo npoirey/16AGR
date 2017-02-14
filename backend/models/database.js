@@ -11,5 +11,4 @@ bookshelf.plugin([
   'registry',
 ])
 
-
 module.exports = bookshelf

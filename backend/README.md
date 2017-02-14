@@ -1,35 +1,40 @@
 ##Features
 
-A devellopment stack with Node, express, bookshelf, all on docker
+Backend dev stack with Node, express, bookshelf, all on docker
 
 ##Setting up dev environment
 
 start by following globals instructions in [../README.md](../README.md)
 
-####Install npm dependencies (do this everytime you change package.json)
-
-`docker-compose run -d --rm back npm install --no-bin-links`
-
-####Init the database
-
-`docker-compose run -d --rm back npm run db:migrate`
-    
-####Seed the database
-
-`docker-compose run -d --rm back npm run db:seed`
-
 ##Run
 
-`docker-compose up -d | cat`
+`docker-compose up [-d]`
 
 backend API is accessible at localhost:8081 for testing
 
-To run specifics tasks you can use the following command
+To run specifics tasks you can use the following pattern
 
-`docker-compose run [service] [command]`
+`docker exec 16agr_back_1 [command]`
 
-###Install dependency
+for examples (see available scripts in package.json):
 
-`docker-compose run -d --rm back npm install [package to install] -S --no-bin-links`
+####Tests
+`docker exec 16agr_back_1 npm run test`
 
+`docker exec 16agr_back_1 npm run test:watch` 
 
+####Install dependency
+
+`docker exec 16agr_back_1 npm install`
+
+`docker exec 16agr_back_1 npm install [package] --save`
+
+`docker exec 16agr_back_1 npm install [package] --save-dev`
+
+####Init the database
+
+`docker exec 16agr_back_1 npm run db:migrate` (init structure)
+
+`docker exec 16agr_back_1 npm run db:seed` (add data)
+
+`docker exec 16agr_back_1 npm run db:reset` (reset structure and data)

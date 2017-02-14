@@ -37,7 +37,6 @@ app.get('/user.js', (req, res) =>
     `window.user=${JSON.stringify(req.user)};`
   ))
 
-
 // passport.authenticate('local', {successRedirect: '/auth/account', failureRedirect: '/'}));
 app.get('/logout', (req, res) =>
   req.session.destroy(() => res.redirect('/')))
@@ -50,27 +49,28 @@ app.use((req, res, next) => {
 })
 
 // error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use((err, req, res) => {
-    logger.error(err)
-    res.status(err.status || 500)
-    res.send({
-      message: err.message,
-      error: err,
-    })
-  })
-}
+// Json schemas error handler
+app.use((err, req, res, next) => {
+  if (err.status && err.status === 400 && !err.message) {
+    return next(
+      {
+        ...err,
+        message: err.reason[0].message,
+      })
+  }
+  // pass error to next error middleware handler
+  return next(err)
+})
 
 // production error handler
 // no stacktraces leaked to user
-app.use((err, req, res) => {
-  logger.info('Hello distributed log files!')
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  logger.error(err)
   res.status(err.status || 500)
   res.send({
-    message: err.message,
+    ...err,
+    message: app.get('env') !== 'production' ? err.message : null,
   })
 })
 

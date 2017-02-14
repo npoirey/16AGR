@@ -1,5 +1,5 @@
 exports.seed = (knex, Promise) => Promise.all([
-  // Inserts seed entries
+  // Inserts seedTestDb entries
   knex('users_preferences').insert(
     {
       user_id: 1,

@@ -1,21 +1,27 @@
 module.exports = {
   "extends": "airbnb",
+  "parser": "babel-eslint",
   "plugins": [
     "node"
   ],
+  "env": {
+    "mocha": true
+  },
   "rules": {
-    "semi": [
-      "error",
-      "never"
-    ],
+    "arrow-parens": ["error", "always"],
     "comma-dangle": [
       "error",
       "always-multiline"
     ],
+    "consistent-return": 0,
+    "linebreak-style": ["error", "unix"],
     "max-len": [
       "error",
       160
     ],
-    "linebreak-style": ["error", "unix"]
+    "semi": [
+      "error",
+      "never"
+    ]
   }
 }

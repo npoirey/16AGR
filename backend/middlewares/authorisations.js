@@ -1,7 +1,7 @@
 const loginRequired = (req, res, next) => {
   if (!req.isAuthenticated()) {
     return res.status(401).send({
-      success: false,
+      error: true,
       message: 'Login Required',
     })
   }
@@ -9,9 +9,15 @@ const loginRequired = (req, res, next) => {
 }
 
 const adminRequired = (req, res, next) => {
-  if (!req.isAuthenticated() || !req.user.isAdmin()) {
+  if (!req.isAuthenticated()) {
+    return res.status(401).send({
+      error: true,
+      message: 'Login Required',
+    })
+  }
+  if (!req.user.isAdmin()) {
     return res.status(403).send({
-      success: false,
+      error: true,
       message: 'Admin Required',
     })
   }

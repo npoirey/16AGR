@@ -21,6 +21,7 @@ services:
       - "8080:8080"
     volumes:
       - ./frontend:/16AGR/frontend:rw
+      - ./schema:/16AGR/schema:rw
     links:
       - back
   back:
@@ -32,6 +33,7 @@ services:
       - "8081:8080"
     volumes:
       - ./backend:/16AGR/backend:rw
+      - ./schema:/16AGR/schema:rw
     links:
       - db
       - redis
