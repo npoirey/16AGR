@@ -14,27 +14,37 @@ Setting up dev environment
 
 Install docker and docker-compose for your host environment
 
-Install npm dependencies for the frontend and backend(do this everytime you change package.json)
+Set up the following env variables (in .bashrc or other depending on your platform)
 
-    docker-compose run -d --rm web npm install --no-bin-links
-    docker-compose run -d --rm back npm install --no-bin-links
+    export AGR_POSTGRES_PASSWORD=this_is_a_password
+    export AGR_POSTGRES_USER=postgres
+    export AGR_POSTGRES_DB=agr
+    export AGR_SESSION_SECRET='this is secret !'
 
-use docker-compose to deploy the dev environment
+Start up the containers once (the app won't run yet)
 
-`docker-compose up`
+    docker-compose up
+
+Install npm dependencies for the frontend and backend (do this everytime you change package.json)
+
+    docker exec 16agr_back_1 npm install
+    docker exec 16agr_web_1 npm install
+
+Reload the containers
+
+    docker-compose restart
 
 backend API is accessible at localhost:8081 for testing
 frontend is at localhost
 
+Please see the readme in frontend or backend folder to finish setting up the project
+
 Run
 =====
-To run specifics tasks you can use the following command
+To run specifics tasks, please see the readme in frontend or backend folder
 
-`docker-compose run [service] [command]`
-
-For example, to install a new dependency
-
-`docker-compose run -d --rm [service] npm install [package] -S --no-bin-links`
+Troubleshoot
+============
 
 resolving node_module problems on windows
 https://msdn.microsoft.com/en-us/library/aa365247%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#maxpath

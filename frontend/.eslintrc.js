@@ -15,19 +15,20 @@ module.exports = {
     "react",
   ],
   "rules": {
-    "semi": [
-      "error",
-      "never"
-    ],
+    "arrow-parens": ["error", "always"],
     "comma-dangle": [
       "error",
       "always-multiline"
     ],
+    "linebreak-style": ["error", "unix"],
     "max-len": [
       "error",
       160
     ],
-    "linebreak-style": ["error", "unix"]
+    "semi": [
+      "error",
+      "never"
+    ],
   },
   "globals": {
     "document": true,
