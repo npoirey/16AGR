@@ -11,7 +11,7 @@ const EnhancedTableFilterSelect = ({ changeFilter, name, label, values }) => (
     onChange={(event, index, value) => changeFilter(name, value)}
     style={{ width: '100%', paddingLeft: 0, paddingRight: '5px' }}
   >
-    {values.map(val => <MenuItem key={val.value} value={val.value} primaryText={val.label} />)}
+    {values.map((val) => <MenuItem key={val.value} value={val.value} primaryText={val.label} />)}
   </SelectField>
 )
 

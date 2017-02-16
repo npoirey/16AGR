@@ -5,7 +5,7 @@ import Event from '../../../components/event/Event'
 import './home.scss'
 import proptypes from '../../../core/proptypes/index'
 
-@connect(store => ({
+@connect((store) => ({
   events: store.events.events,
 }))
 class Home extends React.Component {
@@ -17,7 +17,7 @@ class Home extends React.Component {
     const { events } = this.props
     return (
       <div>
-        {events.map(event => <Event key={event.id} event={event} />)}
+        {events.map((event) => <Event key={event.id} event={event} />)}
       </div>
     )
   }

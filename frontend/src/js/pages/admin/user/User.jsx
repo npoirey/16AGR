@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchUsers } from '../../../actions/users/usersActions'
 import EnhancedTable from '../../../components/widgets/enhancedTable/EnhancedTable'
-import './users.scss'
+import './user.scss'
 import proptypes from '../../../core/proptypes/index'
 
 @connect((store) => ({

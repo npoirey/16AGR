@@ -30,12 +30,12 @@ class EnhancedTable extends React.Component {
 
   changeFilter = (name, value) => {
     const newFilters = this.state.request.filters
-    const existingFilter = newFilters.find(filter => filter.name === name)
+    const existingFilter = newFilters.find((filter) => filter.name === name)
     if (existingFilter) {
       if (value && value.length > 0) {
         existingFilter.pattern = value
       } else {
-        newFilters.splice(newFilters.findIndex(filter => filter.name === name), 1)
+        newFilters.splice(newFilters.findIndex((filter) => filter.name === name), 1)
       }
     } else {
       newFilters.push({
@@ -53,12 +53,12 @@ class EnhancedTable extends React.Component {
 
   changeFilterBoolean = (name, value) => {
     const newFilters = this.state.request.filters
-    const existingFilter = newFilters.find(filter => filter.name === name)
+    const existingFilter = newFilters.find((filter) => filter.name === name)
     if (existingFilter) {
       if (value !== null) {
         existingFilter.pattern = value
       } else {
-        newFilters.splice(newFilters.findIndex(filter => filter.name === name), 1)
+        newFilters.splice(newFilters.findIndex((filter) => filter.name === name), 1)
       }
     } else if (value !== null) {
       newFilters.push({
@@ -112,7 +112,7 @@ class EnhancedTable extends React.Component {
             showRowHover
             stripedRows
           >
-            {!loading && data && data.map(row => (
+            {!loading && data && data.map((row) => (
               <TableRow key={row.id} selected={row.selected}>
                 {columns.map((column) => {
                   let columnContent

@@ -47,7 +47,7 @@ describe('usersActions', () => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
 
     it('should call /api/users/synthesis and dispatch errors events', (done) => {
@@ -64,7 +64,7 @@ describe('usersActions', () => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
   })
 })

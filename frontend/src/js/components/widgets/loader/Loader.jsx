@@ -2,12 +2,17 @@ import React from 'react'
 import './loader.scss'
 
 const Loader = ({ noMargin }) => {
-  const style = {
-    margin: 0,
+  const attributes = {}
+
+  if (noMargin) {
+    attributes.style = {
+      margin: 0,
+    }
   }
 
+
   return (
-    <div className="row preloader-dots" style={noMargin && style}>
+    <div className="row preloader-dots" {...attributes}>
       <div className="dot" />
       <div className="dot" />
       <div className="dot" />

@@ -41,7 +41,7 @@ describe('eventsActions', () => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
 
     it('should call /api/events and dispatch errors events', (done) => {
@@ -60,7 +60,7 @@ describe('eventsActions', () => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
   })
 })

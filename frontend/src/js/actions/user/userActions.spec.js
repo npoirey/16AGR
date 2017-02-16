@@ -62,7 +62,7 @@ describe('userActions', () => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
 
     it('should call /api/users/preferences and dispatch error events', (done) => {
@@ -89,7 +89,7 @@ describe('userActions', () => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
   })
 
@@ -120,7 +120,7 @@ describe('userActions', () => {
           expect(browserHistoryStub).to.have.been.calledWith('/')
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
 
     it('should call /api/auth/login and dispatch error events for credentials', (done) => {
@@ -144,7 +144,7 @@ describe('userActions', () => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
 
     it('should call /api/auth/login and dispatch error events for server error', (done) => {
@@ -168,7 +168,7 @@ describe('userActions', () => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
   })
 
@@ -192,7 +192,7 @@ describe('userActions', () => {
           expect(browserHistoryStub).to.have.been.calledWith('/login')
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
 
     it('should call /api/auth/logout and dispatch error events', (done) => {
@@ -216,7 +216,7 @@ describe('userActions', () => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch(e => done(e))
+        .catch((e) => done(e))
     })
   })
 })

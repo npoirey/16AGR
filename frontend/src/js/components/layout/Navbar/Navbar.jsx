@@ -12,7 +12,7 @@ import './nav.scss'
 import proptypes from '../../../core/proptypes/index'
 
 
-@connect(store => ({
+@connect((store) => ({
   user: store.user.user,
   fetching: store.user.fetching,
   loading: store.user.loading,
@@ -83,7 +83,7 @@ class Nav extends React.Component {
       }])
     }
 
-    const activeMenu = menus.find(menu =>
+    const activeMenu = menus.find((menu) =>
       location.pathname === menu.location || location.pathname.match(new RegExp(`/${menu.location}`))
     )
 
@@ -99,9 +99,9 @@ class Nav extends React.Component {
           docked={false}
           width={200}
           open={this.state.open}
-          onRequestChange={open => this.setState({ open })}
+          onRequestChange={(open) => this.setState({ open })}
         >
-          {menus.map(menu =>
+          {menus.map((menu) =>
             <IndexLink key={menu.location} to={menu.location}>
               <MenuItem
                 class={activeMenu === menu ? 'active' : ''}

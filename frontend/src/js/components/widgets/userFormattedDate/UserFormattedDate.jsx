@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedDate } from 'react-intl'
 import { connect } from 'react-redux'
 
-@connect(store => ({
+@connect((store) => ({
   user: store.user.user,
 }))
 export default class UserFormattedDate extends React.Component {

@@ -4,7 +4,7 @@ import React from 'react'
 const EnhancedTableFilterTextField = ({ name, label, changeFilter }) => (
   <TextField
     floatingLabelText={label}
-    onChange={event => changeFilter(name, event.target.value)}
+    onChange={(event) => changeFilter(name, event.target.value)}
     style={{ width: '80%', paddingLeft: 0, paddingRight: '5px' }}
   />
 )

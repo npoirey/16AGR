@@ -7,7 +7,7 @@ import { reset } from '../actions/alerts/alertsActions'
 import '../../style/core.scss'
 import './layout.scss'
 
-@connect(store => ({
+@connect((store) => ({
   error: store.alerts.error,
   success: store.alerts.success,
 }))
