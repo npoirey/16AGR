@@ -6,7 +6,7 @@ const morgan = require('morgan')
 const path = require('path')
 const passport = require('passport')
 require('./middlewares/passport')
-const session = require('./middlewares/session')
+const session = process.env.NODE_ENV !== 'test' ? require('./middlewares/session') : require('./test/testSession')
 const logger = require('./core/logger')
 
 const app = express()

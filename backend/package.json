@@ -61,10 +61,16 @@
     "eslint-plugin-react": "^6.8.0",
     "istanbul": "^1.0.0-alpha.2",
     "mocha": "^3.2.0",
+    "node-pre-gyp": "^0.6.33",
     "nodemon": "^1.11.0",
     "sinon": "^1.17.7",
     "sqlite3": "^3.1.8",
     "supertest": "^3.0.0",
     "supertest-session": "^3.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npoirey/16AGR"
+  },
+  "homepage": "https://github.com/npoirey/16AGR"
 }

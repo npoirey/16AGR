@@ -20,6 +20,7 @@ describe('API /users', () => {
     admin: true,
   }
 
+
   before((done) => {
     buildTestDb()
       .then(() => done())
@@ -28,7 +29,10 @@ describe('API /users', () => {
 
   beforeEach((done) => {
     seedTestDb()
-      .then(() => done())
+      .then(() => {
+      console.log('db seed')
+        done()
+      })
       .catch((err) => done(err))
   })
 
