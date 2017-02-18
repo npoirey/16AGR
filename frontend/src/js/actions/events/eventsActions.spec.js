@@ -17,9 +17,17 @@ describe('eventsActions', () => {
   let store
   let mock
 
+  before(() => {
+    mock = new MockAdapter(axios)
+  })
+
   beforeEach(() => {
     store = mockStore({})
-    mock = new MockAdapter(axios)
+    mock.reset()
+  })
+
+  after(() => {
+    mock.restore()
   })
 
   describe('#fetchEvents()', () => {

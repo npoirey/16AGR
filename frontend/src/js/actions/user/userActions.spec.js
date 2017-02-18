@@ -25,14 +25,22 @@ describe('userActions', () => {
   let mock
   let browserHistoryStub
 
+  before(() => {
+    mock = new MockAdapter(axios)
+  })
+
   beforeEach(() => {
     store = mockStore({})
-    mock = new MockAdapter(axios)
+    mock.reset()
     browserHistoryStub = sinon.stub(router.browserHistory, 'push')
   })
 
   afterEach(() => {
     browserHistoryStub.restore()
+  })
+
+  after(() => {
+    mock.restore()
   })
 
   describe('#changePreferences()', () => {
