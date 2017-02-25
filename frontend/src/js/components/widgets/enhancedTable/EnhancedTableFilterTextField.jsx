@@ -10,9 +10,9 @@ const EnhancedTableFilterTextField = ({ name, label, changeFilter }) => (
 )
 
 EnhancedTableFilterTextField.propTypes = {
-  changeFilter: React.PropTypes.func,
-  label: React.PropTypes.string,
-  name: React.PropTypes.string,
+  changeFilter: React.PropTypes.func.isRequired,
+  label: React.PropTypes.string.isRequired,
+  name: React.PropTypes.string.isRequired,
 }
 
 export default EnhancedTableFilterTextField

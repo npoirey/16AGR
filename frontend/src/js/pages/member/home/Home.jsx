@@ -23,8 +23,12 @@ class Home extends React.Component {
   }
 }
 
+Home.defaultProps = {
+  events: [],
+}
+
 Home.propTypes = {
-  dispatch: React.PropTypes.func,
+  dispatch: React.PropTypes.func.isRequired,
   events: React.PropTypes.arrayOf(proptypes.event),
 }
 

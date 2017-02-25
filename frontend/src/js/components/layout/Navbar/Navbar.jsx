@@ -117,11 +117,11 @@ class Nav extends React.Component {
 }
 
 Nav.propTypes = {
-  dispatch: React.PropTypes.func,
-  user: proptypes.user,
-  loading: React.PropTypes.bool,
-  fetching: React.PropTypes.bool,
-  location: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  dispatch: React.PropTypes.func.isRequired,
+  user: proptypes.user.isRequired,
+  loading: React.PropTypes.bool.isRequired,
+  fetching: React.PropTypes.bool.isRequired,
+  location: React.PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
 }
 
 export default Nav

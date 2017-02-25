@@ -11,17 +11,7 @@ import './layout.scss'
   error: store.alerts.error,
   success: store.alerts.success,
 }))
-export default class Layout extends React.Component {
-
-  static get propTypes() {
-    return {
-      dispatch: React.PropTypes.func,
-      error: React.PropTypes.string,
-      success: React.PropTypes.string,
-      children: React.PropTypes.node,
-      location: React.PropTypes.any,
-    }
-  }
+class Layout extends React.Component {
 
   handleRequestClose = () => {
     this.props.dispatch(reset())
@@ -63,3 +53,15 @@ export default class Layout extends React.Component {
     )
   }
 }
+
+Layout.defaultProps = {}
+
+Layout.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+  error: React.PropTypes.string.isRequired,
+  success: React.PropTypes.string.isRequired,
+  children: React.PropTypes.node.isRequired,
+  location: React.PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
+}
+
+export default Layout

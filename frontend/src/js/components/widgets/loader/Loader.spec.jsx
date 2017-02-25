@@ -17,7 +17,7 @@ describe('Loader', () => {
     expect(wrapper).to.have.className('preloader-dots')
     expect(wrapper).to.have.exactly(5).descendants('.dot')
     expect(5).to.not.eql(6)
-    //expect(wrapper).to.not.have.attr('style') //FIXME https://github.com/producthunt/chai-enzyme/issues/86
+    // expect(wrapper).to.not.have.attr('style') //FIXME https://github.com/producthunt/chai-enzyme/issues/86
   })
   it('has an option to remove margins', () => {
     const wrapper = shallow(<Loader noMargin />)

@@ -50,7 +50,7 @@ export default class Event extends React.Component {
 
           <div className="row middle-xs">
             <div className="col-xs-12 col-sm-5 col-md-4 col-lg-3 event-card-image-container">
-              <img className="event-card-image" src={event.imageUrl} role="presentation" />
+              <img className="event-card-image" src={event.imageUrl} alt={event.title} role="presentation" />
             </div>
             <div className="col-xs-12 col-sm-7 col-md-8 col-lg-9">
               <ReactMarkdown source={event.shortDescription} class="event-card-description" />
@@ -85,5 +85,5 @@ export default class Event extends React.Component {
 }
 
 Event.propTypes = {
-  event: proptypes.event,
+  event: proptypes.event.isRequired,
 }

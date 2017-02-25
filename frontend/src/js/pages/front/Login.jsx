@@ -83,7 +83,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  dispatch: React.PropTypes.func,
+  dispatch: React.PropTypes.func.isRequired,
 }
 
 export default Login

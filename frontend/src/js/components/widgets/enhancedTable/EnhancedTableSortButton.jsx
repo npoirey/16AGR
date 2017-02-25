@@ -19,7 +19,7 @@ const EnhancedTableSortButton = ({ changeSort, name, sort }) => {
 EnhancedTableSortButton.propTypes = {
   changeSort: React.PropTypes.func.isRequired,
   name: React.PropTypes.string.isRequired,
-  sort: proptypes.synthesisRequest.sort,
+  sort: proptypes.synthesisRequest.sort.isRequired,
 }
 
 export default EnhancedTableSortButton

@@ -42,9 +42,18 @@ const EnhancedTableHeaderColumn = ({ name, label, sort, sortable, filterable, ch
         name={name}
         changeSort={changeSort}
       />
-        }
+      }
     </TableHeaderColumn>
   )
+}
+
+EnhancedTableHeaderColumn.defaultProps = {
+  changeFilter: () => {},
+  changeSort: () => {},
+  sort: {},
+  sortable: false,
+  filterable: false,
+  style: {},
 }
 
 EnhancedTableHeaderColumn.propTypes = {

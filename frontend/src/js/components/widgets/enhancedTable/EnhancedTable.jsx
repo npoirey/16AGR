@@ -144,12 +144,18 @@ class EnhancedTable extends React.Component {
   }
 }
 
+EnhancedTable.defaultProps = {
+  onRequestChange: () => {},
+  loading: false,
+  data: [],
+}
+
 EnhancedTable.propTypes = {
-  initialRequest: proptypes.synthesisRequest.request,
+  initialRequest: proptypes.synthesisRequest.request.isRequired,
   onRequestChange: React.PropTypes.func,
   data: React.PropTypes.arrayOf(React.PropTypes.any),
   loading: React.PropTypes.bool,
-  columns: React.PropTypes.arrayOf(proptypes.table.column),
+  columns: React.PropTypes.arrayOf(proptypes.table.column).isRequired,
 }
 
 export default EnhancedTable

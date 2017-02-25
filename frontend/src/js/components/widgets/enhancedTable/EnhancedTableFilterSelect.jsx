@@ -16,10 +16,10 @@ const EnhancedTableFilterSelect = ({ changeFilter, name, label, values }) => (
 )
 
 EnhancedTableFilterSelect.propTypes = {
-  changeFilter: React.PropTypes.func,
-  label: React.PropTypes.string,
-  name: React.PropTypes.string,
-  values: React.PropTypes.arrayOf(proptypes.table.columnFilterSelectValue),
+  changeFilter: React.PropTypes.func.isRequired,
+  label: React.PropTypes.string.isRequired,
+  name: React.PropTypes.string.isRequired,
+  values: React.PropTypes.arrayOf(proptypes.table.columnFilterSelectValue).isRequired,
 }
 
 export default EnhancedTableFilterSelect

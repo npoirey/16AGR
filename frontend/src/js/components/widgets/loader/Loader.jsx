@@ -22,6 +22,10 @@ const Loader = ({ noMargin }) => {
   )
 }
 
+Loader.defaultProps = {
+  noMargin: false,
+}
+
 Loader.propTypes = {
   noMargin: React.PropTypes.bool,
 }
