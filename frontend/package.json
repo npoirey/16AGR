@@ -2,6 +2,7 @@
   "name": "16AGR_frontend",
   "version": "0.0.1",
   "description": "the frontend for 16AGR event planner",
+  "author": "Nicolas Poirey <nicolas.poirey@gmail.com>",
   "main": "webpack.config.js",
   "dependencies": {
     "axios": "^0.15.3",
@@ -16,12 +17,12 @@
     "babel-preset-stage-0": "^6.3.13",
     "css-loader": "^0.26.1",
     "formsy-material-ui": "^0.5.3",
-    "formsy-react": "^0.18.1",
+    "formsy-react": "^0.19.2",
     "history": "^4.4.1",
     "json": "^9.0.4",
     "json-loader": "^0.5.4",
-    "material-ui": "^0.16.5",
-    "node-sass": "^3.4.2",
+    "material-ui": "^0.17.0",
+    "node-sass": "^4.5.0",
     "react": "^15.4.1",
     "react-collapse": "^2.3.3",
     "react-dom": "^15.4.1",
@@ -30,16 +31,16 @@
     "react-markdown": "^2.4.2",
     "react-motion": "^0.4.5",
     "react-pure-grid": "^2.1.0",
-    "react-redux": "^4.4.6",
+    "react-redux": "^5.0.3",
     "react-router": "^3.0.0",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "redux-promise-middleware": "^4.2.0",
     "redux-thunk": "^2.2.0",
-    "sass-loader": "^4.0.2",
+    "sass-loader": "^6.0.2",
     "style-loader": "^0.13.1",
-    "webpack": "^1.12.9"
+    "webpack": "^2.2.1"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.7.1",
@@ -50,11 +51,11 @@
     "dirty-chai": "^1.2.2",
     "enzyme": "^2.7.1",
     "eslint": "^3.12.2",
-    "eslint-config-airbnb": "^13.0.0",
+    "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.8.0",
-    "file-loader": "^0.9.0",
+    "file-loader": "^0.10.1",
     "ignore-styles": "^5.0.1",
     "intl": "^1.2.5",
     "isparta": "^4.0.0",
@@ -64,22 +65,22 @@
     "redux-mock-store": "^1.2.1",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^2.4.1"
   },
   "scripts": {
-    "build": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --display-reasons --display-error-details --progress --colors --config webpack.config.js",
-    "build-dev": "webpack --watch --display-reasons --display-error-details --progress --colors",
+    "build": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --progress --colors --config webpack.config.js",
+    "build-dev": "webpack --watch --progress --colors",
     "lint": "./node_modules/eslint/bin/eslint.js --color --ext .jsx --ext .js src",
     "lint:fix": "./node_modules/eslint/bin/eslint.js --color --ext .jsx --ext .js --fix src",
     "start": "npm run server",
-    "server": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src --display-reasons --display-error-details --history-api-fallback --progress -d --hot --inline --host=0.0.0.0 --port 8080",
-    "test": "./node_modules/mocha/bin/_mocha src/**/*.spec.js*",
-    "test:coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- src/**/*.spec.js*",
-    "test:watch": "./node_modules/mocha/bin/_mocha --watch src/**/*.spec.js*"
+    "server": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src --history-api-fallback --progress -d --hot --inline --host=0.0.0.0 --port 8080",
+    "test": "if [ $npm_config_pattern ]; then pattern=$npm_config_pattern; echo pattern is SET to: $pattern; else pattern=src/**/*.spec.js*; echo pattern is DEFAULTED to $pattern; fi; ./node_modules/mocha/bin/_mocha $pattern",
+    "test:coverage": "if [ $npm_config_pattern ]; then pattern=$npm_config_pattern; echo pattern is SET to: $pattern; else pattern=src/**/*.spec.js*; echo pattern is DEFAULTED to $pattern; fi; ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- $pattern",
+    "test:watch": "if [ $npm_config_pattern ]; then pattern=$npm_config_pattern; echo pattern is SET to: $pattern; else pattern=src/**/*.spec.js*; echo pattern is DEFAULTED to $pattern; fi; ./node_modules/mocha/bin/_mocha --watch $pattern"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/macropodhq/weback-skel.git"
+    "url": "https://github.com/npoirey/16AGR"
   },
-  "homepage": "https://github.com/macropodhq/webpack-skel"
+  "homepage": "https://github.com/npoirey/16AGR"
 }

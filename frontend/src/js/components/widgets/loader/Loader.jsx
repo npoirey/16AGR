@@ -2,12 +2,12 @@ import React from 'react'
 import './loader.scss'
 
 const Loader = ({ noMargin }) => {
-  const attributes = {}
+  const attributes = {
+    style: {},
+  }
 
   if (noMargin) {
-    attributes.style = {
-      margin: 0,
-    }
+    attributes.style.margin = 0
   }
 
 

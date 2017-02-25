@@ -14,3 +14,4 @@ node_modules
 # Intellij files
 .idea/*
 /backend/coverage/
+/backend/testdb

@@ -5,7 +5,6 @@ const path = require('path')
 const debugPlugins = []
 const productionPlugins = [
   new webpack.optimize.DedupePlugin(),
-  new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
 ]
 
@@ -13,13 +12,17 @@ module.exports = {
   context: path.join(__dirname, 'src'),
   devtool: debug ? 'inline-sourcemap' : null,
   entry: './js/client.jsx',
+  output: {
+    path: `${__dirname}/dist/`,
+    filename: 'client.min.js',
+  },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-        query: {
+        options: {
           presets: ['es2015', 'react', 'stage-0'],
           plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
         },
@@ -29,10 +32,6 @@ module.exports = {
         test: /\.scss$/,
         loader: 'style-loader!css-loader!sass-loader?sourceMap',
         // loaders: ['style', 'css', 'sass']
-      },
-      {
-        test: /\.json$/,
-        loader: 'json',
       },
       // copy images to dist/img/name.png
       {
@@ -47,11 +46,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
-  },
-  output: {
-    path: `${__dirname}/dist/`,
-    filename: 'client.min.js',
+    extensions: ['*', '.webpack.js', '.web.js', '.js', '.jsx', '.json'],
   },
   plugins: debug ? debugPlugins : productionPlugins,
   watchOptions: {
