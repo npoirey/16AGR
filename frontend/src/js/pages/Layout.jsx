@@ -7,11 +7,16 @@ import { reset } from '../actions/alerts/alertsActions'
 import '../../style/core.scss'
 import './layout.scss'
 
-@connect((store) => ({
-  error: store.alerts.error,
-  success: store.alerts.success,
-}))
 class Layout extends React.Component {
+  static defaultProps = {}
+
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    error: React.PropTypes.string.isRequired,
+    success: React.PropTypes.string.isRequired,
+    children: React.PropTypes.node.isRequired,
+    location: React.PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
+  }
 
   handleRequestClose = () => {
     this.props.dispatch(reset())
@@ -54,14 +59,7 @@ class Layout extends React.Component {
   }
 }
 
-Layout.defaultProps = {}
-
-Layout.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  error: React.PropTypes.string.isRequired,
-  success: React.PropTypes.string.isRequired,
-  children: React.PropTypes.node.isRequired,
-  location: React.PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
-}
-
-export default Layout
+export default connect((store) => ({
+  error: store.alerts.error,
+  success: store.alerts.success,
+}))(Layout)

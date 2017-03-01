@@ -5,10 +5,16 @@ import Event from '../../../components/event/Event'
 import './home.scss'
 import proptypes from '../../../core/proptypes/index'
 
-@connect((store) => ({
-  events: store.events.events,
-}))
 class Home extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    events: React.PropTypes.arrayOf(proptypes.event),
+  }
+
+  static defaultProps = {
+    events: [],
+  }
+
   componentWillMount() {
     this.props.dispatch(fetchEvents())
   }
@@ -23,13 +29,6 @@ class Home extends React.Component {
   }
 }
 
-Home.defaultProps = {
-  events: [],
-}
-
-Home.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  events: React.PropTypes.arrayOf(proptypes.event),
-}
-
-export default Home
+export default connect((store) => ({
+  events: store.events.events,
+}))(Home)

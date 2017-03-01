@@ -8,17 +8,16 @@ import { connect } from 'react-redux'
 import { login } from '../../actions/user/userActions'
 import './loggin.scss'
 
-@connect()
 class Login extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+  }
+
   constructor() {
     super()
     this.state = {
       canSubmit: false,
     }
-  }
-
-  componentWillMount() {
-
   }
 
   enableButton = () => {
@@ -82,8 +81,4 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-}
-
-export default Login
+export default connect()(Login)

@@ -12,12 +12,15 @@ import './nav.scss'
 import proptypes from '../../../core/proptypes/index'
 
 
-@connect((store) => ({
-  user: store.user.user,
-  fetching: store.user.fetching,
-  loading: store.user.loading,
-}))
-class Nav extends React.Component {
+class Navbar extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    user: proptypes.user.isRequired,
+    loading: React.PropTypes.bool.isRequired,
+    fetching: React.PropTypes.bool.isRequired,
+    location: React.PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
+  }
+
   constructor() {
     super()
     this.state = {
@@ -116,12 +119,8 @@ class Nav extends React.Component {
   }
 }
 
-Nav.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  user: proptypes.user.isRequired,
-  loading: React.PropTypes.bool.isRequired,
-  fetching: React.PropTypes.bool.isRequired,
-  location: React.PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
-}
-
-export default Nav
+export default connect((store) => ({
+  user: store.user.user,
+  fetching: store.user.fetching,
+  loading: store.user.loading,
+}))(Navbar)

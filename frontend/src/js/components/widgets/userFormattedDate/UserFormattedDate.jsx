@@ -3,11 +3,15 @@ import { FormattedDate } from 'react-intl'
 import { connect } from 'react-redux'
 import proptypes from '../../../core/proptypes/index'
 
-@connect((store) => ({
-  user: store.user.user,
-}))
 class UserFormattedDate extends React.Component {
-  static get
+  static defaultProps = {
+    user: {},
+  }
+
+  static propTypes = {
+    user: proptypes.user,
+    date: React.PropTypes.string.isRequired,
+  }
 
   constructor() {
     super()
@@ -40,13 +44,6 @@ class UserFormattedDate extends React.Component {
   }
 }
 
-UserFormattedDate.defaultProps = {
-  user: {},
-}
-
-UserFormattedDate.propTypes = {
-  user: proptypes.user,
-  date: React.PropTypes.string.isRequired,
-}
-
-export default UserFormattedDate
+export default connect((store) => ({
+  user: store.user.user,
+}))(UserFormattedDate)
