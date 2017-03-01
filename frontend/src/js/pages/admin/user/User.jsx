@@ -1,83 +1,108 @@
-import Paper from 'material-ui/Paper'
+import { FormsyCheckbox, FormsyText } from 'formsy-material-ui'
+import Formsy from 'formsy-react'
+import { FlatButton, Paper, RaisedButton } from 'material-ui'
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../../../actions/users/usersActions'
-import EnhancedTable from '../../../components/widgets/enhancedTable/EnhancedTable'
-import './user.scss'
-import proptypes from '../../../core/proptypes/index'
+import { IndexLink } from 'react-router'
+import { createUser } from '../../../actions/users/usersActions'
 
-@connect((store) => ({
-  users: store.users.users,
-  loading: store.users.fetching,
-}))
-class Users extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      initialRequest: {
-        sort: {
-          name: 'callsign',
-          order: 'ASC',
-        },
-        filters: [],
-      },
-      columns: [
-        {
-          name: 'callsign',
-          label: 'Callsign',
-          type: 'text',
-          sortable: true,
-          filterable: true,
-        },
-        {
-          name: 'email',
-          label: 'Email',
-          type: 'text',
-          sortable: true,
-          filterable: true,
-        },
-        {
-          name: 'admin',
-          label: 'Admin',
-          type: 'boolean',
-          sortable: false,
-          filterable: true,
-          style: {
-            width: '10%',
-          },
-        },
-      ],
-    }
+class User extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
   }
 
   componentWillMount() {
-    this.props.dispatch(fetchUsers(this.state.initialRequest))
+    this.setState({ buttonEnabled: false })
   }
 
-  onRequestChange = (newRequest) => {
-    this.props.dispatch(fetchUsers(newRequest))
-  };
+  enableButton = () => {
+    this.setState({ buttonEnabled: true })
+  }
+
+  disableButton = () => {
+    this.setState({ buttonEnabled: false })
+  }
+
+  submit = (user) => {
+    this.props.dispatch(createUser(user))
+  }
 
   render() {
-    const { users, loading } = this.props
     return (
-      <Paper zDepth={1}>
-        <EnhancedTable
-          data={users.items}
-          loading={loading}
-          initialRequest={this.state.initialRequest}
-          columns={this.state.columns}
-          onRequestChange={this.onRequestChange}
-        />
+      <Paper zDepth={1} style={{ padding: '1em' }}>
+        <div className="row">
+          <div className="col-xs-12">
+            <h1>Create new user</h1>
+          </div>
+        </div>
+        <div className="row">
+          <Formsy.Form
+            className="col-xs-12"
+            onValid={this.enableButton}
+            onInvalid={this.disableButton}
+            onValidSubmit={this.submit}
+          >
+            <div className="row">
+              <div className="col-xs-12">
+                <FormsyText
+                  type="email" name="email"
+                  required
+                  fullWidth
+                  hintText="email"
+                  floatingLabelText="email"
+                />
+                <FormsyText
+                  type="text" name="callsign"
+                  required
+                  fullWidth
+                  hintText="callsign"
+                  floatingLabelText="callsign"
+                />
+                <FormsyText
+                  type="password" name="password"
+                  required
+                  fullWidth
+                  hintText="password"
+                  floatingLabelText="password"
+                />
+                <FormsyText
+                  type="password" name="passwordRepeat"
+                  required
+                  fullWidth
+                  hintText="repeat password"
+                  floatingLabelText="repeat password"
+                />
+                <FormsyCheckbox
+                  name="admin"
+                  label="is an admin"
+                  style={{ marginTop: '1em' }}
+                  className="start-xs"
+                />
+              </div>
+            </div>
+            <div className="row" style={{ marginTop: '1em' }}>
+              <div className="col-xs-12">
+                <IndexLink to="/admin/users">
+                  <FlatButton
+                    label="cancel"
+                    icon={<i className="fa fa-cross" aria-hidden="true" />}
+                  />
+                </IndexLink>
+                <RaisedButton
+                  primary
+                  label="Create this user" type="submit"
+                  disabled={!this.state.buttonEnabled}
+                />
+              </div>
+            </div>
+          </Formsy.Form>
+        </div>
       </Paper>
     )
   }
 }
 
-Users.propTypes = {
-  dispatch: React.PropTypes.func,
-  users: React.PropTypes.arrayOf(proptypes.user),
-  loading: React.PropTypes.bool,
-}
-
-export default Users
+export default connect((store) => ({
+  targetUser: store.users.targetUser,
+  loading: true,
+}))(User)

@@ -5,7 +5,7 @@ import chai from 'chai'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import { fetchUsers } from './usersActions'
+import { createUser, fetchUserById, fetchUsers } from './usersActions'
 import actions from '../actionTypes'
 
 const expect = chai.expect
@@ -17,9 +17,120 @@ describe('usersActions', () => {
   let store
   let mock
 
+  before(() => {
+    mock = new MockAdapter(axios)
+  })
+
   beforeEach(() => {
     store = mockStore({})
-    mock = new MockAdapter(axios)
+    mock.reset()
+  })
+
+  after(() => {
+    mock.restore()
+  })
+
+  describe('#createUser()', () => {
+    it('should call /api/users/create and dispatch success events', (done) => {
+      let callConfig
+      mock.onPost('/api/users/create')
+        .reply((config) => {
+          callConfig = config
+          return [201, { id: 1 }]
+        })
+
+      const expectedActions = [
+        {
+          type: actions.users.create.started,
+        },
+        {
+          type: actions.users.create.fulfilled,
+          payload: { id: 1 },
+        },
+      ]
+      const user = { callsign: 'test' }
+      store.dispatch(createUser(user))
+        .then(() => { // return of async action
+          expect(callConfig.data).to.eql(JSON.stringify(user))
+          expect(store.getActions()).to.eql(expectedActions)
+          done()
+        })
+        .catch((e) => done(e))
+    })
+
+    it('should call /api/users/create and dispatch errors events', (done) => {
+      mock.onPost('/api/users/create').reply(500)
+
+      const expectedActions = [
+        { type: actions.users.create.started },
+        { type: actions.users.create.rejected },
+        { type: actions.alerts.error, payload: 'Could not create user' },
+      ]
+
+      store.dispatch(createUser({ callsign: 'test' }))
+        .then(() => { // return of async actions
+          expect(store.getActions()).to.eql(expectedActions)
+          done()
+        })
+        .catch((e) => done(e))
+    })
+
+    it('should call /api/users/create and dispatch errors events with message', (done) => {
+      mock.onPost('/api/users/create').reply(409)
+
+      const expectedActions = [
+        { type: actions.users.create.started },
+        { type: actions.users.create.rejected },
+        { type: actions.alerts.error, payload: 'This mail or callsign is already in use' },
+      ]
+
+      store.dispatch(createUser({ callsign: 'test' }))
+        .then(() => { // return of async actions
+          expect(store.getActions()).to.eql(expectedActions)
+          done()
+        })
+        .catch((e) => done(e))
+    })
+  })
+
+  describe('#fetchUserById()', () => {
+    it('should call /api/users/[id] and dispatch success events', (done) => {
+      mock.onGet('/api/users/12')
+        .reply(() => [200, { id: 12, callsign: 'user' }])
+
+      const expectedActions = [
+        {
+          type: actions.users.fetchById.started,
+        },
+        {
+          type: actions.users.fetchById.fulfilled,
+          payload: { id: 12, callsign: 'user' },
+        },
+      ]
+      store.dispatch(fetchUserById(12))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedActions)
+          done()
+        })
+        .catch((e) => done(e))
+    })
+
+    it('should call /api/users/[id] and dispatch errors events', (done) => {
+      mock.onGet('/api/users/12').reply(500)
+
+      const expectedActions = [
+        { type: actions.users.fetchById.started },
+        { type: actions.users.fetchById.rejected },
+        { type: actions.alerts.error, payload: 'Could not load user' },
+      ]
+
+      store.dispatch(fetchUserById(12))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedActions)
+          done()
+        })
+        .catch((e) => done(e))
+    })
   })
 
   describe('#fetchUsers()', () => {

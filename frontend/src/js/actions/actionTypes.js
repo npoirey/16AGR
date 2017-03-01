@@ -34,10 +34,20 @@ const userActionsTypes = {
 }
 
 const usersActionsTypes = {
+  create: {
+    started: 'USERS.CREATE.STARTED',
+    fulfilled: 'USERS.CREATE.FULFILLED',
+    rejected: 'USERS.CREATE.REJECTED',
+  },
   fetch: {
     started: 'USERS.FETCH.STARTED',
     fulfilled: 'USERS.FETCH.FULFILLED',
     rejected: 'USERS.FETCH.REJECTED',
+  },
+  fetchById: {
+    started: 'USERS.FETCH_BY_ID.STARTED',
+    fulfilled: 'USERS.FETCH_BY_ID.FULFILLED',
+    rejected: 'USERS.FETCH_BY_ID.REJECTED',
   },
 }
 

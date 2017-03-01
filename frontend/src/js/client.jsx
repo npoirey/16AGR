@@ -21,6 +21,7 @@ import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import User from './pages/admin/user/User'
 import Users from './pages/admin/users/Users'
 import Featured from './pages/member/home/Home'
 import ErrorPage from './pages/front/ErrorPage'
@@ -122,6 +123,8 @@ ReactDOM.render(
             </Route>
             <Route path="admin" onEnter={requireAdmin}>
               <Route path="users" name="users" component={Users} />
+              <Route path="users/create" name="user" component={User} />
+              <Route path="users/:userId" name="user" component={User} />
             </Route>
             <Route path="login" component={Login} onEnter={requireNotAuth} />
             <Route path="403" component={ErrorPage} />

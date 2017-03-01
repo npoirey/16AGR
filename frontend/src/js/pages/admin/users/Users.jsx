@@ -1,16 +1,21 @@
 import Paper from 'material-ui/Paper'
+import FlatButton from 'material-ui/FlatButton'
 import React from 'react'
 import { connect } from 'react-redux'
+import { IndexLink } from 'react-router'
 import { fetchUsers } from '../../../actions/users/usersActions'
 import EnhancedTable from '../../../components/widgets/enhancedTable/EnhancedTable'
 import './users.scss'
 import proptypes from '../../../core/proptypes/index'
+import ActionsRow from '../../../components/layout/ActionsRow/ActionsRow'
 
-@connect((store) => ({
-  users: store.users.users,
-  loading: store.users.fetching,
-}))
 class Users extends React.Component {
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    users: React.PropTypes.arrayOf(proptypes.user).isRequired,
+    loading: React.PropTypes.bool.isRequired,
+  }
+
   constructor() {
     super()
     this.state = {
@@ -25,9 +30,10 @@ class Users extends React.Component {
         {
           name: 'callsign',
           label: 'Callsign',
-          type: 'text',
+          type: 'custom',
           sortable: true,
           filterable: true,
+          render: (row) => <IndexLink key={`/admin/users/${row.id}`} to={`/admin/users/${row.id}`}>{row.callsign}</IndexLink>,
         },
         {
           name: 'email',
@@ -62,8 +68,16 @@ class Users extends React.Component {
     const { users, loading } = this.props
     return (
       <Paper zDepth={1}>
+        <ActionsRow title="Users list">
+          <IndexLink to="/admin/users/create">
+            <FlatButton
+              label="Create user"
+              icon={<i className="fa fa-plus" />}
+            />
+          </IndexLink>
+        </ActionsRow>
         <EnhancedTable
-          data={users.items}
+          data={users}
           loading={loading}
           initialRequest={this.state.initialRequest}
           columns={this.state.columns}
@@ -74,15 +88,7 @@ class Users extends React.Component {
   }
 }
 
-Users.defaultProps = {
-  users: [],
-  loading: false,
-}
-
-Users.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  users: React.PropTypes.arrayOf(proptypes.user),
-  loading: React.PropTypes.bool,
-}
-
-export default Users
+export default connect((store) => ({
+  users: store.users.users,
+  loading: store.users.fetching,
+}))(Users)

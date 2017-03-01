@@ -46,11 +46,13 @@ describe('usersReducer', () => {
       expect(reducer(undefined,
         {
           type: actions.users.fetch.fulfilled,
-          payload: [
-            {
-              id: 1,
-            },
-          ],
+          payload: {
+            items: [
+              {
+                id: 1,
+              },
+            ],
+          },
         }
       )).to.eql(
         {
