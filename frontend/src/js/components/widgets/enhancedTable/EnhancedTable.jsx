@@ -123,6 +123,9 @@ class EnhancedTable extends React.Component {
                         disabled
                       />)
                       break
+                    case 'custom':
+                      columnContent = column.render(row)
+                      break
                     default:
                       columnContent = row[column.name]
                   }

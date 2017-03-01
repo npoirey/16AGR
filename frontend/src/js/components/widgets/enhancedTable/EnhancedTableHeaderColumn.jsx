@@ -10,6 +10,7 @@ const EnhancedTableHeaderColumn = ({ name, label, sort, sortable, filterable, ch
   if (filterable) {
     switch (type) {
       case 'text':
+      case 'custom':
         element = (<EnhancedTableFilterTextField
           name={name}
           label={label}

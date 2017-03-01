@@ -3,7 +3,7 @@ import Formsy from 'formsy-react'
 import { FlatButton, Paper, RaisedButton } from 'material-ui'
 import React from 'react'
 import { connect } from 'react-redux'
-import { IndexLink } from 'react-router'
+import { browserHistory, IndexLink } from 'react-router'
 import { createUser } from '../../../actions/users/usersActions'
 
 class User extends React.Component {
@@ -25,6 +25,9 @@ class User extends React.Component {
 
   submit = (user) => {
     this.props.dispatch(createUser(user))
+      .then(() => {
+        browserHistory.push('/admin/users')
+      })
   }
 
   render() {

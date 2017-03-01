@@ -69,10 +69,12 @@ describe('usersActions', () => {
 
       store.dispatch(createUser({ callsign: 'test' }))
         .then(() => { // return of async actions
+          done(Error('errors should reject resulting promise'))
+        })
+        .catch(() => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch((e) => done(e))
     })
 
     it('should call /api/users/create and dispatch errors events with message', (done) => {
@@ -86,10 +88,12 @@ describe('usersActions', () => {
 
       store.dispatch(createUser({ callsign: 'test' }))
         .then(() => { // return of async actions
+          done(Error('errors should reject resulting promise'))
+        })
+        .catch(() => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch((e) => done(e))
     })
   })
 

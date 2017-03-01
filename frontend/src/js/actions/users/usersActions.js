@@ -43,6 +43,7 @@ export function createUser(user) {
         } else {
           dispatch({ type: actions.alerts.error, payload: 'Could not create user' })
         }
+        return Promise.reject(error)
       })
   }
 }
