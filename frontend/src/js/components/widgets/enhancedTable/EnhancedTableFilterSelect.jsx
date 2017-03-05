@@ -1,19 +1,39 @@
 import MenuItem from 'material-ui/MenuItem'
 import SelectField from 'material-ui/SelectField'
-import React from 'react'
+import React, { Component } from 'react'
 import proptypes from '../../../core/proptypes/index'
 
 
-const EnhancedTableFilterSelect = ({ changeFilter, name, label, values }) => (
-  <SelectField
-    floatingLabelText={label}
-    floatingLabelFixed={false}
-    onChange={(event, index, value) => changeFilter(name, value)}
-    style={{ width: '100%', paddingLeft: 0, paddingRight: '5px' }}
-  >
-    {values.map((val) => <MenuItem key={val.value} value={val.value} primaryText={val.label} />)}
-  </SelectField>
-)
+class EnhancedTableFilterSelect extends Component {
+  componentWillMount() {
+    this.setState({ value: null })
+  }
+
+  handleChange = (event, index, value) => {
+    this.setState({ value })
+    this.props.changeFilter(this.props.name, value)
+  }
+
+  iconStyle = {
+    padding: 0,
+    width: '16px',
+  }
+
+  render() {
+    const { label, values } = this.props
+    return (<SelectField
+      floatingLabelText={label}
+      value={this.state.value}
+      onChange={this.handleChange}
+      fullWidth
+      style={this.style}
+      iconStyle={this.iconStyle}
+    >
+      {values.map((val) => <MenuItem key={val.key} value={val.value} primaryText={val.label} />)}
+    </SelectField>)
+  }
+}
+
 
 EnhancedTableFilterSelect.propTypes = {
   changeFilter: React.PropTypes.func.isRequired,

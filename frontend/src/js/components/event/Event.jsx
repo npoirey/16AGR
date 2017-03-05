@@ -1,11 +1,10 @@
-import Paper from 'material-ui/Paper'
+import { FontIcon, Paper, RaisedButton } from 'material-ui'
 import React from 'react'
 import Collapse from 'react-collapse'
 import ReactMarkdown from 'react-markdown'
-import RaisedButton from 'material-ui/RaisedButton'
+import proptypes from '../../core/proptypes/index'
 import UserFormattedDate from '../widgets/userFormattedDate/UserFormattedDate'
 import './event.scss'
-import proptypes from '../../core/proptypes/index'
 
 export default class Event extends React.Component {
 
@@ -72,13 +71,8 @@ export default class Event extends React.Component {
         <RaisedButton
           primary class="btn btn-primary event-card-action-button"
           onClick={this.toggleDeploy}
-        >
-          {
-            this.state.deployed ?
-              <i className="fa fa-chevron-up" /> :
-              <i className="fa fa-chevron-down" />
-          }
-        </RaisedButton>
+          icon={<FontIcon className="material-icons">{this.state.deployed ? 'expand_less' : 'expand_more'}</FontIcon>}
+        />
       </Paper>
     )
   }

@@ -1,9 +1,9 @@
-import Snackbar from 'material-ui/Snackbar'
+import { Snackbar } from 'material-ui'
 import React from 'react'
 import { connect } from 'react-redux'
+import { reset } from '../actions/alerts/alertsActions'
 import Footer from '../components/layout/Footer'
 import Navbar from '../components/layout/Navbar/Navbar'
-import { reset } from '../actions/alerts/alertsActions'
 import '../../style/core.scss'
 import './layout.scss'
 
@@ -20,7 +20,7 @@ class Layout extends React.Component {
 
   handleRequestClose = () => {
     this.props.dispatch(reset())
-  };
+  }
 
   render() {
     const { location, error, success } = this.props
@@ -54,6 +54,7 @@ class Layout extends React.Component {
           bodyStyle={{ backgroundColor: '#850000' }}
           onRequestClose={this.handleRequestClose}
         />
+
       </div>
     )
   }

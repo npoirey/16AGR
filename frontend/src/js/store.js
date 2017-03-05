@@ -4,7 +4,13 @@ import thunk from 'redux-thunk'
 import promise from 'redux-promise-middleware'
 import reducer from './reducers/reducers'
 
-const middleware = applyMiddleware(promise(), thunk, logger())
+export const usedMiddleWares = [
+  promise(),
+  thunk,
+  logger(),
+]
+
+const middleware = applyMiddleware(...usedMiddleWares)
 
 const enhancer = compose(
   middleware

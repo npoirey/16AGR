@@ -1,18 +1,28 @@
-import FlatButton from 'material-ui/FlatButton'
+import { FlatButton, FontIcon } from 'material-ui'
 import React from 'react'
 import proptypes from '../../../core/proptypes/index'
 
 const EnhancedTableSortButton = ({ changeSort, name, sort }) => {
-  let icon = 'fa fa-sort'
+  let iconName = 'menu'
+  let rotate = false
   if (sort && sort.name === name && sort.order === 'ASC') {
-    icon = 'fa fa-sort-asc'
+    iconName = 'sort'
+    rotate = true
   } else if (sort && sort.name === name && sort.order === 'DESC') {
-    icon = 'fa fa-sort-desc'
+    iconName = 'sort'
   }
+
   return (
-    <FlatButton onClick={() => changeSort(name)} style={{ width: '20%', minWidth: 'none' }}>
-      <i className={icon} />
-    </FlatButton>
+    <FlatButton
+      onClick={() => changeSort(name)} style={{ width: '20%', minWidth: 'none' }}
+      icon={<FontIcon
+        className="material-icons"
+        style={{
+          WebkitTransform: `rotate(${rotate ? 180 : 0}deg)`,
+          transform: `rotate(${rotate ? 180 : 0}deg)`,
+        }}
+      >{iconName}</FontIcon>}
+    />
   )
 }
 

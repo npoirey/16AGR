@@ -22,10 +22,11 @@ const EnhancedTableHeaderColumn = ({ name, label, sort, sortable, filterable, ch
           name={name}
           label={label}
           changeFilter={changeFilter}
-          values={[{ value: null, label: '' }, {
-            value: true,
-            label: 'Yes',
-          }, { value: false, label: 'No' }]}
+          values={[
+            { key: 0, value: null, label: '' },
+            { key: 1, value: true, label: 'Yes' },
+            { key: 2, value: false, label: 'No' },
+          ]}
         />)
         break
       default:
@@ -55,12 +56,13 @@ EnhancedTableHeaderColumn.defaultProps = {
   sortable: false,
   filterable: false,
   style: {},
+  label: undefined,
 }
 
 EnhancedTableHeaderColumn.propTypes = {
   changeFilter: React.PropTypes.func,
   changeSort: React.PropTypes.func,
-  label: React.PropTypes.string.isRequired,
+  label: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
   sort: proptypes.synthesisRequest.sort,
   sortable: React.PropTypes.bool,

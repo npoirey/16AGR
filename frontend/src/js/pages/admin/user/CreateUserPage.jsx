@@ -1,12 +1,12 @@
 import { FormsyCheckbox, FormsyText } from 'formsy-material-ui'
 import Formsy from 'formsy-react'
-import { FlatButton, Paper, RaisedButton } from 'material-ui'
+import { FlatButton, Paper, RaisedButton, FontIcon } from 'material-ui'
 import React from 'react'
 import { connect } from 'react-redux'
 import { browserHistory, IndexLink } from 'react-router'
 import { createUser } from '../../../actions/users/usersActions'
 
-class User extends React.Component {
+class CreateUserPage extends React.Component {
   static propTypes = {
     dispatch: React.PropTypes.func.isRequired,
   }
@@ -33,14 +33,14 @@ class User extends React.Component {
   render() {
     return (
       <Paper zDepth={1} style={{ padding: '1em' }}>
-        <div className="row">
+        <div className="row create-user-title">
           <div className="col-xs-12">
             <h1>Create new user</h1>
           </div>
         </div>
         <div className="row">
           <Formsy.Form
-            className="col-xs-12"
+            className="col-xs-12 create-user-form"
             onValid={this.enableButton}
             onInvalid={this.disableButton}
             onValidSubmit={this.submit}
@@ -48,32 +48,28 @@ class User extends React.Component {
             <div className="row">
               <div className="col-xs-12">
                 <FormsyText
-                  type="email" name="email"
-                  required
+                  hintText="email" floatingLabelText="email *"
+                  name="email" type="email" required
+                  validations="isEmail" validationError="This is not an email"
                   fullWidth
-                  hintText="email"
-                  floatingLabelText="email"
                 />
                 <FormsyText
-                  type="text" name="callsign"
-                  required
+                  hintText="callsign, 2 to 20 chars" floatingLabelText="callsign *"
+                  name="callsign" type="text" required
+                  validations="minLength:2,maxLength:20,isAlphanumeric" validationError="Should be between 2 and 20 characters"
                   fullWidth
-                  hintText="callsign"
-                  floatingLabelText="callsign"
                 />
                 <FormsyText
-                  type="password" name="password"
-                  required
+                  hintText="password, 8 to 30 chars" floatingLabelText="password *"
+                  type="password" name="password" required
+                  validations="minLength:8,maxLength:30" validationError="Should be between 8 and 30 characters"
                   fullWidth
-                  hintText="password"
-                  floatingLabelText="password"
                 />
                 <FormsyText
-                  type="password" name="passwordRepeat"
-                  required
+                  hintText="repeat your password" floatingLabelText="repeat password *"
+                  type="password" name="passwordRepeat" required
+                  validations="equalsField:password" validationError="Not equal to password"
                   fullWidth
-                  hintText="repeat password"
-                  floatingLabelText="repeat password"
                 />
                 <FormsyCheckbox
                   name="admin"
@@ -84,17 +80,19 @@ class User extends React.Component {
               </div>
             </div>
             <div className="row" style={{ marginTop: '1em' }}>
-              <div className="col-xs-12">
-                <IndexLink to="/admin/users">
+              <div className="col-xs-12 create-user-form-actions">
+                <IndexLink to="/admin/users" className="create-user-form-actions-cancel">
                   <FlatButton
                     label="cancel"
-                    icon={<i className="fa fa-cross" aria-hidden="true" />}
+                    icon={<FontIcon className="material-icons">clear</FontIcon>}
                   />
                 </IndexLink>
                 <RaisedButton
                   primary
                   label="Create this user" type="submit"
+                  className="create-user-form-actions-create"
                   disabled={!this.state.buttonEnabled}
+                  icon={<FontIcon className="material-icons">done</FontIcon>}
                 />
               </div>
             </div>
@@ -105,7 +103,8 @@ class User extends React.Component {
   }
 }
 
+export class CreateUserPageUndecorated extends CreateUserPage {}
+
 export default connect((store) => ({
-  targetUser: store.users.targetUser,
-  loading: true,
-}))(User)
+  user: store.user.user,
+}))(CreateUserPage)

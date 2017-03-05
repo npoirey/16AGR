@@ -14,28 +14,3 @@ $blue: #03009e;
 $red: #850000;
 $absent: #1DE9B6;
 $mia: #FFD740;
-
-.btn-primary {
-  border-radius: 0;
-  color: $text-primary;
-  background-color: $primary-darkest;
-  border-color: $primary-darkest;
-  &:active, &:focus, &:active:hover {
-    color: $text-primary;
-    background-color: $primary-dark;
-    border-color: $primary-dark;
-  }
-  &:hover {
-    color: $text-primary;
-    background-color: $primary-dark;
-    border-color: $primary-dark;
-  }
-  &:visited {
-    color: $text-primary;
-    background-color: $primary-darkest;
-    border-color: $primary-darkest;
-  }
-  i {
-    color: $text-primary;
-  }
-}

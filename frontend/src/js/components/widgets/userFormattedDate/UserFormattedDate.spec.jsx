@@ -4,19 +4,15 @@ import chaiEnzyme from 'chai-enzyme'
 import dirtyChai from 'dirty-chai'
 import React from 'react'
 import { render } from 'enzyme'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
 import { IntlProvider } from 'react-intl'
 import UserFormattedDate from './UserFormattedDate'
-
-const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
+import mockStore from '../../../../../test/mockStore'
 
 const expect = chai.expect
 chai.use(dirtyChai)
 chai.use(chaiEnzyme())
 
-describe('UserFormattedDate', () => {
+describe('<UserFormattedDate>', () => {
   let store
 
   it('Should use Local Time if user has set preference for it', () => {

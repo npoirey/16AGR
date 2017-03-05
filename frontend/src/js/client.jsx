@@ -1,33 +1,33 @@
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import {
-  blueGrey700,
-  blueGrey900,
-  blueGrey800,
   blue300,
   blueGrey100,
-  blueGrey50,
-  grey300,
-  blueGrey500,
   blueGrey300,
-  white,
+  blueGrey50,
+  blueGrey500,
+  blueGrey600,
+  blueGrey700,
+  blueGrey800,
+  blueGrey900,
   darkBlack,
   fullBlack,
+  grey300,
+  white,
 } from 'material-ui/styles/colors'
-import { fade } from 'material-ui/utils/colorManipulator'
+import { getMuiTheme, MuiThemeProvider } from 'material-ui/styles/index'
+import { fade, lighten } from 'material-ui/utils/colorManipulator'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { browserHistory, IndexRoute, Route, Router } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import User from './pages/admin/user/User'
+import actions from './actions/actionTypes'
+import User from './pages/admin/user/CreateUserPage'
 import Users from './pages/admin/users/Users'
-import Featured from './pages/member/home/Home'
 import ErrorPage from './pages/front/ErrorPage'
 import Login from './pages/front/Login'
 import Layout from './pages/Layout'
-import actions from './actions/actionTypes'
+import Featured from './pages/member/home/Home'
 import store from './store'
 
 require('../static/favicon.ico')
@@ -45,9 +45,9 @@ const muiTheme = getMuiTheme({
     accent1Color: blue300,
     accent2Color: blueGrey100,
     accent3Color: blueGrey300,
-    textColor: white,
-    alternateTextColor: white,
-    canvasColor: blueGrey500,
+    textColor: blueGrey50,
+    alternateTextColor: blueGrey50,
+    canvasColor: blueGrey700,
     borderColor: grey300,
     disabledColor: fade(darkBlack, 0.3),
     pickerHeaderColor: blueGrey800,
@@ -57,6 +57,15 @@ const muiTheme = getMuiTheme({
   appBar: {
     height: 50,
     textColor: white,
+    color: blueGrey900,
+  },
+  icon: {
+    color: blueGrey700,
+    backgroundColor: blueGrey700,
+  },
+  raisedButton: {
+    color: blueGrey600,
+    disabledColor: fade(blueGrey600, 0.6),
   },
   snackbar: {
     backgroundColor: blueGrey900,
@@ -66,6 +75,11 @@ const muiTheme = getMuiTheme({
   },
   tableRowColumn: {
     spacing: 10,
+  },
+  tableRow: {
+    hoverColor: blueGrey600,
+    stripeColor: fade(lighten(blueGrey600, 0.1), 0.4),
+    selectedColor: blueGrey500,
   },
   textField: {
     hintColor: blueGrey50,

@@ -1,13 +1,12 @@
-import Paper from 'material-ui/Paper'
-import FlatButton from 'material-ui/FlatButton'
+import { FlatButton, FontIcon, IconButton, Paper } from 'material-ui'
 import React from 'react'
 import { connect } from 'react-redux'
 import { IndexLink } from 'react-router'
 import { fetchUsers } from '../../../actions/users/usersActions'
-import EnhancedTable from '../../../components/widgets/enhancedTable/EnhancedTable'
-import './users.scss'
-import proptypes from '../../../core/proptypes/index'
 import ActionsRow from '../../../components/layout/ActionsRow/ActionsRow'
+import EnhancedTable from '../../../components/widgets/enhancedTable/EnhancedTable'
+import proptypes from '../../../core/proptypes/index'
+import './users.scss'
 
 class Users extends React.Component {
   static propTypes = {
@@ -30,10 +29,9 @@ class Users extends React.Component {
         {
           name: 'callsign',
           label: 'Callsign',
-          type: 'custom',
+          type: 'text',
           sortable: true,
           filterable: true,
-          render: (row) => <IndexLink key={`/admin/users/${row.id}`} to={`/admin/users/${row.id}`}>{row.callsign}</IndexLink>,
         },
         {
           name: 'email',
@@ -49,8 +47,20 @@ class Users extends React.Component {
           sortable: false,
           filterable: true,
           style: {
-            width: '10%',
+            width: '60px',
           },
+        },
+        {
+          name: 'actions',
+          type: 'custom',
+          sortable: false,
+          filterable: false,
+          style: {
+            width: '50px',
+          },
+          render: (row) => <IndexLink key={`/admin/users/${row.id}`} to={`/admin/users/${row.id}`}>
+            <IconButton iconClassName="material-icons">edit</IconButton>
+          </IndexLink>,
         },
       ],
     }
@@ -62,17 +72,23 @@ class Users extends React.Component {
 
   onRequestChange = (newRequest) => {
     this.props.dispatch(fetchUsers(newRequest))
-  };
+  }
 
   render() {
     const { users, loading } = this.props
     return (
       <Paper zDepth={1}>
         <ActionsRow title="Users list">
+          <FlatButton
+            className="start-xs"
+            label="Delete selected"
+            disabled
+            icon={<FontIcon className="material-icons">delete</FontIcon>}
+          />
           <IndexLink to="/admin/users/create">
             <FlatButton
               label="Create user"
-              icon={<i className="fa fa-plus" />}
+              icon={<FontIcon className="material-icons">add</FontIcon>}
             />
           </IndexLink>
         </ActionsRow>
@@ -81,6 +97,8 @@ class Users extends React.Component {
           loading={loading}
           initialRequest={this.state.initialRequest}
           columns={this.state.columns}
+          selectable
+          multiSelectable
           onRequestChange={this.onRequestChange}
         />
       </Paper>

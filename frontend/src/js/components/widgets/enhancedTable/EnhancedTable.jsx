@@ -26,7 +26,7 @@ class EnhancedTable extends React.Component {
       },
     }
     this.changeRequest(newRequest)
-  };
+  }
 
   changeFilter = (name, value) => {
     const newFilters = this.state.request.filters
@@ -49,7 +49,7 @@ class EnhancedTable extends React.Component {
       filters: newFilters,
     }
     this.changeRequest(newRequest)
-  };
+  }
 
   changeFilterBoolean = (name, value) => {
     const newFilters = this.state.request.filters
@@ -72,22 +72,30 @@ class EnhancedTable extends React.Component {
       filters: newFilters,
     }
     this.changeRequest(newRequest)
-  };
+  }
 
   changeRequest = (newRequest) => {
-    this.props.onRequestChange(newRequest)
+    if (this.props.onRequestChange) {
+      this.props.onRequestChange(newRequest)
+    }
     this.setState({
       ...this.state,
       request: newRequest,
     })
-  };
+  }
 
   render() {
-    const { data, loading, columns } = this.props
+    const { data, loading, columns, selectable, hoverable, multiSelectable, stripedRows, displaySelectAll } = this.props
     return (
       <div className="table-container">
-        <Table >
-          <TableHeader displaySelectAll={false}>
+        <Table
+          selectable={selectable}
+          multiSelectable={multiSelectable}
+        >
+          <TableHeader
+            displaySelectAll={displaySelectAll}
+            adjustForCheckbox={selectable}
+          >
             <TableRow>
               {columns.map((column) => {
                 const filterChange = column.type === 'boolean' ? this.changeFilterBoolean : this.changeFilter
@@ -107,10 +115,10 @@ class EnhancedTable extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody
-            displayRowCheckbox
+            displayRowCheckbox={selectable}
             deselectOnClickaway
-            showRowHover
-            stripedRows
+            stripedRows={stripedRows}
+            showRowHover={hoverable}
           >
             {!loading && data && data.map((row) => (
               <TableRow key={row.id} selected={row.selected}>
@@ -148,9 +156,14 @@ class EnhancedTable extends React.Component {
 }
 
 EnhancedTable.defaultProps = {
-  onRequestChange: () => {},
-  loading: false,
   data: [],
+  loading: false,
+  onRequestChange: null,
+  selectable: false,
+  hoverable: true,
+  multiSelectable: false,
+  stripedRows: false,
+  displaySelectAll: false,
 }
 
 EnhancedTable.propTypes = {
@@ -159,6 +172,11 @@ EnhancedTable.propTypes = {
   data: React.PropTypes.arrayOf(React.PropTypes.any),
   loading: React.PropTypes.bool,
   columns: React.PropTypes.arrayOf(proptypes.table.column).isRequired,
+  selectable: React.PropTypes.bool,
+  multiSelectable: React.PropTypes.bool,
+  hoverable: React.PropTypes.bool,
+  stripedRows: React.PropTypes.bool,
+  displaySelectAll: React.PropTypes.bool,
 }
 
 export default EnhancedTable
