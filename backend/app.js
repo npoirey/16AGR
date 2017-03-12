@@ -12,7 +12,7 @@ const logger = require('./core/logger')
 const app = express()
 
 app.use(serveStatic(`${__dirname}/public`))
-app.use(morgan('dev'))
+//app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())

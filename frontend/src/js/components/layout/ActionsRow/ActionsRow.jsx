@@ -8,11 +8,11 @@ const titleStyle = {
 }
 
 const ActionsRow = (props) => (
-  <div className="row">
-    <div className="col-xs-12 col-sm-3 start-xs">
+  <div className="row action-row">
+    <div className="col-xs-12 col-sm-3 start-xs action-row-title">
       <h1 style={titleStyle}>{props.title}</h1>
     </div>
-    <div className="col-xs-12 col-sm-9 end-xs">
+    <div className="col-xs-12 col-sm-9 end-xs action-row-buttons" style={{ display: 'flex' }}>
       {props.children}
     </div>
   </div>

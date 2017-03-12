@@ -8,10 +8,9 @@ function authenticate(email, password, done) {
   User.where('email', email).fetch({ withRelated: 'preferences' })
     .then((user) => {
       if (user && bcrypt.compareSync(password, user.get('password'))) {
-        logger.info(`user ${email} authenticated`)
         const json = user.toJSON()
         delete json.password
-        logger.info(json)
+        logger.info(`user ${email} authenticated :`, json)
         return done(null, json)
       }
       logger.info(`login failed for user ${email}`)

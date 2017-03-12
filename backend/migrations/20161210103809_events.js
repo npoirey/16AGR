@@ -11,5 +11,5 @@ exports.up = (knex) =>
     table.index('id')
   })
 
-exports.down = (knex) => knex.schema.dropTable('events').dropIndex('id')
+exports.down = (knex) => knex.schema.dropTable('events')
 

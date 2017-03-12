@@ -39,6 +39,11 @@ const usersActionsTypes = {
     fulfilled: 'USERS.CREATE.FULFILLED',
     rejected: 'USERS.CREATE.REJECTED',
   },
+  delete: {
+    started: 'USERS.DELETE.STARTED',
+    fulfilled: 'USERS.DELETE.FULFILLED',
+    rejected: 'USERS.DELETE.REJECTED',
+  },
   fetch: {
     started: 'USERS.FETCH.STARTED',
     fulfilled: 'USERS.FETCH.FULFILLED',

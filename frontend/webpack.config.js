@@ -2,8 +2,16 @@ const debug = process.env.NODE_ENV !== 'production'
 const webpack = require('webpack')
 const path = require('path')
 
-const debugPlugins = []
+const commonPlugins = [
+  new webpack.DefinePlugin({
+    LOG_LEVEL: debug ? '"trace"' : '"info"',
+  }),
+]
+const debugPlugins = [
+  ...commonPlugins,
+]
 const productionPlugins = [
+  ...commonPlugins,
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
 ]

@@ -10,7 +10,6 @@ import { buildTestDb, seedTestDb } from '../test/databaseHelper'
 const expect = chai.expect
 chai.use(dirtyChai)
 
-
 describe('API /users', () => {
   const newUser = {
     callsign: 'test',
@@ -37,13 +36,27 @@ describe('API /users', () => {
     beforeEach(() => {
       guestSession = session(app)
     })
-    describe('Service 001 /create', () => {
+    describe('Service 001 POST /create', () => {
       it('should reject request', (done) => {
         guestSession
           .post('/users/create')
           .send(newUser)
           .expect(401, {
-            error: true,
+            status: 401,
+            message: 'Login Required',
+          })
+          .then(() => done())
+          .catch((err) => done(err))
+      })
+    })
+
+    describe('Service 002 DELETE /', () => {
+      it('should reject request', (done) => {
+        guestSession
+          .delete('/users')
+          .send([2])
+          .expect(401, {
+            status: 401,
             message: 'Login Required',
           })
           .then(() => done())
@@ -52,7 +65,44 @@ describe('API /users', () => {
     })
   })
 
-  describe('With admin user connected', () => {
+  describe('With standard user', () => {
+    let userSession
+    beforeEach((done) => {
+      userSession = session(app)
+      userSession.post('/auth/login')
+        .send({ username: 'user@mail.com', password: 'password' })
+        .expect(200, done)
+    })
+    describe('Service 001 POST /create', () => {
+      it('should reject request', (done) => {
+        userSession
+          .post('/users/create')
+          .send(newUser)
+          .expect(403, {
+            status: 403,
+            message: 'Admin Required',
+          })
+          .then(() => done())
+          .catch((err) => done(err))
+      })
+    })
+
+    describe('Service 002 DELETE /', () => {
+      it('should reject request', (done) => {
+        userSession
+          .delete('/users')
+          .send([2])
+          .expect(403, {
+            status: 403,
+            message: 'Admin Required',
+          })
+          .then(() => done())
+          .catch((err) => done(err))
+      })
+    })
+  })
+
+  describe('With admin user', () => {
     let adminSession
     beforeEach((done) => {
       adminSession = session(app)
@@ -61,7 +111,7 @@ describe('API /users', () => {
         .expect(200, done)
     })
 
-    describe('Service 001 /create', () => {
+    describe('Service 001 POST /create', () => {
       it('Should warn in case of password too short', (done) => {
         adminSession
           .post('/users/create')
@@ -122,15 +172,65 @@ describe('API /users', () => {
           .post('/users/create')
           .send({ ...newUser })
           .expect(201)
-          .then((response) =>
-            User.where('id', response.body.id).fetch()
-              .then((user) => {
-                expect(bcrypt.compareSync('password', user.get('password'))).to.be.true()
-                expect(user.get('callsign')).to.eql(newUser.callsign)
-                expect(user.get('email')).to.eql(newUser.email)
-                done()
-              })
-          )
+          .then((response) => User.where('id', response.body.id).fetch())
+          .then((user) => {
+            expect(bcrypt.compareSync('password', user.get('password'))).to.be.true()
+            expect(user.get('callsign')).to.eql(newUser.callsign)
+            expect(user.get('email')).to.eql(newUser.email)
+            done()
+          })
+          .catch((err) => done(err))
+      })
+    })
+
+    describe('Service 002 DELETE /', () => {
+      it('Should warn if user is trying to delete himself and don\'t delete anything', (done) => {
+        adminSession
+          .delete('/users')
+          .send([1, 3])
+          .expect(400, {
+            status: 400,
+            message: 'Can\'t delete your own account',
+          })
+          .then(() => User.fetchAll())
+          .then((data) => {
+            const users = data.models
+            expect(users).to.have.lengthOf(5)
+            done()
+          })
+          .catch((err) => done(err))
+      })
+      it('Should delete the users', (done) => {
+        adminSession
+          .delete('/users')
+          .send([2, 3])
+          .expect(200, [{ id: 2, status: 'SUCCESS' }, { id: 3, status: 'SUCCESS' }])
+          .then(() => User.fetchAll())
+          .then((data) => {
+            const users = data.models
+            expect(users).to.have.lengthOf(3)
+            expect(users[0].get('id')).to.eql(1)
+            expect(users[1].get('id')).to.eql(4)
+            expect(users[2].get('id')).to.eql(5)
+            done()
+          })
+          .catch((err) => done(err))
+      })
+      it('Should delete the users but warn for those in error', (done) => {
+        adminSession
+          .delete('/users')
+          .send([2, 6])
+          .expect(500, [{ id: 2, status: 'SUCCESS' }, { id: 6, status: 'ERROR' }])
+          .then(() => User.fetchAll())
+          .then((data) => {
+            const users = data.models
+            expect(users).to.have.lengthOf(4)
+            expect(users[0].get('id')).to.eql(1)
+            expect(users[1].get('id')).to.eql(3)
+            expect(users[2].get('id')).to.eql(4)
+            expect(users[3].get('id')).to.eql(5)
+            done()
+          })
           .catch((err) => done(err))
       })
     })

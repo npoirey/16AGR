@@ -1,31 +1,41 @@
 const bcrypt = require('bcrypt-nodejs')
 
 const password = bcrypt.hashSync('password')
+const date = '2017-02-28 23:02:34.282000 +01:00'
+const baseUser = {
+  created_at: date,
+  updated_at: date,
+  password,
+  admin: false,
+}
 
-exports.seed = (knex, Promise) => Promise.all([
+exports.seed = (knex) =>
   // Inserts seedTestDb entries
-  knex('users').insert(
+  knex('users').insert([
     {
-      // id: 1,
+      ...baseUser,
       callsign: 'admin',
       email: 'admin@mail.com',
-      password,
       admin: true,
-    }),
-  knex('users').insert(
+    },
     {
-      // id: 2,
+      ...baseUser,
       callsign: 'user',
       email: 'user@mail.com',
-      password,
-      admin: false,
-    }),
-  knex('users').insert(
+    },
     {
-      // id: 3,
+      ...baseUser,
       callsign: 'user2',
       email: 'user2@mail.com',
-      password,
-      admin: false,
-    }),
-])
+    },
+    {
+      ...baseUser,
+      callsign: 'user3',
+      email: 'user3@mail.com',
+    },
+    {
+      ...baseUser,
+      callsign: 'user4',
+      email: 'user4@mail.com',
+    },
+  ])

@@ -2,7 +2,6 @@ import { Snackbar } from 'material-ui'
 import React from 'react'
 import { connect } from 'react-redux'
 import { reset } from '../actions/alerts/alertsActions'
-import Footer from '../components/layout/Footer'
 import Navbar from '../components/layout/Navbar/Navbar'
 import '../../style/core.scss'
 import './layout.scss'
@@ -37,9 +36,6 @@ class Layout extends React.Component {
           >
             {this.props.children}
           </div>
-        </div>
-        <div className="row">
-          <Footer />
         </div>
         <Snackbar
           open={Boolean(success)}

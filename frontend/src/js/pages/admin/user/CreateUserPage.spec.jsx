@@ -10,12 +10,13 @@ import sinon from 'sinon'
 import sinonChai from 'sinon-chai'
 import mockStore from '../../../../../test/mockStore'
 import * as usersActions from '../../../actions/users/usersActions'
-import CreateUserPage, { CreateUserPageUndecorated } from './CreateUserPage'
+import CreateUserPage from './CreateUserPage'
 
 const expect = chai.expect
 chai.use(dirtyChai)
 chai.use(chaiEnzyme())
 chai.use(sinonChai)
+const CreateUserPageUndecorated = CreateUserPage.WrappedComponent
 
 const getWrapper = (store) => render(<MuiThemeProvider muiTheme={getMuiTheme()}>
   <CreateUserPage store={store} dispatch={null} />

@@ -3,6 +3,8 @@
  */
 /* eslint-disable import/no-extraneous-dependencies */
 import { jsdom } from 'jsdom'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
 
 // noinspection JSPrimitiveTypeWrapperUsage
 global.document = jsdom('')
@@ -17,3 +19,8 @@ Object.keys(document.defaultView).forEach((property) => {
 global.navigator = {
   userAgent: 'node.js',
 }
+
+// TODO Needed for onTouchTap
+// This dependency is temporary and will go away once the official React version is released
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin()

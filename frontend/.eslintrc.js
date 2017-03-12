@@ -29,9 +29,11 @@ module.exports = {
       "error",
       "never"
     ],
+    "jsx-a11y/anchor-has-content": 0,
   },
   "globals": {
     "document": true,
-    "window": true
+    "window": true,
+    "LOG_LEVEL": true,
   }
 }

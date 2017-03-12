@@ -1,8 +1,10 @@
 import bcrypt from 'bcrypt-nodejs'
 import express from 'express'
+import Promise from 'bluebird'
 import { loginRequired, adminRequired } from '../middlewares/authorisations'
 import UserPreference from '../models/UserPreference'
 import User from '../models/User'
+import bookshelf from '../models/database'
 import { validatorFactory as v } from '../core/validator/express-ajv-validator'
 import { conflict, badRequest, created } from '../core/responses'
 import logger from '../core/logger'
@@ -42,11 +44,48 @@ router.post('/create', adminRequired, v('001_in'), (req, res, next) => {
             logger.info('Created new user', user)
             created(res, { id: user.id })
           })
+          .catch((err1) => {
+            console.log('failed to create user', err1)
+            next(err1)
+          })
       })
     })
     .catch((err) => {
       logger.error('failed to create user', err)
       next(err)
+    })
+})
+
+/**
+ * Service 002 - Delete user
+ */
+router.delete('/', adminRequired, v('002_in'), (req, res, next) => {
+  const request = req.body
+  if (request.includes(req.user.id)) {
+    return badRequest(next, 'Can\'t delete your own account')
+  }
+  const results = []
+  bookshelf.transaction((t) =>
+      Promise.map(req.body, (userId) =>
+        User.forge({ id: userId })
+          .destroy({ transacting: t, require: true })
+          .then(() => (
+            results.push({
+              id: userId,
+              status: 'SUCCESS',
+            })
+          ))
+          .catch((err) => {
+            logger.info(`Failed to delete user ${userId} :`, err)
+            results.push({
+              id: userId,
+              status: 'ERROR',
+            })
+          }),
+      ))
+    .then(() => {
+      logger.info('Deleted users :', results)
+      res.status(results.some((result) => result.status !== 'SUCCESS') ? 500 : 200).send(results)
     })
 })
 

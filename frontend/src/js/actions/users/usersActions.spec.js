@@ -5,7 +5,7 @@ import chai from 'chai'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import { createUser, fetchUserById, fetchUsers } from './usersActions'
+import { createUser, fetchUserById, fetchUsers, deleteUsers } from './usersActions'
 import actions from '../actionTypes'
 
 const expect = chai.expect
@@ -31,7 +31,7 @@ describe('usersActions', () => {
   })
 
   describe('#createUser()', () => {
-    it('should call /api/users/create and dispatch success events', (done) => {
+    it('should call POST /api/users/create and dispatch success events', (done) => {
       let callConfig
       mock.onPost('/api/users/create')
         .reply((config) => {
@@ -58,7 +58,7 @@ describe('usersActions', () => {
         .catch((e) => done(e))
     })
 
-    it('should call /api/users/create and dispatch errors events', (done) => {
+    it('should call POST /api/users/create and dispatch errors events', (done) => {
       mock.onPost('/api/users/create').reply(500)
 
       const expectedActions = [
@@ -77,7 +77,7 @@ describe('usersActions', () => {
         })
     })
 
-    it('should call /api/users/create and dispatch errors events with message', (done) => {
+    it('should call POST /api/users/create and dispatch errors events with message', (done) => {
       mock.onPost('/api/users/create').reply(409)
 
       const expectedActions = [
@@ -98,7 +98,7 @@ describe('usersActions', () => {
   })
 
   describe('#fetchUserById()', () => {
-    it('should call /api/users/[id] and dispatch success events', (done) => {
+    it('should call POST /api/users/[id] and dispatch success events', (done) => {
       mock.onGet('/api/users/12')
         .reply(() => [200, { id: 12, callsign: 'user' }])
 
@@ -119,7 +119,7 @@ describe('usersActions', () => {
         .catch((e) => done(e))
     })
 
-    it('should call /api/users/[id] and dispatch errors events', (done) => {
+    it('should call POST /api/users/[id] and dispatch errors events', (done) => {
       mock.onGet('/api/users/12').reply(500)
 
       const expectedActions = [
@@ -129,16 +129,18 @@ describe('usersActions', () => {
       ]
 
       store.dispatch(fetchUserById(12))
-        .then(() => {
+        .then(() => { // return of async actions
+          done(Error('errors should reject resulting promise'))
+        })
+        .catch(() => {
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
-        .catch((e) => done(e))
     })
   })
 
   describe('#fetchUsers()', () => {
-    it('should call /api/users/synthesis and dispatch success events', (done) => {
+    it('should call POST /api/users/synthesis and dispatch success events', (done) => {
       let callConfig
       mock.onPost('/api/users/synthesis')
         .reply((config) => {
@@ -165,7 +167,7 @@ describe('usersActions', () => {
         .catch((e) => done(e))
     })
 
-    it('should call /api/users/synthesis and dispatch errors events', (done) => {
+    it('should call POST /api/users/synthesis and dispatch errors events', (done) => {
       mock.onPost('/api/users/synthesis').reply(500)
 
       const expectedActions = [
@@ -176,10 +178,79 @@ describe('usersActions', () => {
 
       store.dispatch(fetchUsers({ sort: { order: 'ASC' } }))
         .then(() => { // return of async actions
+          done(Error('errors should reject resulting promise'))
+        })
+        .catch(() => {
+          expect(store.getActions()).to.eql(expectedActions)
+          done()
+        })
+    })
+  })
+
+  describe('#deleteUsers()', () => {
+    it('should call DELETE /api/users and dispatch success events', (done) => {
+      let callConfig
+      mock.onDelete('/api/users')
+        .reply((config) => {
+          callConfig = config
+          return [200, [{ id: 1, status: 'SUCCESS' }]]
+        })
+
+      const expectedActions = [
+        {
+          type: actions.users.delete.started,
+        },
+        {
+          type: actions.users.delete.fulfilled,
+          payload: [{ id: 1, status: 'SUCCESS' }],
+        },
+      ]
+      store.dispatch(deleteUsers([1]))
+        .then(() => {
+          expect(callConfig.data).to.eql(JSON.stringify([1]))
           expect(store.getActions()).to.eql(expectedActions)
           done()
         })
         .catch((e) => done(e))
+    })
+
+    it('should call DELETE /api/users and dispatch errors events', (done) => {
+      mock.onDelete('/api/users').reply(500)
+
+      const expectedActions = [
+        { type: actions.users.delete.started },
+        { type: actions.users.delete.rejected },
+        { type: actions.alerts.error, payload: 'Could not delete users' },
+      ]
+
+      store.dispatch(deleteUsers([1]))
+        .then(() => { // return of async actions
+          done(Error('errors should reject resulting promise'))
+        })
+        .catch(() => {
+          expect(store.getActions()).to.eql(expectedActions)
+          done()
+        })
+    })
+
+    it('should call DELETE /api/users and dispatch errors events if some deletion failed', (done) => {
+      mock.onDelete('/api/users')
+        .reply(() => [200, [{ id: 1, status: 'ERROR' }]])
+
+      const expectedActions = [
+        { type: actions.users.delete.started },
+        { type: actions.users.delete.rejected },
+        { type: actions.alerts.error, payload: 'Could not delete users' },
+      ]
+
+      store.dispatch(deleteUsers([1]))
+        .then(() => { // return of async actions
+          done(Error('errors should reject resulting promise'))
+        })
+        .catch(() => {
+          expect(store.getActions()).to.eql(expectedActions)
+          done()
+        })
     })
   })
 })

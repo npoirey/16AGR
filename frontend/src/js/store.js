@@ -7,7 +7,9 @@ import reducer from './reducers/reducers'
 export const usedMiddleWares = [
   promise(),
   thunk,
-  logger(),
+  logger({
+    collapsed: true,
+  }),
 ]
 
 const middleware = applyMiddleware(...usedMiddleWares)

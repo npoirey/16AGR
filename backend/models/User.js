@@ -11,6 +11,8 @@ const User = bookshelf.Model.extend({
   isAdmin() {
     return this.get('admin')
   },
+}, {
+  dependents: ['preferences'],
 })
 
 module.exports = bookshelf.model('User', User)

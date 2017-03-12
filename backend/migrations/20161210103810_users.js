@@ -12,4 +12,4 @@ exports.up = (knex) =>
     table.index('email')
   })
 
-exports.down = (knex) => knex.schema.dropTable('users').dropIndex(['id', 'callsign', 'email'])
+exports.down = (knex) => knex.schema.dropTable('users')

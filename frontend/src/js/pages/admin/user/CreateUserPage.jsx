@@ -103,8 +103,6 @@ class CreateUserPage extends React.Component {
   }
 }
 
-export class CreateUserPageUndecorated extends CreateUserPage {}
-
 export default connect((store) => ({
   user: store.user.user,
 }))(CreateUserPage)

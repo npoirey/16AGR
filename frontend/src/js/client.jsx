@@ -21,9 +21,10 @@ import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import { browserHistory, IndexRoute, Route, Router } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import logger from 'loglevel'
 import actions from './actions/actionTypes'
-import User from './pages/admin/user/CreateUserPage'
-import Users from './pages/admin/users/Users'
+import CreateUserPage from './pages/admin/user/CreateUserPage'
+import UsersPage from './pages/admin/users/UsersPage'
 import ErrorPage from './pages/front/ErrorPage'
 import Login from './pages/front/Login'
 import Layout from './pages/Layout'
@@ -32,7 +33,7 @@ import store from './store'
 
 require('../static/favicon.ico')
 
-// Needed for onTouchTap
+// TODO Needed for onTouchTap
 // This dependency is temporary and will go away once the official React version is released
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin()
@@ -90,6 +91,9 @@ const muiTheme = getMuiTheme({
   },
 })
 
+// set logger level injected by webpack
+logger.setDefaultLevel(LOG_LEVEL)
+
 const app = document.getElementById('app')
 
 function isLoggedIn() {
@@ -136,12 +140,13 @@ ReactDOM.render(
               <IndexRoute name="Featured" component={Featured} />
             </Route>
             <Route path="admin" onEnter={requireAdmin}>
-              <Route path="users" name="users" component={Users} />
-              <Route path="users/create" name="user" component={User} />
-              <Route path="users/:userId" name="user" component={User} />
+              <Route path="users" name="users" component={UsersPage} />
+              <Route path="users/create" name="user" component={CreateUserPage} />
+              <Route path="users/:userId" name="user" component={CreateUserPage} />
+
             </Route>
             <Route path="login" component={Login} onEnter={requireNotAuth} />
-            <Route path="403" component={ErrorPage} />
+            <Route path="40x3" component={ErrorPage} />
           </Route>
         </Router>
       </IntlProvider>

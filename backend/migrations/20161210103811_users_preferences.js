@@ -6,4 +6,4 @@ exports.up = (knex) =>
     table.boolean('use_local_time').notNullable().defaultTo(false)
   })
 
-exports.down = (knex) => knex.schema.dropTable('users_preferences').dropIndex('user_id')
+exports.down = (knex) => knex.schema.dropTable('users_preferences')

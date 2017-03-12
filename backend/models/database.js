@@ -7,6 +7,7 @@ const db = knex(config)
 const bookshelf = require('bookshelf')(db)
 
 bookshelf.plugin([
+  'bookshelf-cascade-delete',
   'bookshelf-camelcase',
   'registry',
 ])

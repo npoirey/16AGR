@@ -21,6 +21,7 @@
     "history": "^4.4.1",
     "json": "^9.0.4",
     "json-loader": "^0.5.4",
+    "loglevel": "^1.4.1",
     "material-ui": "^0.17.0",
     "node-sass": "^4.5.0",
     "react": "^15.4.1",
@@ -78,7 +79,7 @@
     "server": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src --history-api-fallback --progress -d --hot --inline --host=0.0.0.0 --port 8080",
     "test": "if [ $npm_config_pattern ]; then pattern=$npm_config_pattern; echo pattern is SET to: $pattern; else pattern=src/**/*.spec.js*; echo pattern is DEFAULTED to $pattern; fi; ./node_modules/mocha/bin/_mocha $pattern",
     "test:coverage": "if [ $npm_config_pattern ]; then pattern=$npm_config_pattern; echo pattern is SET to: $pattern; else pattern=src/**/*.spec.js*; echo pattern is DEFAULTED to $pattern; fi; ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- $pattern",
-    "test:watch": "if [ $npm_config_pattern ]; then pattern=$npm_config_pattern; echo pattern is SET to: $pattern; else pattern=src/**/*.spec.js*; echo pattern is DEFAULTED to $pattern; fi; ./node_modules/mocha/bin/_mocha --watch $pattern"
+    "test:watch": "if [ $npm_config_pattern ]; then echo $npm_config_pattern; pattern=$npm_config_pattern; echo pattern is SET to: $pattern; else pattern=src/**/*.spec.js*; echo pattern is DEFAULTED to $pattern; fi; ./node_modules/mocha/bin/_mocha --watch $pattern"
   },
   "repository": {
     "type": "git",

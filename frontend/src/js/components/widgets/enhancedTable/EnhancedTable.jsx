@@ -1,5 +1,5 @@
 import Checkbox from 'material-ui/Checkbox'
-import { Table, TableBody, TableHeader, TableRow, TableRowColumn } from 'material-ui/Table'
+import { Table, TableBody, TableHeader, TableRow, TableRowColumn } from 'material-ui'
 import React from 'react'
 import Loader from '../loader/Loader'
 import EnhancedTableHeaderColumn from './EnhancedTableHeaderColumn'
@@ -8,11 +8,41 @@ import proptypes from '../../../core/proptypes/index'
 
 
 class EnhancedTable extends React.Component {
+  static propTypes = {
+    initialRequest: proptypes.synthesisRequest.request.isRequired,
+    onRequestChange: React.PropTypes.func,
+    onRowSelection: React.PropTypes.func,
+    data: React.PropTypes.arrayOf(React.PropTypes.any),
+    loading: React.PropTypes.bool,
+    columns: React.PropTypes.arrayOf(proptypes.table.column).isRequired,
+    selectable: React.PropTypes.bool,
+    multiSelectable: React.PropTypes.bool,
+    hoverable: React.PropTypes.bool,
+    stripedRows: React.PropTypes.bool,
+    displaySelectAll: React.PropTypes.bool,
+  }
+
+  static defaultProps = {
+    data: [],
+    loading: false,
+    onRequestChange: null,
+    onRowSelection: null,
+    selectable: false,
+    hoverable: true,
+    multiSelectable: false,
+    stripedRows: false,
+    displaySelectAll: false,
+  }
 
   componentWillMount() {
     this.setState({
       request: this.props.initialRequest,
     })
+  }
+
+  resetSelection = () => {
+    this.props.data.forEach((item) => item.selected = false)
+    console.log('reset selection', this.props.data)
   }
 
   changeSort = (name) => {
@@ -26,6 +56,7 @@ class EnhancedTable extends React.Component {
       },
     }
     this.changeRequest(newRequest)
+    this.resetSelection()
   }
 
   changeFilter = (name, value) => {
@@ -84,6 +115,24 @@ class EnhancedTable extends React.Component {
     })
   }
 
+  /**
+   * called by the table on selection, map the returned row index to give back corresponding data elements through onRowSelection
+   */
+  internalOnRowSelection = (selectedRows) => {
+    const { onRowSelection } = this.props
+    if (onRowSelection) {
+      let selectedDataElements
+      if (selectedRows === 'all') {
+        selectedDataElements = this.props.data
+      } else if (selectedRows === 'none') {
+        selectedDataElements = []
+      } else {
+        selectedDataElements = selectedRows.map((rowIndex) => this.props.data[rowIndex])
+      }
+      onRowSelection(selectedDataElements)
+    }
+  }
+
   render() {
     const { data, loading, columns, selectable, hoverable, multiSelectable, stripedRows, displaySelectAll } = this.props
     return (
@@ -91,6 +140,7 @@ class EnhancedTable extends React.Component {
         <Table
           selectable={selectable}
           multiSelectable={multiSelectable}
+          onRowSelection={this.internalOnRowSelection}
         >
           <TableHeader
             displaySelectAll={displaySelectAll}
@@ -116,12 +166,12 @@ class EnhancedTable extends React.Component {
           </TableHeader>
           <TableBody
             displayRowCheckbox={selectable}
-            deselectOnClickaway
+            deselectOnClickaway={false}
             stripedRows={stripedRows}
             showRowHover={hoverable}
           >
             {!loading && data && data.map((row) => (
-              <TableRow key={row.id} selected={row.selected}>
+              <TableRow key={row.id}>
                 {columns.map((column) => {
                   let columnContent
                   switch (column.type) {
@@ -153,30 +203,6 @@ class EnhancedTable extends React.Component {
       </div>
     )
   }
-}
-
-EnhancedTable.defaultProps = {
-  data: [],
-  loading: false,
-  onRequestChange: null,
-  selectable: false,
-  hoverable: true,
-  multiSelectable: false,
-  stripedRows: false,
-  displaySelectAll: false,
-}
-
-EnhancedTable.propTypes = {
-  initialRequest: proptypes.synthesisRequest.request.isRequired,
-  onRequestChange: React.PropTypes.func,
-  data: React.PropTypes.arrayOf(React.PropTypes.any),
-  loading: React.PropTypes.bool,
-  columns: React.PropTypes.arrayOf(proptypes.table.column).isRequired,
-  selectable: React.PropTypes.bool,
-  multiSelectable: React.PropTypes.bool,
-  hoverable: React.PropTypes.bool,
-  stripedRows: React.PropTypes.bool,
-  displaySelectAll: React.PropTypes.bool,
 }
 
 export default EnhancedTable

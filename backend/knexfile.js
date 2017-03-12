@@ -1,3 +1,5 @@
+require('babel-register')
+
 module.exports = {
   development: {
     client: 'pg',
@@ -9,6 +11,15 @@ module.exports = {
     },
   },
   test: {
+    client: 'pg',
+    connection: {
+      host: 'db',
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
+    },
+  },
+  test2: {
     client: 'sqlite3',
     connection: { filename: ':memory:' },
     useNullAsDefault: true,
