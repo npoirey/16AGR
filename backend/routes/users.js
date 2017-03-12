@@ -45,7 +45,7 @@ router.post('/create', adminRequired, v('001_in'), (req, res, next) => {
             created(res, { id: user.id })
           })
           .catch((err1) => {
-            console.log('failed to create user', err1)
+            logger.error('failed to create user', err1)
             next(err1)
           })
       })
