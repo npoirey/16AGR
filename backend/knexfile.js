@@ -10,7 +10,7 @@ module.exports = {
       database: process.env.POSTGRES_DB,
     },
   },
-  test: {
+  test_pg: {
     client: 'pg',
     connection: {
       host: 'db',
@@ -19,7 +19,7 @@ module.exports = {
       database: process.env.POSTGRES_DB,
     },
   },
-  test2: {
+  test: {
     client: 'sqlite3',
     connection: { filename: ':memory:' },
     useNullAsDefault: true,
