@@ -13,11 +13,6 @@ class UserFormattedDate extends React.Component {
     date: React.PropTypes.string.isRequired,
   }
 
-  constructor() {
-    super()
-    this.state = {}
-  }
-
   render() {
     const { user, date } = this.props
     const useLocalTime = user && user.preferences && user.preferences.useLocalTime

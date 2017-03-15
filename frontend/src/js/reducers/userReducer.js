@@ -1,7 +1,7 @@
 import actions from '../actions/actionTypes'
 
 export default function reducer(state = {
-  user: null,
+  user: {},
   fetching: false,
   loading: false,
   fetched: false,
@@ -40,7 +40,7 @@ export default function reducer(state = {
         error: false,
         fetching: false,
         fetched: Boolean(action.payload && action.payload.id),
-        user: action.payload,
+        user: action.payload || {},
       }
     }
     case actions.user.login.started: {

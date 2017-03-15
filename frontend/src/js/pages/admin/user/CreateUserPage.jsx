@@ -9,10 +9,19 @@ import { createUser } from '../../../actions/users/usersActions'
 class CreateUserPage extends React.Component {
   static propTypes = {
     dispatch: React.PropTypes.func.isRequired,
+// eslint-disable-next-line react/forbid-prop-types
+    params: React.PropTypes.object, //TODO use react router proptype when migrating to v4
+  }
+
+  static defaultProps = {
+    params: {},
   }
 
   componentWillMount() {
-    this.setState({ buttonEnabled: false })
+    this.setState({
+      buttonEnabled: false,
+      editMode: Boolean(this.props.params.userId),
+    })
   }
 
   enableButton = () => {
@@ -31,11 +40,12 @@ class CreateUserPage extends React.Component {
   }
 
   render() {
+    const { editMode } = this.state
     return (
       <Paper zDepth={1} style={{ padding: '1em' }}>
         <div className="row create-user-title">
           <div className="col-xs-12">
-            <h1>Create new user</h1>
+            <h1>{editMode ? 'toto' : 'Create new user'}</h1>
           </div>
         </div>
         <div className="row">
@@ -103,6 +113,4 @@ class CreateUserPage extends React.Component {
   }
 }
 
-export default connect((store) => ({
-  user: store.user.user,
-}))(CreateUserPage)
+export default connect()(CreateUserPage)

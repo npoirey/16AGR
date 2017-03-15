@@ -40,11 +40,6 @@ class EnhancedTable extends React.Component {
     })
   }
 
-  resetSelection = () => {
-    this.props.data.forEach((item) => item.selected = false)
-    console.log('reset selection', this.props.data)
-  }
-
   changeSort = (name) => {
     const order = (name === this.state.request.sort.name && this.state.request.sort.order === 'ASC') ? 'DESC' : 'ASC'
 
@@ -56,7 +51,6 @@ class EnhancedTable extends React.Component {
       },
     }
     this.changeRequest(newRequest)
-    this.resetSelection()
   }
 
   changeFilter = (name, value) => {

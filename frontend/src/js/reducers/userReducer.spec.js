@@ -10,7 +10,7 @@ describe('userReducer', () => {
     it('Should return the initial state', () => {
       expect(reducer(undefined, {})).to.eql(
         {
-          user: null,
+          user: {},
           fetching: false,
           loading: false,
           fetched: false,
@@ -117,7 +117,7 @@ describe('userReducer', () => {
     it('Should handle userInit fulfilled action', () => {
       expect(reducer(
         {
-          user: null,
+          user: {},
           fetching: false,
           loading: false,
           fetched: false,
@@ -129,7 +129,7 @@ describe('userReducer', () => {
         }
       )).to.eql(
         {
-          user: null,
+          user: {},
           fetching: false,
           loading: false,
           fetched: false,
@@ -164,7 +164,7 @@ describe('userReducer', () => {
     it('Should handle login started action', () => {
       expect(reducer(
         {
-          user: null,
+          user: {},
           fetching: false,
           loading: false,
           fetched: false,
@@ -175,7 +175,7 @@ describe('userReducer', () => {
         }
       )).to.eql(
         {
-          user: null,
+          user: {},
           fetching: true,
           loading: false,
           fetched: false,
@@ -186,7 +186,7 @@ describe('userReducer', () => {
     it('Should handle login rejected action', () => {
       expect(reducer(
         {
-          user: null,
+          user: {},
           fetching: false,
           loading: false,
           fetched: false,
@@ -208,7 +208,7 @@ describe('userReducer', () => {
     it('Should handle login fulfilled action', () => {
       expect(reducer(
         {
-          user: null,
+          user: {},
           fetching: true,
           loading: false,
           fetched: false,
