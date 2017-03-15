@@ -19,7 +19,7 @@ chai.use(sinonChai)
 const CreateUserPageUndecorated = CreateUserPage.WrappedComponent
 
 const getWrapper = (store) => render(<MuiThemeProvider muiTheme={getMuiTheme()}>
-  <CreateUserPage store={store} dispatch={null} params={{}}/>
+  <CreateUserPage store={store} dispatch={null} params={{}} />
 </MuiThemeProvider>)
 
 describe('<CreateUserPage>', () => {
