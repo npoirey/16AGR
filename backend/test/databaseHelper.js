@@ -7,14 +7,7 @@ function buildTestDb() {
 }
 
 function seedTestDb() {
-  let resetSequenceCommand = ''
-  if (config.client === 'sqlite3') {
-    resetSequenceCommand = 'UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME=\'users\';'
-  } else if (config.client === 'pg') {
-    resetSequenceCommand = 'ALTER SEQUENCE users_id_seq RESTART WITH 1'
-  }
-  return bookshelf.knex.schema.raw(resetSequenceCommand)
-    .then(() => bookshelf.knex.seed.run(config))
+  return bookshelf.knex.seed.run(config)
 }
 
 module.exports = {
