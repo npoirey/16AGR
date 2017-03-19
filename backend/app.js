@@ -6,13 +6,15 @@ const morgan = require('morgan')
 const path = require('path')
 const passport = require('passport')
 require('./middlewares/passport')
-const session = process.env.NODE_ENV !== 'test' ? require('./middlewares/session') : require('./test/testSession')
+
+const testing = process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'test_pg'
+const session = !testing ? require('./middlewares/session') : require('./test/testSession')
 const logger = require('./core/logger')
 
 const app = express()
 
 app.use(serveStatic(`${__dirname}/public`))
-app.use(morgan('dev'))
+app.use(morgan(testing ? 'dev' : 'dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())

@@ -1,4 +1,4 @@
-const bookshelf = require('./database')
+import { bookshelf}  from './database'
 
 require('./User')
 

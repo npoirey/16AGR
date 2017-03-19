@@ -4,7 +4,7 @@ import Promise from 'bluebird'
 import { loginRequired, adminRequired } from '../middlewares/authorisations'
 import UserPreference from '../models/UserPreference'
 import User from '../models/User'
-import bookshelf from '../models/database'
+import { bookshelf } from '../models/database'
 import { validatorFactory as v } from '../core/validator/express-ajv-validator'
 import { conflict, badRequest, created } from '../core/responses'
 import logger from '../core/logger'
@@ -15,8 +15,9 @@ const router = express.Router()
  * Service 001 - New user creation
  */
 router.post('/create', adminRequired, v('001_in'), (req, res, next) => {
-  if (!req.body.password || req.body.password.length < 8 || req.body.password.length > 30) {
-    return badRequest(next, 'Password need to have between 8 to 30 characters')
+  logger.info('Creating new user')
+  if (!req.body.password || req.body.password.length < 8 || req.body.password.length > 120) {
+    return badRequest(next, 'Password need to have between 8 to 120 characters')
   }
   if (req.body.password !== req.body.passwordRepeat) {
     return badRequest(next, 'Passwords do not match')
@@ -76,7 +77,8 @@ router.delete('/', adminRequired, v('002_in'), (req, res, next) => {
             })
           ))
           .catch((err) => {
-            logger.info(`Failed to delete user ${userId} :`, err)
+            logger.warn(`Failed to delete user ${userId} :`, err.message)
+            logger.debug(`Failed to delete user ${userId} :`, err)
             results.push({
               id: userId,
               status: 'ERROR',

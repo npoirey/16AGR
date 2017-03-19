@@ -1,5 +1,6 @@
-const bookshelf = require('../models/database')
-const config = require('../knexfile').test
+import { bookshelf } from '../models/database'
+
+const config = require('../knexfile')[process.env.NODE_ENV]
 
 function buildTestDb() {
   return bookshelf.knex.migrate.rollback(config)

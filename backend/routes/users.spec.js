@@ -118,7 +118,7 @@ describe('API /users', () => {
           .send({ ...newUser, password: 'abc' })
           .expect(400, {
             status: 400,
-            message: 'Password need to have between 8 to 30 characters',
+            message: 'Password need to have between 8 to 120 characters',
           })
           .then(() => done())
           .catch((err) => done(err))
@@ -126,10 +126,10 @@ describe('API /users', () => {
       it('Should warn in case of password too long', (done) => {
         adminSession
           .post('/users/create')
-          .send({ ...newUser, password: 'abcaueiaueiaeuiaueiaueiaueiaueiaueiaueiaueiauei' })
+          .send({ ...newUser, password: 'a'.repeat(121) })
           .expect(400, {
             status: 400,
-            message: 'Password need to have between 8 to 30 characters',
+            message: 'Password need to have between 8 to 120 characters',
           })
           .then(() => done())
           .catch((err) => done(err))

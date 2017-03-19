@@ -7,6 +7,7 @@ const logger = require('../logger')
 schema.initWithOptions(
   { removeAdditional: true }
 )
+// load schemas files on init
 const files = glob.sync('../schema/*.json')
 files.forEach((file) => {
   const schemaName = file.substring(10, file.length - 5)

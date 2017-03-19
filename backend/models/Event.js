@@ -1,4 +1,4 @@
-const bookshelf = require('./database')
+import { bookshelf } from './database'
 
 const Event = bookshelf.Model.extend({
   tableName: 'events',

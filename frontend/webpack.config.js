@@ -38,8 +38,7 @@ module.exports = {
       // SASS Loader
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!sass-loader?sourceMap',
-        // loaders: ['style', 'css', 'sass']
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
       },
       // copy images to dist/img/name.png
       {
