@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import 'sinon-as-promised'
 import chai from 'chai'
 import chaiEnzyme from 'chai-enzyme'
 import dirtyChai from 'dirty-chai'

@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import 'sinon-as-promised'
 import chai from 'chai'
 import chaiEnzyme from 'chai-enzyme'
 import dirtyChai from 'dirty-chai'
@@ -208,9 +207,8 @@ describe('<UsersPage>', () => {
     )
   })
 
-  it('should delete selected users and fetch users again on error', () => {
+  it('should delete selected users and fetch users again on error', (done) => {
     defaultWrapper = shallow(<UsersPageUndecorated dispatch={dispatchStub} users={users} loading={false} />)
-    fetchUsersStub.reset()
     const newRequest = {
       sort: {
         name: 'callsign',
@@ -222,12 +220,19 @@ describe('<UsersPage>', () => {
         type: 'contains',
       }],
     }
-    dispatchStub.rejects('error')
-
     defaultWrapper.instance().onRequestChange(newRequest)
-    defaultWrapper.instance().onRowSelection([{ id: 2 }])
-    defaultWrapper.instance().deleteSelected()
-    expect(deleteUsersStub).to.have.been.calledWith([2])
     expect(fetchUsersStub).to.have.been.calledWith(newRequest)
+    defaultWrapper.instance().onRowSelection([{ id: 2 }])
+
+    fetchUsersStub.resetHistory()
+    dispatchStub.resetHistory()
+    dispatchStub.onCall(0).rejects('error')
+    defaultWrapper.instance().deleteSelected()
+      .then(() => {
+        expect(deleteUsersStub).to.have.been.calledWith([2])
+        expect(fetchUsersStub).to.have.been.calledWith(newRequest)
+        done()
+      })
+      .catch(done)
   })
 })

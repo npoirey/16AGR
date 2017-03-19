@@ -1,4 +1,4 @@
-import { bookshelf}  from './database'
+import { bookshelf } from './database'
 
 require('./User')
 

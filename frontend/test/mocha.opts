@@ -5,3 +5,4 @@
 --compilers jsx:babel-core/register
 --colors
 --recursive
+--t 5000

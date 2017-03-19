@@ -1,10 +1,8 @@
 /* eslint no-use-before-define: 0 */
 /* eslint no-console: 0 */
-import _debug from 'debug'
 import http from 'http'
 import app from './app'
-
-const debug = _debug('app:production')
+import logger from './core/logger'
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '8080')
@@ -69,5 +67,5 @@ function onListening() {
   const bind = typeof addr === 'string'
     ? `pipe ${addr}`
     : `port ${addr.port}`
-  debug(`Listening on ${bind}`)
+  logger.info(`Listening on ${bind}`)
 }

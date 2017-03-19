@@ -14,7 +14,7 @@ const logger = require('./core/logger')
 const app = express()
 
 app.use(serveStatic(`${__dirname}/public`))
-app.use(morgan(testing ? 'dev' : 'dev'))
+app.use(morgan(testing ? 'dev' : 'short', { stream: logger.stream }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())

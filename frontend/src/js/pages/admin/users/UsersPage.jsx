@@ -100,14 +100,14 @@ class UsersPage extends React.Component {
   }
 
   deleteSelected = () => {
-    this.props.dispatch(deleteUsers(this.state.selectedIds))
+    this.closeDeleteModal()
+    return this.props.dispatch(deleteUsers(this.state.selectedIds))
       .then(() => {
         this.props.dispatch(fetchUsers(this.state.request))
       })
       .catch(() => {
         this.props.dispatch(fetchUsers(this.state.request))
       })
-    this.closeDeleteModal()
   }
 
   render() {
